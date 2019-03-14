@@ -61,6 +61,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'jwt' => \App\Http\Middleware\JWT::class,
+
+        'role' => \Zizaco\entrust\Middleware\EntristRole::class,
+        'permission' => \Zizaco\entrust\Middleware\EntristPermission::class,
+        'ability' => \Zizaco\entrust\Middleware\EntristAbility::class,
     ];
 
     /**
