@@ -16,9 +16,10 @@ class App extends Component {
 	}
 
 	componentDidMount(){
+		/*
 		!this.state.authenticated ?
 			this.props.history.push('/login')
-		:this.props.history.push('/')
+		:this.props.history.push('/')*/
 	}
 
 	componentDidUpdate(){
@@ -40,8 +41,13 @@ class App extends Component {
 		return (
 			<div className="wrapper">
 		  		<Header />
-
 		  		<LeftPanel />
+
+		  		<div className="content-wrapper">
+		  			<section className="content">
+		  				<Routes />
+		  			</section>
+		  		</div>
 			</div>
 		);
   	}

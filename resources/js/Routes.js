@@ -5,6 +5,11 @@ import AppliedRoute from './AppliedRoute';
 
 import Login from './components/auth/login';
 
+{/*Arministration*/}
+import Users from './components/containers/administration/users/';
+
+
+
 
 const Home = ()=>(
 	<div style={{height:"100%"}}>
@@ -27,7 +32,10 @@ export default ()=>
 		<AppliedRoute path="/login" exact component={Login} />
 
 		<AppliedRoute path="/" exact component={Home} />
-		<AppliedRoute path="/about" exact component={About} />
-		<Route path="/services" exact component={Services} />
-		<Route path="/contact" exact component={Contact} />
+		<AppliedRoute path="/permisions" exact component={About} />
+		<AppliedRoute path="/roles" exact component={About} />
+		<AppliedRoute path="/users" exact component={Users} title="Usuarios" />
+		<AppliedRoute path="/articles" exact component={About} />
+		<AppliedRoute path="/inventory" exact component={About} />
+		<AppliedRoute path="/notes" exact component={About} />
 	</Switch>;
