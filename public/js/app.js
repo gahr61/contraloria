@@ -54783,56 +54783,160 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../general/title */ "./resources/js/components/general/title.js");
 /* harmony import */ var _general_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../general/table */ "./resources/js/components/general/table.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
-var columns = [{
-  title: 'Nombre'
-}, {
-  title: 'Correo'
-}, {
-  title: 'Tipo'
-}, {
-  title: 'Accion'
-}];
-var data = [['Ricardo', 'ric@mail.com', 'Admin', 1]];
-var actionButton = [{
-  btn: true,
-  name: 'Reset Contraseña',
-  class: 'btn btn-info',
-  icon: 'fa fa-key'
-}, {
-  btn: true,
-  name: 'Editar',
-  class: 'btn btn-warning',
-  icon: 'fa fa-pencil'
-}, {
-  btn: true,
-  name: 'Eliminar',
-  class: 'btn btn-danger',
-  icon: 'glyphicon glyphicon-remove-circle'
-}];
 
-var Users = function Users(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "box box-default"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "box-body"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-xs-12 col-sm-1 form-group"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    type: "button",
-    className: "btn btn-block btn-primary btn-sm"
-  }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, props, {
-    columns: columns,
-    data: data,
-    buttons: actionButton
-  }))))));
-};
+
+var Users =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Users, _Component);
+
+  function Users(props) {
+    var _this;
+
+    _classCallCheck(this, Users);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Users).call(this, props));
+    _this.getUser = _this.getUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.resetPass = _this.resetPass.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.editUser = _this.editUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.deleteUser = _this.deleteUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      columns: [{
+        title: 'Nombre'
+      }, {
+        title: 'Correo'
+      }, {
+        title: 'Tipo'
+      }, {
+        title: 'Accion'
+      }],
+      data: [['Ricardo', 'ric@mail.com', 'Admin', 1], ['Saul', 'saul@mail.com', 'Admin', 2]],
+      actionButton: [{
+        btn: true,
+        name: 'Reset Contraseña',
+        class: 'btn btn-info btn-xs',
+        icon: 'fa fa-key',
+        clickFn: 'reset'
+      }, {
+        btn: true,
+        name: 'Editar',
+        class: 'btn btn-warning btn-xs',
+        icon: 'fa fa-pencil',
+        clickFn: 'edit'
+      }, {
+        btn: true,
+        name: 'Eliminar',
+        class: 'btn btn-danger btn-xs',
+        icon: 'glyphicon glyphicon-remove-circle',
+        clickFn: 'delete'
+      }]
+    };
+    return _this;
+  }
+
+  _createClass(Users, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      //this.table.setTable();
+      this.getUser(); //this.table.resetTable();
+
+      setTimeout(function () {
+        _this2.table.setTable();
+      }, 500);
+    }
+  }, {
+    key: "getUser",
+    value: function getUser() {}
+  }, {
+    key: "editUser",
+    value: function editUser(id) {
+      console.log(id);
+    }
+  }, {
+    key: "deleteUser",
+    value: function deleteUser(id) {
+      var _this3 = this;
+
+      console.log(id);
+      this.state.data.map(function (d, i) {
+        d.map(function (v) {
+          if (v === id) {
+            _this3.state.data.splice(i, 1);
+          }
+        });
+      });
+      console.log(this.state.data);
+      this.forceUpdate();
+      setTimeout(function () {
+        console.log(_this3.state.data.length);
+
+        if (_this3.state.data.length === 0) {
+          _this3.table.resetTable();
+        }
+      }, 100);
+    }
+  }, {
+    key: "resetPass",
+    value: function resetPass(id) {
+      console.log(id);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box box-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-1 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-block btn-primary btn-sm"
+      }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, this.props, {
+        columns: this.state.columns,
+        data: this.state.data,
+        buttons: this.state.actionButton,
+        edit: this.editUser,
+        delete: this.deleteUser,
+        getList: this.getUser,
+        reset: this.resetPass,
+        onRef: function onRef(ref) {
+          return _this4.table = ref;
+        }
+      }))))));
+    }
+  }]);
+
+  return Users;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Users);
 
@@ -55024,6 +55128,8 @@ function (_Component) {
     _classCallCheck(this, Table);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, props));
+    _this.edit = _this.edit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.delete = _this.delete.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.setTable = _this.setTable.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.resetTable = _this.resetTable.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -55032,24 +55138,20 @@ function (_Component) {
   _createClass(Table, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.setTable(); //this.resetTable();
+      this.props.onRef(this);
     }
   }, {
     key: "resetTable",
     value: function resetTable() {
-      var _this2 = this;
-
       this.$el = $(this.el);
       this.$el.DataTable().destroy();
       this.$el.empty();
-      setTimeout(function () {
-        _this2.setTable();
-      }, 500);
+      this.setTable();
     }
   }, {
     key: "setTable",
     value: function setTable() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$el = $(this.el);
       var table = this.$el.DataTable({
@@ -55064,22 +55166,43 @@ function (_Component) {
         info: false,
         ordering: true,
         createdRow: function createdRow(row, data, dataIndex) {
-          console.log(data, _this3.props);
           var i = data.length - 1;
           $('td:eq(' + i + ')', row).html('');
 
-          _this3.props.buttons.map(function (b) {
+          _this2.props.buttons.map(function (b) {
             if (b.btn) {
-              $('td:eq(' + i + ')', row).append('<button class="' + b.class + '" title="' + b.name + '" style="margin-right:5px;">' + '<i class="' + b.icon + '"></i>' + '</button>');
+              $('td:eq(' + i + ')', row).append('<button class="' + b.class + '" name="' + b.clickFn + '"' + 'value=' + data[i] + ' title="' + b.name + '" style="margin-right:5px;">' + '<i class="' + b.icon + '"></i>' + '</button>');
             }
           });
         }
       });
+      $(document).on('click', '.btn', function (e) {
+        e.preventDefault();
+        var clickFn = e.target.name !== undefined ? e.target.name : e.currentTarget.name;
+        var id = e.target.value !== undefined ? e.target.value : e.currentTarget.value;
+
+        _this2.props[clickFn](id);
+      });
+    }
+  }, {
+    key: "edit",
+    value: function edit(id) {
+      this.props.edit(id);
+    }
+  }, {
+    key: "delete",
+    value: function _delete(id) {
+      this.props.delete(id);
+    }
+  }, {
+    key: "reset",
+    value: function reset(id) {
+      this.props.reset(id);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-xs-12 from-group"
@@ -55089,7 +55212,7 @@ function (_Component) {
         className: "table",
         id: "table",
         ref: function ref(el) {
-          return _this4.el = el;
+          return _this3.el = el;
         }
       })));
     }

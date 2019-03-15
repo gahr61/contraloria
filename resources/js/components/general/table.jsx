@@ -8,12 +8,15 @@ class Table extends Component{
 	constructor(props){
 		super(props);
 
+		this.edit = this.edit.bind(this);
+		this.delete = this.delete.bind(this);
+
 		this.setTable 	= this.setTable.bind(this);
 		this.resetTable = this.resetTable.bind(this);
 	}
+
 	componentDidMount(){
-		this.setTable();
-		//this.resetTable();
+		this.props.onRef(this);
 		
 	}
 
@@ -21,13 +24,13 @@ class Table extends Component{
 		this.$el = $(this.el);
 		this.$el.DataTable().destroy();
 		this.$el.empty();
-		setTimeout(()=>{
-			this.setTable();
-		}, 500);
+		this.setTable();
 	}
+
 
 	setTable(){
 		this.$el = $(this.el);
+
 		var table = this.$el.DataTable({
 			data: this.props.data,
 			columns:this.props.columns,
@@ -40,29 +43,51 @@ class Table extends Component{
 			info:false,
 			ordering:true,
 			createdRow: (row, data, dataIndex)=>{
-				console.log(data, this.props)
-				var i = data.length - 1;
-				$('td:eq('+i+')', row).html('');
-				this.props.buttons.map((b)=>{
-					if(b.btn){
-						$('td:eq('+i+')', row).append(
-							'<button class="'+b.class+'" title="'+b.name+'" style="margin-right:5px;">'+
-								'<i class="'+b.icon+'"></i>'+
-							'</button>' 
-						);
-					}
-				})
+                var i = data.length - 1;
+                $('td:eq('+i+')', row).html('');
+                this.props.buttons.map((b)=>{
+                    if(b.btn){
+                        $('td:eq('+i+')', row).append(
+                            '<button class="'+b.class+'" name="'+b.clickFn+'"'+
+                            	'value='+data[i]+
+                            	' title="'+b.name+'" style="margin-right:5px;">'+
+                                '<i class="'+b.icon+'"></i>'+
+                            '</button>' 
+                        );
+                    }
+                })
 
-            }
+          	}
 		});
+
+		$(document).on('click', '.btn', (e)=>{
+			e.preventDefault();
+			var clickFn = e.target.name !== undefined ? e.target.name : e.currentTarget.name;
+			var id = e.target.value !== undefined ? e.target.value : e.currentTarget.value;
+			
+			this.props[clickFn](id);
+
+		})
 	}
+
+	edit(id){
+		this.props.edit(id);
+	}
+
+	delete(id){
+		this.props.delete(id);
+	}
+
+	reset(id){
+		this.props.reset(id);
+	}
+
 
 	render(){
 		return (
 			<div className="col-xs-12 from-group">
 				<div className="table-resposive">
 					<table className="table" id="table" ref={el => this.el = el}>
-
 					</table>
 				</div>
 			</div>
