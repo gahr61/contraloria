@@ -2,39 +2,39 @@ import React, {Component} from 'react';
 import Title from '../../../general/title';
 import Table from '../../../general/table';
 
-class Users extends Component{
+class Roles extends Component{
 	constructor(props){
 		super(props);
 
-		this.getUser 	= this.getUser.bind(this);
-		this.resetPass 	= this.resetPass.bind(this);
-		this.editUser 	= this.editUser.bind(this);
-		this.deleteUser = this.deleteUser.bind(this)
+		this.getRoles 	= this.getRoles.bind(this);
+		this.assignPermisions 	= this.assignPermisions.bind(this);
+		this.editRole 	= this.editRole.bind(this);
+		this.deleteRole = this.deleteRole.bind(this)
 
 		this.state = {
 			columns: [
 				{title:'Nombre'},
-				{title:'Correo'},
-				{title:'Tipo'},
-				{title:'Accion'},
+				{title:'Nombre Mostrado'},
+				{title:'Descripción'},
+				{title:'Acción'},
 			],
 			data: [[
-				'Ricardo',
-				'ric@mail.com',
-				'Admin',
+				'test',
+				'test',
+				'test',
 				1
 			],[
-				'Saul',
-				'saul@mail.com',
-				'Admin',
+				'Paleleria',
+				'papeleria',
+				'Permite utilizar los modulos de papeleria',
 				2
 			]],
 			actionButton: [
 				{	btn: true, 
-					name:'Reset Contraseña', 
-					class:'btn btn-info btn-xs action-btn',
-					icon:'fa fa-key',
-					clickFn:'resetPass'
+					name:'Permisos', 
+					class:'btn btn-success btn-xs action-btn',
+					icon:null,
+					clickFn:'assign'
 				},
 				{	btn: true, 
 					name:'Editar', 
@@ -44,8 +44,8 @@ class Users extends Component{
 				},
 				{	btn: true, 
 					name:'Eliminar', 
-					class:'btn btn-danger btn-xs', 
-					icon:'glyphicon glyphicon-remove-circle action-btn',
+					class:'btn btn-danger btn-xs action-btn', 
+					icon:'glyphicon glyphicon-remove-circle',
 					clickFn:'delete'
 				},
 			]
@@ -54,25 +54,21 @@ class Users extends Component{
 
 	componentDidMount(){
 		//this.table.setTable();
-		this.getUser();
+		this.getRoles();
 		//this.table.resetTable();
 		setTimeout(()=>{
 			this.table.setTable();
 		}, 500);
-		
-		
 	}
 
-	getUser(){
-
-		
+	getRoles(){
 	}
 
-	editUser(id){
+	editRole(id){
 		console.log(id);
 	}
 
-	deleteUser(id){
+	deleteRole(id){
 		console.log(id);
 		this.state.data.map((d, i)=>{
 			d.map((v)=>{
@@ -98,7 +94,7 @@ class Users extends Component{
 			
 	}
 
-	resetPass(id){
+	assignPermisions(id){
 		console.log(id);
 	}
 
@@ -117,10 +113,10 @@ class Users extends Component{
 								columns	= {this.state.columns} 
 								data	= {this.state.data} 
 								buttons	= {this.state.actionButton}
-								edit 	= {this.editUser}
-								delete 	= {this.deleteUser}
-								getList = {this.getUser}
-								reset 	= {this.resetPass}
+								edit 	= {this.editRole}
+								delete 	= {this.deleteRole}
+								getList = {this.getRole}
+								assign 	= {this.assignPermisions}
 								onRef 	= {ref => (this.table = ref)}/>
 						</div>
 					</div>
@@ -130,4 +126,4 @@ class Users extends Component{
 	}
 } 
 
-export default Users;
+export default Roles;

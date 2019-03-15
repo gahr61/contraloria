@@ -8,16 +8,17 @@ class Table extends Component{
 	constructor(props){
 		super(props);
 
-		this.edit = this.edit.bind(this);
-		this.delete = this.delete.bind(this);
-
+		
 		this.setTable 	= this.setTable.bind(this);
 		this.resetTable = this.resetTable.bind(this);
+
+		this.edit 	= this.edit.bind(this);
+		this.delete = this.delete.bind(this);
+		this.reset 	= this.reset.bind(this);
 	}
 
 	componentDidMount(){
 		this.props.onRef(this);
-		
 	}
 
 	resetTable(){
@@ -26,7 +27,6 @@ class Table extends Component{
 		this.$el.empty();
 		this.setTable();
 	}
-
 
 	setTable(){
 		this.$el = $(this.el);
@@ -46,12 +46,13 @@ class Table extends Component{
                 var i = data.length - 1;
                 $('td:eq('+i+')', row).html('');
                 this.props.buttons.map((b)=>{
+                	var icon = b.icon !== null ? '<i class="'+b.icon+'"></i>' : b.name;
                     if(b.btn){
                         $('td:eq('+i+')', row).append(
                             '<button class="'+b.class+'" name="'+b.clickFn+'"'+
                             	'value='+data[i]+
                             	' title="'+b.name+'" style="margin-right:5px;">'+
-                                '<i class="'+b.icon+'"></i>'+
+                                icon+
                             '</button>' 
                         );
                     }
@@ -60,7 +61,7 @@ class Table extends Component{
           	}
 		});
 
-		$(document).on('click', '.btn', (e)=>{
+		$(document).on('click', '.action-btn', (e)=>{
 			e.preventDefault();
 			var clickFn = e.target.name !== undefined ? e.target.name : e.currentTarget.name;
 			var id = e.target.value !== undefined ? e.target.value : e.currentTarget.value;

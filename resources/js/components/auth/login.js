@@ -27,10 +27,12 @@ class Login extends Component{
 
 	submitForm(e){
 		e.preventDefault();
+		console.log(this.props)
 		var  obj = {
 			"email": this.state.user,
 			"password": this.state.pass
 		};
+		this.props.general.waiting.handleShow('Iniciando...');
 		fetch('api/auth/login',{
 			method:'POST',
 			body: JSON.stringify(obj),
@@ -39,53 +41,54 @@ class Login extends Component{
 				'Content-Type' 	: 'application/json'
 			})
 		}).then(res => {
+			//this.props.general.waiting.handleShow('Iniciando...');
+			console.log(res.ok)
 			if(res.ok){
 				return res.json();
 			}else{
+
 				console.log('error '+res.text());
 			}
 		}).then(response => {
 			if(response !== undefined){
+				console.log(response)
 				console.log(this.props.user)
 				this.props.setToken(response.access_token);
+			}else{
+
 			}
 		});
 	}
 
 	render(){
 		return (
-			<div className="container" style={{marginTop:"10%"}}>
-				<div className="row justify-content-md-center">
-					<div className="col-xs-12 col-sm-7 col-lg-5">
-						<div className="card xs-12 sm-7 lg-5">
-							<div className="card-header">
-								Login
-							</div>
-							<div className="card-body">
-								<form >
-									<div className="col-xs-12 form-group">
-							    		<label className="col-xs-12 col-sm-4">Correo</label>
-										<div className="col-xs-12 col-sm-8" style={{display:"inline-block"}}>
-								    		<input type="email" className="form-control" 
-								    			name="user" id="user" value={this.state.user}
-								    			onChange={this.handleChange} />
-								    	</div>		
-							    	</div>
-							    	<div className="col-xs-12 form-group">
-							    		<label className="col-xs-12 col-sm-4">Contraseña</label>
-							    		<div className="col-xs-12 col-sm-8" style={{display:"inline-block"}}>
-							    			<input type="password" className="form-control" 
-							    				name="pass" id="pass" value={this.state.pass}
-								    			onChange={this.handleChange} />
-							    		</div>	
-							    	</div>
-							    	<div className="col-xs-12" style={{textAlign:"right"}}>
-							    		<button type="button" onClick={(e)=>this.submitForm(e)} className="btn btn-light">Entrar</button>
-							    	</div>
-						    	</form>
-						  	</div>
-						</div>
-					</div>
+			<div className="login-box">
+				<div className="login-logo"></div>
+				<div className="login-box-body">
+					<p className="login-box-msg">Inicio de sesion</p>
+					<form>
+						<div className="form-group has-feedback">
+        					<input type="email" className="form-control" 
+        						placeholder="Email" value={this.state.user} 
+        						onChange={this.handleChange}/>
+        					<span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+	      				</div>
+	      				<div className="form-group has-feedback">
+	        				<input type="password" className="form-control" 
+	        					placeholder="Password" value={this.state.pass} 
+	        					onChange={this.handleChange} />
+	        				<span className="glyphicon glyphicon-lock form-control-feedback"></span>
+	     				</div>
+	     				<div className="row" style={{textAlign:'right'}}>
+					        <div className="col-xs-4">
+					          	<button type="button" 
+					          		className="btn btn-primary btn-block btn-flat"
+					          		onClick={this.submitForm}>
+					          		Entrar
+					          	</button>
+					        </div>
+				      	</div>
+					</form>
 				</div>
 			</div>
 
