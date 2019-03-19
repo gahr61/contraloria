@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import Routes from '../Routes';
 import WaitingModal from './general/waitingModal';
+
+import {Modal, Button} from 'react-bootstrap';
+
 //import './App.css';
 
 import Header from './general/header';
@@ -11,8 +14,11 @@ class App extends Component {
 	constructor(props){
 		super(props);
 
+		this.setToken = this.setToken.bind(this);
+
 		this.state = {
-			authenticated: false
+			authenticated: false,
+			token:"",
 		}
 	}
 
@@ -53,15 +59,27 @@ class App extends Component {
 			
 	}*/
 
+	setToken(t){
+		document.body.classList.add('skin-blue');
+		document.body.classList.add('sidebar-mini');
+		document.body.classList.remove('hold-transition');
+		document.body.classList.remove('login-page');
+
+		this.setState({authenticated:true});
+		this.props.history.push('/');
+	}
+
 
   	render() {
-  		const generalProp = {
-  			authenticated: this.state.authenticated,
-  			waiting: this.waiting_modal,
+  		const generalProps = {
+  			authenticated 	: this.state.authenticated,
+  			waiting 		: this.waiting_modal,
+  			setToken 		: this.setToken,
   		}
 
 		return (
 			<div>
+
 				{this.state.authenticated ?
 					<div className="wrapper">
 					
@@ -71,14 +89,13 @@ class App extends Component {
 
 				  		<div className="content-wrapper">
 				  			<section className="content">
-				  			{console.log(childProps)}
-				  				<Routes childProps={childProps} />
+				  				<Routes general={generalProps} />
 				  			</section>
 				  		</div>
 
 					</div>
-				: <Routes general={generalProp}/>}
-				
+				: <Routes general={generalProps}/>} 
+
 				<WaitingModal {...this.props} onRef={ref => (this.waiting_modal = ref)}/>
 			</div>
 		);
