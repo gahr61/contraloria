@@ -9,9 +9,6 @@ class Login extends Component{
 		this.handleChange = this.handleChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 
-		this.handleShow = this.handleShow.bind(this);
-		this.handleClose = this.handleClose.bind(this);
-
 		this.state = {
 		    show_alert: false,
 		    message:"",
@@ -19,19 +16,6 @@ class Login extends Component{
 			user:"admin@admin.com",
 			pass:"adminadmin",
 		}
-	}
-
-	handleClose() {
-		this.setState({ show: false});
-	}
-
-	handleShow(msg) {
-		console.log(msg)
-		this.setState({ show: true,message:msg});
-	}
-
-	componentDidMount(){
-		
 	}
 
 	handleChange(e){
@@ -42,7 +26,6 @@ class Login extends Component{
 
 	submitForm(e){
 		e.preventDefault();
-		console.log(this.props)
 		var  obj = {
 			"email": this.state.user,
 			"password": this.state.pass
@@ -58,23 +41,27 @@ class Login extends Component{
 			})
 		}).then(res => {
 			this.props.general.waiting.handleClose();
-			console.log(res.ok)
 			if(res.ok){
 				return res.json();
 			}else{
-
 				console.log('error '+res.text());
+				return undefined;
 			}
 		}).then(response => {
 			if(response !== undefined){
 				this.setState({show_alert:false});
 				this.props.general.setToken(response.access_token);
 			}else{
-				this.setState({show_alert:true});
+				setTimeout(()=>{
+					this.props.general.waiting.handleClose();
+				}, 100);
+				setTimeout(()=>{
+					this.setState({show_alert: true});
+				}, 300);
 
 				setTimeout(()=>{
 					this.setState({show_alert: false});
-				}, 1000);
+				}, 3000);
 			}
 		});
 	}

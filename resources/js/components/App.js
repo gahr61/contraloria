@@ -5,7 +5,7 @@ import WaitingModal from './general/waitingModal';
 
 import {Modal, Button} from 'react-bootstrap';
 
-//import './App.css';
+import './App.css';
 
 import Header from './general/header';
 import LeftPanel from './general/leftpanel';
@@ -17,7 +17,7 @@ class App extends Component {
 		this.setToken = this.setToken.bind(this);
 
 		this.state = {
-			authenticated: false,
+			authenticated: true,
 			token:"",
 		}
 	}

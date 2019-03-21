@@ -5,40 +5,42 @@ import Table from '../../../general/table';
 
 
 
-class Users extends Component{
+class Products extends Component{
 	constructor(props){
 		super(props);
 
-		this.getUser 	= this.getUser.bind(this);
-		this.resetPass 	= this.resetPass.bind(this);
-		this.editUser 	= this.editUser.bind(this);
-		this.deleteUser = this.deleteUser.bind(this)
+		this.getProducts 	= this.getProducts.bind(this);
+		this.editProduct 	= this.editProduct.bind(this);
+		this.deleteProduct = this.deleteProduct.bind(this)
 
 		this.state = {
 			columns: [
-				{title:'Nombre'},
-				{title:'Correo'},
-				{title:'Tipo'},
+				{title:'Codigo'},
+				{title:'Producto'},
+				{title:'Marca'},
+				{title:'Presentación'},
+				{title:'Unidad/Medida'},
+				{title:'Aviso'},
 				{title:'Accion'},
 			],
 			data: [[
-				'Ricardo',
-				'ric@mail.com',
-				'Admin',
+				1,
+				'Agua',
+				'Lorman',
+				'Botella',
+				'botella',
+				2,
 				1
 			],[
-				'Saul',
-				'saul@mail.com',
-				'Admin',
+				1,
+				'Agua',
+				'Oxxo',
+				'Botella',
+				'botella',
+				2,
 				2
 			]],
 			actionButton: [
-				{	btn: true, 
-					name:'Reset Contraseña', 
-					class:'btn btn-info btn-xs action-btn',
-					icon:'fa fa-key',
-					clickFn:'reset'
-				},
 				{	btn: true, 
 					name:'Editar', 
 					class:'btn btn-warning btn-xs action-btn', 
@@ -56,23 +58,23 @@ class Users extends Component{
 	}
 
 	componentDidMount(){
-		this.getUser();
+		this.getProducts();
 
 		setTimeout(()=>{
 			this.table.setTable();
 		}, 500);
 	}
 
-	getUser(){
+	getProducts(){
 
 		
 	}
 
-	editUser(id){
+	editProduct(id){
 		console.log(id);
 	}
 
-	deleteUser(id){
+	deleteProduct(id){
 		console.log(id);
 		this.state.data.map((d, i)=>{
 			d.map((v)=>{
@@ -91,9 +93,6 @@ class Users extends Component{
 		}, 100);			
 	}
 
-	resetPass(id){
-		console.log(id);
-	}
 
 	render(){
 		return (
@@ -113,10 +112,9 @@ class Users extends Component{
 								columns	= {this.state.columns} 
 								data	= {this.state.data} 
 								buttons	= {this.state.actionButton}
-								edit 	= {this.editUser}
-								delete 	= {this.deleteUser}
-								getList = {this.getUser}
-								reset 	= {this.resetPass}
+								edit 	= {this.editProduct}
+								delete 	= {this.deleteProduct}
+								getList = {this.getProducts}
 								onRef 	= {ref => (this.table = ref)}/>
 						</div>
 					</div>
@@ -127,4 +125,4 @@ class Users extends Component{
 	}
 } 
 
-export default Users;
+export default Products;
