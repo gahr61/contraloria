@@ -79,13 +79,13 @@ class Login extends Component{
 							</div>
 						:null}
 						<div className="form-group has-feedback">
-        					<input type="email" className="form-control" 
+        					<input type="email" className="form-control" name="user" id="user"
         						placeholder="Email" value={this.state.user} 
         						onChange={this.handleChange}/>
         					<span className="glyphicon glyphicon-envelope form-control-feedback"></span>
 	      				</div>
 	      				<div className="form-group has-feedback">
-	        				<input type="password" className="form-control" 
+	        				<input type="password" className="form-control" name="pass" id="pass"
 	        					placeholder="Password" value={this.state.pass} 
 	        					onChange={this.handleChange} />
 	        				<span className="glyphicon glyphicon-lock form-control-feedback"></span>

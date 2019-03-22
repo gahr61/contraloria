@@ -15,10 +15,13 @@ class Productos extends Migration
     {
         Schema::create('products', function(Blueprint $table){
             $table->increments('id');
+            $table->increments('code');
             $table->string('product');
             $table->string('presentation');
             $table->string('trademark');
-            $table->string('unit_type');            
+            $table->string('unit_type');  
+            $table->integer('notification');
+            $table->boolean('active');         
             $table->timestamps();
 
         });

@@ -73999,6 +73999,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "email",
         className: "form-control",
+        name: "user",
+        id: "user",
         placeholder: "Email",
         value: this.state.user,
         onChange: this.handleChange
@@ -74009,6 +74011,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         type: "password",
         className: "form-control",
+        name: "pass",
+        id: "pass",
         placeholder: "Password",
         value: this.state.pass,
         onChange: this.handleChange
