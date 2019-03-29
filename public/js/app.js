@@ -73608,12 +73608,14 @@ var Contact = function Contact() {
     path: "/users",
     exact: true,
     component: _components_containers_administration_users___WEBPACK_IMPORTED_MODULE_6__["default"],
-    title: "Usuarios"
+    title: "Usuarios",
+    props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/users/new",
     exact: true,
     component: _components_containers_administration_users_form__WEBPACK_IMPORTED_MODULE_7__["default"],
-    title: "Nuevo Usuario"
+    title: "Nuevo Usuario",
+    props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/articles",
     exact: true,
@@ -73627,6 +73629,21 @@ var Contact = function Contact() {
     exact: true,
     component: About
   }));
+});
+
+/***/ }),
+
+/***/ "./resources/js/api.js":
+/*!*****************************!*\
+  !*** ./resources/js/api.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  api: 'http://127.0.0.1:8000/api/'
 });
 
 /***/ }),
@@ -73732,6 +73749,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+var Config = __webpack_require__(/*! ../api */ "./resources/js/api.js");
+
 var App =
 /*#__PURE__*/
 function (_Component) {
@@ -73746,7 +73765,8 @@ function (_Component) {
     _this.setToken = _this.setToken.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       authenticated: true,
-      token: ""
+      token: "",
+      api: Config.default.api
     };
     return _this;
   }
@@ -73767,6 +73787,8 @@ function (_Component) {
         document.body.classList.remove('login-page');
         this.props.history.push(this.props.location.pathname);
       }
+
+      console.log(this.state);
     }
     /*componentDidUpdate(){
     	if(this.props.location.pathname !== '/login'){
@@ -73808,7 +73830,8 @@ function (_Component) {
       var generalProps = {
         authenticated: this.state.authenticated,
         waiting: this.waiting_modal,
-        setToken: this.setToken
+        setToken: this.setToken,
+        api: this.state.api
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.authenticated ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
@@ -73953,7 +73976,6 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log('error ' + res.text());
           return undefined;
         }
       }).then(function (response) {
@@ -73962,7 +73984,7 @@ function (_Component) {
             show_alert: false
           });
 
-          _this2.props.general.setToken(response.access_token);
+          _this2.props.general.setValues(response);
         } else {
           setTimeout(function () {
             _this2.props.general.waiting.handleClose();
@@ -74337,6 +74359,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -74370,21 +74394,78 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
     _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       name: "",
       email: "",
       password: "",
       rol_id: "",
-      user_id: ""
+      user_id: "",
+      roles: []
     };
     return _this;
   }
 
   _createClass(Form, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch(this.props.general.api + 'getRoles', {
+        method: 'get',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this2.setState({
+            roles: response
+          });
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
     key: "saving",
     value: function saving(e) {
       e.preventDefault();
-      console.log('guardando');
+      var obj = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+        rol_id: this.state.rol_id
+      };
+      fetch(this.props.general.api + 'user', {
+        method: 'get',
+        //body:JSON.stringify(obj),
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          console.log(response);
+        }
+      });
     }
   }, {
     key: "canceling",
@@ -74407,23 +74488,42 @@ function (_Component) {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Nombre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "form-control input-sm"
+        name: "name",
+        id: "name",
+        className: "form-control input-sm",
+        onChange: this.handleChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Correo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "form-control input-sm"
+        name: "email",
+        id: "email",
+        className: "form-control input-sm",
+        onChange: this.handleChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Contrase\xF1a"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        className: "form-control input-sm"
+        name: "password",
+        id: "password",
+        className: "form-control input-sm",
+        onChange: this.handleChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Rol"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "form-control input-sm"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Rol"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control input-sm",
+        id: "rol_id",
+        name: "rol_id",
+        value: this.state.rol_id,
+        onChange: this.handleChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Selecciones..."), this.state.roles.map(function (rol, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: rol.id
+        }, rol.display_name);
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         btnSave: "Guardar",
         btnCancel: "Cancelar",
         save: this.saving,
@@ -74503,7 +74603,7 @@ function (_Component) {
       }, {
         title: 'Accion'
       }],
-      data: [['Ricardo', 'ric@mail.com', 'Admin', 1], ['Saul', 'saul@mail.com', 'Admin', 2]],
+      data: [],
       actionButton: [{
         btn: true,
         name: 'Reset Contraseña',
@@ -74522,7 +74622,8 @@ function (_Component) {
         class: 'btn btn-danger btn-xs',
         icon: 'glyphicon glyphicon-remove-circle action-btn',
         clickFn: 'delete'
-      }]
+      }],
+      message: ""
     };
     return _this;
   }
@@ -74530,16 +74631,49 @@ function (_Component) {
   _createClass(Users, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
+      this.setState({
+        data: []
+      });
       this.getUser();
-      setTimeout(function () {
-        _this2.table.setTable();
-      }, 500);
     }
   }, {
     key: "getUser",
-    value: function getUser() {}
+    value: function getUser() {
+      var _this2 = this;
+
+      this.props.general.waiting.handleShow('Iniciando...');
+      fetch(this.props.general.api + 'user', {
+        method: 'get',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var data = [];
+          response.user.map(function (u) {
+            data.push([u.name, u.email, 'admin', u.id]);
+          });
+
+          _this2.setState({
+            data: data
+          });
+
+          setTimeout(function () {
+            console.log(_this2.state.data);
+
+            _this2.table.setTable();
+          }, 500);
+        }
+      });
+    }
   }, {
     key: "editUser",
     value: function editUser(id) {

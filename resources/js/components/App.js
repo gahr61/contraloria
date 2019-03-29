@@ -10,6 +10,8 @@ import './App.css';
 import Header from './general/header';
 import LeftPanel from './general/leftpanel';
 
+const Config = require('../api');
+
 class App extends Component {
 	constructor(props){
 		super(props);
@@ -19,6 +21,7 @@ class App extends Component {
 		this.state = {
 			authenticated: true,
 			token:"",
+			api:Config.default.api,
 		}
 	}
 
@@ -36,6 +39,8 @@ class App extends Component {
 			document.body.classList.remove('login-page');
 			this.props.history.push(this.props.location.pathname)
 		}
+
+		console.log( this.state)
 		
 	}
 
@@ -75,6 +80,7 @@ class App extends Component {
   			authenticated 	: this.state.authenticated,
   			waiting 		: this.waiting_modal,
   			setToken 		: this.setToken,
+  			api 			: this.state.api,
   		}
 
 		return (

@@ -44,13 +44,12 @@ class Login extends Component{
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log('error '+res.text());
 				return undefined;
 			}
 		}).then(response => {
 			if(response !== undefined){
 				this.setState({show_alert:false});
-				this.props.general.setToken(response.access_token);
+				this.props.general.setValues(response);
 			}else{
 				setTimeout(()=>{
 					this.props.general.waiting.handleClose();

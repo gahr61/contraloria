@@ -21,17 +21,7 @@ class Users extends Component{
 				{title:'Tipo'},
 				{title:'Accion'},
 			],
-			data: [[
-				'Ricardo',
-				'ric@mail.com',
-				'Admin',
-				1
-			],[
-				'Saul',
-				'saul@mail.com',
-				'Admin',
-				2
-			]],
+			data: [],
 			actionButton: [
 				{	btn: true, 
 					name:'Reset Contraseña', 
@@ -51,21 +41,54 @@ class Users extends Component{
 					icon:'glyphicon glyphicon-remove-circle action-btn',
 					clickFn:'delete'
 				},
-			]
+			],
+			message:"",
 		}
 	}
 
 	componentDidMount(){
+		this.setState({data:[]});
 		this.getUser();
-
-		setTimeout(()=>{
-			this.table.setTable();
-		}, 500);
 	}
 
 	getUser(){
+		this.props.general.waiting.handleShow('Iniciando...');
+		fetch(this.props.general.api+'user',{
+			method:'get',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json'
+			})
+		}).then(res => {
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
+			}
+		}).then(response => {
+			if(response !== undefined){
+				var data = []
+				response.user.map((u)=>{
+					data.push([
+						u.name,
+						u.email,
+						'admin',
+						u.id
+					])
+				})
+					
+				this.setState({
+					data: data
+				});
 
-		
+
+				setTimeout(()=>{
+					console.log(this.state.data);
+					this.table.setTable();
+				}, 500);
+			}
+		})
 	}
 
 	editUser(id){
@@ -103,7 +126,6 @@ class Users extends Component{
 					<div className="box-body">
 						<div className="row">
 							<div className="col-xs-12 col-sm-1 form-group">
-
 								<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
 									Nuevo
 								</Link>

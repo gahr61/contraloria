@@ -7,9 +7,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+
 class User extends Authenticatable implements JWTSubject //Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Authorizable;
+
+    use EntrustUserTrait {
+        EntrustUserTrait::can insteadof Authorizable;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -35,5 +42,9 @@ class User extends Authenticatable implements JWTSubject //Authenticatable
 
     public function getJWTCustomClaims(){
         return [];
+    }
+
+    public function rol(){
+        return $this->belongsToMany('App\Role');
     }
 }

@@ -41,8 +41,8 @@ export default (general)=>
 		<AppliedRoute path="/permissions" exact component={Permissions} title="Permisos" />
 		<AppliedRoute path="/roles" exact component={Roles} title="Roles" />
 		
-		<AppliedRoute path="/users" exact component={Users} title="Usuarios" />
-		<AppliedRoute path="/users/new" exact component={Form} title="Nuevo Usuario" />
+		<AppliedRoute path="/users" exact component={Users} title="Usuarios" props={general} />
+		<AppliedRoute path="/users/new" exact component={Form} title="Nuevo Usuario" props={general} />
 
 
 		<AppliedRoute path="/articles" exact component={Products} />
