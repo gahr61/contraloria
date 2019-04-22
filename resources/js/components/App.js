@@ -39,8 +39,6 @@ class App extends Component {
 			document.body.classList.remove('login-page');
 			this.props.history.push(this.props.location.pathname)
 		}
-
-		console.log( this.state)
 		
 	}
 

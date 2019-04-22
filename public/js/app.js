@@ -73617,6 +73617,12 @@ var Contact = function Contact() {
     title: "Nuevo Usuario",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/users/:id",
+    exact: true,
+    component: _components_containers_administration_users_form__WEBPACK_IMPORTED_MODULE_7__["default"],
+    title: "Nuevo Usuario",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/articles",
     exact: true,
     component: _components_containers_warehouse_products___WEBPACK_IMPORTED_MODULE_8__["default"]
@@ -73787,8 +73793,6 @@ function (_Component) {
         document.body.classList.remove('login-page');
         this.props.history.push(this.props.location.pathname);
       }
-
-      console.log(this.state);
     }
     /*componentDidUpdate(){
     	if(this.props.location.pathname !== '/login'){
@@ -74395,6 +74399,7 @@ function (_Component) {
     _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getUser = _this.getUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       name: "",
       email: "",
@@ -74431,6 +74436,45 @@ function (_Component) {
           });
         }
       });
+
+      if (this.props.match.params.id !== undefined) {
+        setTimeout(function () {
+          _this2.getUser();
+        }, 300);
+      }
+    }
+  }, {
+    key: "getUser",
+    value: function getUser() {
+      var _this3 = this;
+
+      this.props.general.waiting.handleShow('Cargando...');
+      fetch(this.props.general.api + 'user/' + this.props.match.params.id, {
+        method: 'get',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        _this3.props.general.waiting.handleClose();
+
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this3.setState({
+            name: response.user.name,
+            email: response.user.email,
+            password: "",
+            rol_id: response.user.rol[0].id,
+            user_id: response.user.id
+          });
+        }
+      });
     }
   }, {
     key: "handleChange",
@@ -74440,22 +74484,45 @@ function (_Component) {
   }, {
     key: "saving",
     value: function saving(e) {
+      var _this4 = this;
+
       e.preventDefault();
-      var obj = {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
-        rol_id: this.state.rol_id
-      };
-      fetch(this.props.general.api + 'user', {
-        method: 'get',
-        //body:JSON.stringify(obj),
+      var method = "";
+      var url = "";
+      var obj = {};
+
+      if (this.props.match.params.id === undefined) {
+        method = 'post';
+        url = 'users';
+        obj = {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password,
+          rol_id: this.state.rol_id
+        };
+      } else {
+        method = 'put';
+        url = 'user/update/' + this.props.match.params.id;
+        obj = {
+          id: this.state.user_id,
+          name: this.state.name,
+          email: this.state.email,
+          rol_id: this.state.rol_id
+        };
+      }
+
+      this.props.general.waiting.handleShow('Guardando...');
+      fetch(this.props.general.api + url, {
+        method: method,
+        body: JSON.stringify(obj),
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this4.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
@@ -74463,7 +74530,9 @@ function (_Component) {
         }
       }).then(function (response) {
         if (response !== undefined) {
-          console.log(response);
+          console.log(response); //swal('Proceso terminado', response.mensaje, 'success');
+
+          _this4.props.history.push('/users');
         }
       });
     }
@@ -74471,7 +74540,7 @@ function (_Component) {
     key: "canceling",
     value: function canceling(e) {
       e.preventDefault();
-      console.log('cancelar');
+      this.props.history.push('/users');
     }
   }, {
     key: "render",
@@ -74491,6 +74560,7 @@ function (_Component) {
         name: "name",
         id: "name",
         className: "form-control input-sm",
+        value: this.state.name,
         onChange: this.handleChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
@@ -74499,16 +74569,17 @@ function (_Component) {
         name: "email",
         id: "email",
         className: "form-control input-sm",
+        value: this.state.email,
         onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), this.props.match.params.id === undefined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Contrase\xF1a"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "password",
         name: "password",
         id: "password",
         className: "form-control input-sm",
         onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Rol"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "form-control input-sm",
@@ -74631,17 +74702,21 @@ function (_Component) {
   _createClass(Users, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.setState({
         data: []
       });
-      this.getUser();
+      setTimeout(function () {
+        _this2.getUser();
+      }, 300);
     }
   }, {
     key: "getUser",
     value: function getUser() {
-      var _this2 = this;
+      var _this3 = this;
 
-      this.props.general.waiting.handleShow('Iniciando...');
+      this.props.general.waiting.handleShow('Cargando...');
       fetch(this.props.general.api + 'user', {
         method: 'get',
         headers: new Headers({
@@ -74650,6 +74725,8 @@ function (_Component) {
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this3.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
@@ -74662,14 +74739,14 @@ function (_Component) {
             data.push([u.name, u.email, 'admin', u.id]);
           });
 
-          _this2.setState({
+          _this3.setState({
             data: data
           });
 
           setTimeout(function () {
-            console.log(_this2.state.data);
+            console.log(_this3.state.data);
 
-            _this2.table.setTable();
+            _this3.table.setTable();
           }, 500);
         }
       });
@@ -74677,27 +74754,36 @@ function (_Component) {
   }, {
     key: "editUser",
     value: function editUser(id) {
-      console.log(id);
+      this.props.history.push('/users/' + id);
     }
   }, {
     key: "deleteUser",
     value: function deleteUser(id) {
-      var _this3 = this;
+      var _this4 = this;
 
-      console.log(id);
-      this.state.data.map(function (d, i) {
-        d.map(function (v) {
-          if (v === id) {
-            _this3.state.data.splice(i, 1);
-          }
-        });
-      });
-      this.forceUpdate();
-      setTimeout(function () {
-        if (_this3.state.data.length === 0) {
-          _this3.table.resetTable();
+      fetch(this.props.general.api + 'user/' + id + '/destroy', {
+        method: 'delete',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
         }
-      }, 100);
+      }).then(function (response) {
+        console.log(response);
+
+        if (response !== undefined) {
+          //swal('Proceso terminado', response.mensaje, 'success');
+          _this4.table.resetTable();
+
+          _this4.getUser();
+        }
+      });
     }
   }, {
     key: "resetPass",
@@ -74707,7 +74793,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
@@ -74729,7 +74815,7 @@ function (_Component) {
         getList: this.getUser,
         reset: this.resetPass,
         onRef: function onRef(ref) {
-          return _this4.table = ref;
+          return _this5.table = ref;
         }
       }))))));
     }
@@ -75139,8 +75225,7 @@ function (_Component) {
     value: function resetTable() {
       this.$el = $(this.el);
       this.$el.DataTable().destroy();
-      this.$el.empty();
-      this.setTable();
+      this.$el.empty(); //this.setTable();
     }
   }, {
     key: "setTable",
@@ -75172,10 +75257,10 @@ function (_Component) {
           });
         }
       });
-      $(document).on('click', '.action-btn', function (e) {
+      $(document).off('click').on('click', '.action-btn', function (e) {
         e.preventDefault();
-        var clickFn = e.target.name !== undefined ? e.target.name : e.currentTarget.name;
-        var id = e.target.value !== undefined ? e.target.value : e.currentTarget.value;
+        var clickFn = e.target.name !== undefined ? e.target.name : e.target.parentNode.name;
+        var id = e.target.value !== undefined ? e.target.value : e.target.parentNode.value;
 
         _this2.props[clickFn](id);
       });
@@ -75329,6 +75414,7 @@ function (_Component) {
       jquery__WEBPACK_IMPORTED_MODULE_2__('#modal').modal('hide');
       jquery__WEBPACK_IMPORTED_MODULE_2__('#modal').removeClass('in');
       jquery__WEBPACK_IMPORTED_MODULE_2__('.modal-backdrop').remove();
+      jquery__WEBPACK_IMPORTED_MODULE_2__('#modal').css('display', 'none');
     }
   }, {
     key: "handleShow",

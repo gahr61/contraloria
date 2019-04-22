@@ -25,7 +25,7 @@ class Table extends Component{
 		this.$el = $(this.el);
 		this.$el.DataTable().destroy();
 		this.$el.empty();
-		this.setTable();
+		//this.setTable();
 	}
 
 	setTable(){
@@ -61,11 +61,11 @@ class Table extends Component{
           	}
 		});
 
-		$(document).on('click', '.action-btn', (e)=>{
+		$(document).off('click').on('click', '.action-btn', (e)=>{
 			e.preventDefault();
-			var clickFn = e.target.name !== undefined ? e.target.name : e.currentTarget.name;
-			var id = e.target.value !== undefined ? e.target.value : e.currentTarget.value;
-			
+			var clickFn = e.target.name !== undefined ? e.target.name : e.target.parentNode.name;
+			var id = e.target.value !== undefined ? e.target.value :e.target.parentNode.value;
+	
 			this.props[clickFn](id);
 
 		})

@@ -9,7 +9,7 @@ class Form extends Component{
 		this.saving = this.saving.bind(this);
 		this.canceling = this.canceling.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-
+		this.getUser = this.getUser.bind(this);
 		this.state = {
 			name:"",
 			email:"",
@@ -38,7 +38,43 @@ class Form extends Component{
 			if(response !== undefined){
 				this.setState({roles:response});
 			}
-		})
+		});
+
+
+		if(this.props.match.params.id !== undefined){
+			setTimeout(()=>{
+				this.getUser();
+			}, 300);
+		}
+	}
+
+	getUser(){
+		this.props.general.waiting.handleShow('Cargando...');
+		fetch(this.props.general.api+'user/'+this.props.match.params.id,{
+			method:'get',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json'
+			})
+		}).then(res => {
+			this.props.general.waiting.handleClose();
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
+			}
+		}).then(response => {
+			if(response !== undefined){
+				this.setState({
+					name:response.user.name,
+					email:response.user.email,
+					password:"",
+					rol_id:response.user.rol[0].id,
+					user_id:response.user.id,
+				})
+			}
+		});
 	}
 
 	handleChange(e){
@@ -48,23 +84,41 @@ class Form extends Component{
 	saving(e){
 		e.preventDefault();
 
-		var obj = {
-			name: this.state.name,
-			email: this.state.email,
-			password: this.state.password,
-			rol_id: this.state.rol_id,
+		var method = "";
+		var url = "";
+		var obj = {}
+		if(this.props.match.params.id === undefined){
+			method = 'post';
+			url = 'users';
+			obj = {
+				name: this.state.name,
+				email: this.state.email,
+				password: this.state.password,
+				rol_id: this.state.rol_id,
+			}
+
+		}else{
+			method = 'put';
+			url = 'user/update/'+this.props.match.params.id;
+			obj = {
+				id:this.state.user_id,
+				name: this.state.name,
+				email: this.state.email,
+				rol_id: this.state.rol_id,
+			}
 		}
-
-
-		fetch(this.props.general.api+'user',{
-			method:'get',
-			//body:JSON.stringify(obj),
+			
+		this.props.general.waiting.handleShow('Guardando...');
+		fetch(this.props.general.api + url,{
+			method:method,
+			body:JSON.stringify(obj),
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
-				'Content-Type'	: 'application/json'
+				'Content-Type'	: 'application/json',
 			})
 		}).then(res => {
+			this.props.general.waiting.handleClose();
 			if(res.ok){
 				return res.json();
 			}else{
@@ -73,13 +127,15 @@ class Form extends Component{
 		}).then(response => {
 			if(response !== undefined){
 				console.log(response);
+				//swal('Proceso terminado', response.mensaje, 'success');
+				this.props.history.push('/users');
 			}
 		})
 	}
 
 	canceling(e){
 		e.preventDefault();
-		console.log('cancelar');
+		this.props.history.push('/users');
 	}
 
 	render(){
@@ -94,18 +150,23 @@ class Form extends Component{
 									<div className="col-xs-12 form-group">
 										<span>Nombre</span>
 										<input type="text" name="name" id="name" className="form-control input-sm"
+											value={this.state.name}
 											onChange={this.handleChange} />
 									</div>
 									<div className="col-xs-12 form-group">
 										<span>Correo</span>
 										<input type="text" name="email" id="email" className="form-control input-sm"
+											value={this.state.email}
 											onChange={this.handleChange} />
 									</div> 
-									<div className="col-xs-12 form-group">
-										<span>Contraseña</span>
-										<input type="text" name="password" id="password" 
-											className="form-control input-sm" onChange={this.handleChange} />
-									</div>
+									{this.props.match.params.id === undefined ?
+										<div className="col-xs-12 form-group">
+											<span>Contraseña</span>
+											<input type="password" name="password" id="password" 
+												className="form-control input-sm" onChange={this.handleChange} />
+										</div>
+									:null}
+										
 									<div className="col-xs-12 form-group">
 										<span>Rol</span>
 										<select className="form-control input-sm" id="rol_id" name="rol_id"

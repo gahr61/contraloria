@@ -32,3 +32,6 @@ Route::get('getRoles', 'RolesController@getRoles');
 
 Route::post('user', 'UserController@store');
 Route::get('user', 'UserController@index');
+Route::delete('user/{id}/destroy', 'UserController@destroy');
+Route::get('user/{id}', 'UserController@edit');
+Route::put('user/update/{id}', 'UserController@update');

@@ -48,11 +48,14 @@ class Users extends Component{
 
 	componentDidMount(){
 		this.setState({data:[]});
-		this.getUser();
+		setTimeout(()=>{
+			this.getUser();
+		}, 300);
+		
 	}
 
 	getUser(){
-		this.props.general.waiting.handleShow('Iniciando...');
+		this.props.general.waiting.handleShow('Cargando...');
 		fetch(this.props.general.api+'user',{
 			method:'get',
 			headers: new Headers({
@@ -61,6 +64,7 @@ class Users extends Component{
 				'Content-Type'	: 'application/json'
 			})
 		}).then(res => {
+			this.props.general.waiting.handleClose();
 			if(res.ok){
 				return res.json();
 			}else{
@@ -92,26 +96,32 @@ class Users extends Component{
 	}
 
 	editUser(id){
-		console.log(id);
+		this.props.history.push('/users/'+id);
 	}
 
 	deleteUser(id){
-		console.log(id);
-		this.state.data.map((d, i)=>{
-			d.map((v)=>{
-				if(v === id){
-					this.state.data.splice(i, 1);
-				}
+		fetch(this.props.general.api+'user/'+id+'/destroy',{
+			method:'delete',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json',
 			})
-		})
-
-		this.forceUpdate();
-
-		setTimeout(()=>{
-			if(this.state.data.length === 0){
-				this.table.resetTable()
+		}).then(res => {
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
 			}
-		}, 100);			
+		}).then(response => {
+			console.log(response)
+			if(response !== undefined){
+				//swal('Proceso terminado', response.mensaje, 'success');
+				this.table.resetTable();
+				this.getUser();
+				
+			}
+		})		
 	}
 
 	resetPass(id){

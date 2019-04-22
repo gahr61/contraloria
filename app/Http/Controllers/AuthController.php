@@ -47,7 +47,7 @@ class AuthController extends Controller
                 [$p->name] => auth()->user()->can($p->name)
             ];*/
 
-            print_r([$p->name]=>$p->name);
+           // print_r([$p->name]=>$p->name);
         }
         //dd($user_permissions);
 

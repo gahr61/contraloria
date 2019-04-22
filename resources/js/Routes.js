@@ -43,6 +43,7 @@ export default (general)=>
 		
 		<AppliedRoute path="/users" exact component={Users} title="Usuarios" props={general} />
 		<AppliedRoute path="/users/new" exact component={Form} title="Nuevo Usuario" props={general} />
+		<AppliedRoute path="/users/:id" exact component={Form} title="Nuevo Usuario" props={general} />
 
 
 		<AppliedRoute path="/articles" exact component={Products} />

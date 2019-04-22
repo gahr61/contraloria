@@ -29,6 +29,7 @@ class WaitingModal extends Component{
 		$('#modal').modal('hide');
 		$('#modal').removeClass('in');
 		$('.modal-backdrop').remove();
+		$('#modal').css('display', 'none');
 	}
 
 	handleShow(msg) {
