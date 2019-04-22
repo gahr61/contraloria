@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Title from '../../../general/title';
 import Table from '../../../general/table';
-
+import ModalReset from './modalReset';
 
 
 class Users extends Component{
@@ -86,9 +86,7 @@ class Users extends Component{
 					data: data
 				});
 
-
 				setTimeout(()=>{
-					console.log(this.state.data);
 					this.table.setTable();
 				}, 500);
 			}
@@ -124,8 +122,10 @@ class Users extends Component{
 		})		
 	}
 
-	resetPass(id){
+	resetPass(e, id){
+		e.preventDefault();
 		console.log(id);
+		this.modal_reset.handleShow(id);
 	}
 
 	render(){
@@ -154,6 +154,7 @@ class Users extends Component{
 					</div>
 				</div>
 
+				<ModalReset {...this.props} onRef={ref => this.modal_reset = ref} />
 			</div>
 		)
 	}

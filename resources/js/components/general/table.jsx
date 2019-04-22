@@ -66,7 +66,12 @@ class Table extends Component{
 			var clickFn = e.target.name !== undefined ? e.target.name : e.target.parentNode.name;
 			var id = e.target.value !== undefined ? e.target.value :e.target.parentNode.value;
 	
-			this.props[clickFn](id);
+			if(clickFn === 'reset'){
+				this.props[clickFn](e, id);
+			}else{
+				this.props[clickFn](id);
+			}
+			
 
 		})
 	}

@@ -44,8 +44,6 @@ class WaitingModal extends Component{
 				<div className="modal-dialog modal-sm">
 					<div className="modal-content">
           				<div className="modal-header">
-            				<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              				<span aria-hidden="true">&times;</span></button>
             				<h4 className="modal-title">
             					{this.state.message}
             				</h4>
