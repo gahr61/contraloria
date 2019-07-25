@@ -8,10 +8,11 @@ import Login from './components/auth/login';
 {/*Arministration*/}
 import Permissions from './components/containers/administration/permissions/';
 import Roles from './components/containers/administration/roles/';
+import FormRole from './components/containers/administration/roles/form';
 
 
 import Users from './components/containers/administration/users/';
-import Form from './components/containers/administration/users/form';
+import FormUser from './components/containers/administration/users/form';
 
 {/*Almacen*/}
 import Products from './components/containers/warehouse/products/';
@@ -42,8 +43,8 @@ export default (general)=>
 		<AppliedRoute path="/roles" exact component={Roles} title="Roles" />
 		
 		<AppliedRoute path="/users" exact component={Users} title="Usuarios" props={general} />
-		<AppliedRoute path="/users/new" exact component={Form} title="Nuevo Usuario" props={general} />
-		<AppliedRoute path="/users/:id" exact component={Form} title="Nuevo Usuario" props={general} />
+		<AppliedRoute path="/users/new" exact component={FormUser} title="Nuevo Usuario" props={general} />
+		<AppliedRoute path="/users/:id" exact component={FormUser} title="Editar Usuario" props={general} />
 
 
 		<AppliedRoute path="/articles" exact component={Products} />

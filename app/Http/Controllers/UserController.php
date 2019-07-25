@@ -91,6 +91,23 @@ class UserController extends Controller
 			\DB::rollback();
 			return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
 		}
-    
+    }
+
+    public function reset_password(Request $request){
+    	try{
+    		\DB::beginTransaction();
+    		$user = User::find($request->id);
+    		$user->password = \Hash::make($request->password);
+    		$user->save();
+
+    		\DB::commit();
+    		return response()->json([
+    			'ok'=>true,
+				'mensaje'=>"Se actualizo la contraseña correctamente."
+			]);
+    	}catch(\Exception $e){
+			\DB::rollback();
+			return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+		}
     }
 }

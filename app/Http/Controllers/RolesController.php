@@ -14,4 +14,32 @@ class RolesController extends Controller
 
     	return response()->json($roles);
     }
+
+    public function edit($id){
+    	$role = Role::find($id);
+
+    	return response()->json($role);
+    }
+
+    public function store(Request $request){
+    	try{
+			\DB::beginTransaction();
+		   	$role = new Role();
+	    	$user->name   = $request->name;
+	    	$user->display_name  = $request->display_name;
+	    	$user->description = $request->description;
+	    	$user->save();
+
+	    	\DB::commit();
+	    	
+	    	return response()->json([
+	    		'ok' => true,
+	    		'mensaje' => 'El Rol '.$user->name.' se registro correctamente.'
+	    	]);
+			
+	    }catch(\Exception $e){
+			\DB::rollback();
+			return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+		}
+    }
 }

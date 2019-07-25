@@ -9,48 +9,26 @@ class Form extends Component{
 		this.saving = this.saving.bind(this);
 		this.canceling = this.canceling.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.getUser = this.getUser.bind(this);
+		this.getRoles = this.getRoles.bind(this);
+
 		this.state = {
 			name:"",
-			email:"",
-			password:"",
-			rol_id:"",
-			user_id:"",
-			roles:[],
+			display_name:"",
+			description:"",
 		}
 	}
 
 	componentDidMount(){
-		fetch(this.props.general.api+'getRoles',{
-			method:'get',
-			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
-				'Accept'		: 'application/json',
-				'Content-Type'	: 'application/json'
-			})
-		}).then(res => {
-			if(res.ok){
-				return res.json();
-			}else{
-				console.log(res.text());
-			}
-		}).then(response => {
-			if(response !== undefined){
-				this.setState({roles:response});
-			}
-		});
-
-
 		if(this.props.match.params.id !== undefined){
 			setTimeout(()=>{
-				this.getUser();
+				this.getRole();
 			}, 300);
 		}
 	}
 
-	getUser(){
+	getRole(){
 		this.props.general.waiting.handleShow('Cargando...');
-		fetch(this.props.general.api+'user/'+this.props.match.params.id+'/edit',{
+		fetch(this.props.general.api+'roles/'+this.props.match.params.id,{
 			method:'get',
 			headers: new Headers({
 				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
@@ -66,13 +44,13 @@ class Form extends Component{
 			}
 		}).then(response => {
 			if(response !== undefined){
-				this.setState({
+				/*this.setState({
 					name:response.user.name,
 					email:response.user.email,
 					password:"",
 					rol_id:response.user.rol[0].id,
 					user_id:response.user.id,
-				})
+				})*/
 			}
 		});
 	}
@@ -89,22 +67,21 @@ class Form extends Component{
 		var obj = {}
 		if(this.props.match.params.id === undefined){
 			method = 'post';
-			url = 'user';
+			url = 'roles';
 			obj = {
 				name: this.state.name,
-				email: this.state.email,
-				password: this.state.password,
-				rol_id: this.state.rol_id,
+				display_name: this.state.display_name,
+				description: this.state.description
 			}
 
 		}else{
 			method = 'put';
-			url = 'user/'+this.props.match.params.id;
+			url = 'roles/update/'+this.props.match.params.id;
 			obj = {
 				id:this.state.user_id,
 				name: this.state.name,
-				email: this.state.email,
-				rol_id: this.state.rol_id,
+				display_name: this.state.email,
+				description: this.state.rol_id,
 			}
 		}
 			
@@ -128,14 +105,14 @@ class Form extends Component{
 			if(response !== undefined){
 				console.log(response);
 				//swal('Proceso terminado', response.mensaje, 'success');
-				this.props.history.push('/users');
+				this.props.history.push('/roles');
 			}
 		})
 	}
 
 	canceling(e){
 		e.preventDefault();
-		this.props.history.push('/users');
+		this.props.history.push('/roles');
 	}
 
 	render(){
@@ -150,32 +127,18 @@ class Form extends Component{
 									<div className="col-xs-12 form-group">
 										<span>Nombre</span>
 										<input type="text" name="name" id="name" className="form-control input-sm"
-											value={this.state.name}
-											onChange={this.handleChange} />
+											value={this.state.name} onChange={this.handleChange} />
 									</div>
 									<div className="col-xs-12 form-group">
-										<span>Correo</span>
-										<input type="text" name="email" id="email" className="form-control input-sm"
-											value={this.state.email}
-											onChange={this.handleChange} />
+										<span>Nombre a mostrar</span>
+										<input type="text" name="display_name" id="display_name" className="form-control input-sm"
+											value={this.state.display_name}	onChange={this.handleChange} />
 									</div> 
-									{this.props.match.params.id === undefined ?
-										<div className="col-xs-12 form-group">
-											<span>Contraseña</span>
-											<input type="password" name="password" id="password" 
-												className="form-control input-sm" onChange={this.handleChange} />
-										</div>
-									:null}
-										
+									
 									<div className="col-xs-12 form-group">
-										<span>Rol</span>
-										<select className="form-control input-sm" id="rol_id" name="rol_id"
-											value={this.state.rol_id} onChange={this.handleChange}>
-											<option value="">Selecciones...</option>
-											{this.state.roles.map((rol, i)=>(
-												<option key={i} value={rol.id}>{rol.display_name}</option>
-											))}
-										</select>
+										<span>Descripción</span>
+										<input type="text" name="description" id="description" value={this.state.description}
+											className="form-control input-sm" onChange={this.handleChange} />
 									</div>
 
 									<BtnsForm 

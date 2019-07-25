@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Title from '../../../general/title';
 import Table from '../../../general/table';
+import {Link} from 'react-router-dom';
 
 class Roles extends Component{
 	constructor(props){
@@ -106,7 +107,10 @@ class Roles extends Component{
 					<div className="box-body">
 						<div className="row">
 							<div className="col-xs-12 col-sm-1 form-group">
-								<button type="button" className="btn btn-block btn-primary btn-sm">Nuevo</button>
+								<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
+									Nuevo
+								</Link>
+
 							</div>
 
 							<Table {...this.props} 

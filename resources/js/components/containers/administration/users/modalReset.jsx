@@ -51,19 +51,53 @@ class ModalReset extends Component{
 	saving(e){
 		e.preventDefault();
 
+		var error = 0;
+
 		if(this.state.pass1 === ""){
 			$('#pass1').addClass('error');
+			error++;
 		}else{
 			$('#pass1').removeClass('error');
 		}
 
 		if(this.state.pass2 === ""){
 			$('#pass2').addClass('error');
+			error++;
 		}else{
 			$('#pass2').removeClass('error');
 		}
 
-		console.log('add')
+		if(error === 0){
+			if(this.state.pass1 === this.state.pass2){
+				var obj = {password:this.state.pass1};
+
+				this.props.general.waiting.handleShow('Guardando...');
+				fetch(this.props.general.api+'user/reset_password/'+this.state.user_id, {
+					method:'POST',
+					body:JSON.stringify(obj),
+					headers: new Headers({
+						//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+						'Accept'		: 'application/json',
+						'Content-Type'	: 'application/json'
+					})
+				}).then(res => {
+					this.props.general.waiting.handleClose();
+					if(res.ok){
+						return res.json();
+					}else{
+						console.log(res.text());
+					}
+				}).then(response => {
+					if(response !== undefined){
+						this.handleClose();
+						alert(response.mensaje);
+					}
+				});
+			}else{
+
+				
+			}
+		}
 	}
 
 	render(){
