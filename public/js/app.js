@@ -73605,7 +73605,20 @@ var Contact = function Contact() {
     path: "/roles",
     exact: true,
     component: _components_containers_administration_roles___WEBPACK_IMPORTED_MODULE_5__["default"],
-    title: "Roles"
+    title: "Roles",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/roles/new",
+    exact: true,
+    component: _components_containers_administration_roles_form__WEBPACK_IMPORTED_MODULE_6__["default"],
+    title: "Nuevo Rol",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/roles/:id/edit",
+    exact: true,
+    component: _components_containers_administration_roles_form__WEBPACK_IMPORTED_MODULE_6__["default"],
+    title: "Editar Rol",
+    props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/users",
     exact: true,
@@ -73619,7 +73632,7 @@ var Contact = function Contact() {
     title: "Nuevo Usuario",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/users/:id",
+    path: "/users/:id/edit",
     exact: true,
     component: _components_containers_administration_users_form__WEBPACK_IMPORTED_MODULE_8__["default"],
     title: "Editar Usuario",
@@ -74229,11 +74242,12 @@ function (_Component) {
     _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.getRoles = _this.getRoles.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getRole = _this.getRole.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       name: "",
       display_name: "",
-      description: ""
+      description: "",
+      id: ""
     };
     return _this;
   }
@@ -74255,7 +74269,7 @@ function (_Component) {
       var _this3 = this;
 
       this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'roles/' + this.props.match.params.id, {
+      fetch(this.props.general.api + 'roles/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
           //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
@@ -74272,13 +74286,12 @@ function (_Component) {
         }
       }).then(function (response) {
         if (response !== undefined) {
-          /*this.setState({
-          	name:response.user.name,
-          	email:response.user.email,
-          	password:"",
-          	rol_id:response.user.rol[0].id,
-          	user_id:response.user.id,
-          })*/
+          _this3.setState({
+            name: response.name,
+            description: response.description,
+            display_name: response.display_name,
+            id: response.id
+          });
         }
       });
     }
@@ -74307,12 +74320,12 @@ function (_Component) {
         };
       } else {
         method = 'put';
-        url = 'roles/update/' + this.props.match.params.id;
+        url = 'roles/' + this.props.match.params.id;
         obj = {
-          id: this.state.user_id,
+          id: this.state.id,
           name: this.state.name,
-          display_name: this.state.email,
-          description: this.state.rol_id
+          display_name: this.state.display_name,
+          description: this.state.description
         };
       }
 
@@ -74335,8 +74348,7 @@ function (_Component) {
         }
       }).then(function (response) {
         if (response !== undefined) {
-          console.log(response); //swal('Proceso terminado', response.mensaje, 'success');
-
+          //swal('Proceso terminado', response.mensaje, 'success');
           _this4.props.history.push('/roles');
         }
       });
@@ -74494,53 +74506,90 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      //this.table.setTable();
-      this.getRoles(); //this.table.resetTable();
-
+      this.setState({
+        data: []
+      });
       setTimeout(function () {
-        _this2.table.setTable();
-      }, 500);
+        _this2.getRoles();
+      }, 300);
     }
   }, {
     key: "getRoles",
-    value: function getRoles() {}
+    value: function getRoles() {
+      var _this3 = this;
+
+      this.props.general.waiting.handleShow('Cargando...');
+      fetch(this.props.general.api + 'roles', {
+        method: 'get',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        _this3.props.general.waiting.handleClose();
+
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var data = [];
+          response.role.map(function (r) {
+            data.push([r.name, r.display_name, r.description, r.id]);
+          });
+
+          _this3.setState({
+            data: data
+          });
+
+          setTimeout(function () {
+            _this3.table.setTable();
+          }, 500);
+        }
+      });
+    }
   }, {
     key: "editRole",
     value: function editRole(id) {
-      console.log(id);
+      this.props.history.push('/roles/' + id + '/edit');
     }
   }, {
     key: "deleteRole",
     value: function deleteRole(id) {
-      var _this3 = this;
+      var _this4 = this;
 
-      console.log(id);
-      this.state.data.map(function (d, i) {
-        d.map(function (v) {
-          if (v === id) {
-            _this3.state.data.splice(i, 1);
-          }
-        });
-      });
-      console.log(this.state.data);
-      this.forceUpdate();
-      setTimeout(function () {
-        console.log(_this3.state.data.length);
-
-        if (_this3.state.data.length === 0) {
-          _this3.table.resetTable();
+      fetch(this.props.general.api + 'roles/' + id, {
+        method: 'delete',
+        headers: new Headers({
+          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.text());
         }
-      }, 100);
+      }).then(function (response) {
+        if (response !== undefined) {
+          //swal('Proceso terminado', response.mensaje, 'success');
+          _this4.table.resetTable();
+
+          _this4.getRoles();
+        }
+      });
     }
   }, {
     key: "assignPermisions",
-    value: function assignPermisions(id) {
-      console.log(id);
-    }
+    value: function assignPermisions(id) {}
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
@@ -74562,7 +74611,7 @@ function (_Component) {
         getList: this.getRole,
         assign: this.assignPermisions,
         onRef: function onRef(ref) {
-          return _this4.table = ref;
+          return _this5.table = ref;
         }
       }))))));
     }
@@ -74981,7 +75030,7 @@ function (_Component) {
   }, {
     key: "editUser",
     value: function editUser(id) {
-      this.props.history.push('/users/' + id);
+      this.props.history.push('/users/' + id + '/edit');
     }
   }, {
     key: "deleteUser",

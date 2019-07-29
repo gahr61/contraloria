@@ -94,7 +94,7 @@ class Users extends Component{
 	}
 
 	editUser(id){
-		this.props.history.push('/users/'+id);
+		this.props.history.push('/users/'+id+'/edit');
 	}
 
 	deleteUser(id){

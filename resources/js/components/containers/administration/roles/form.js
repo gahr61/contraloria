@@ -9,12 +9,13 @@ class Form extends Component{
 		this.saving = this.saving.bind(this);
 		this.canceling = this.canceling.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.getRoles = this.getRoles.bind(this);
+		this.getRole = this.getRole.bind(this);
 
 		this.state = {
 			name:"",
 			display_name:"",
 			description:"",
+			id:"",
 		}
 	}
 
@@ -28,7 +29,7 @@ class Form extends Component{
 
 	getRole(){
 		this.props.general.waiting.handleShow('Cargando...');
-		fetch(this.props.general.api+'roles/'+this.props.match.params.id,{
+		fetch(this.props.general.api+'roles/'+this.props.match.params.id+'/edit',{
 			method:'get',
 			headers: new Headers({
 				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
@@ -44,13 +45,12 @@ class Form extends Component{
 			}
 		}).then(response => {
 			if(response !== undefined){
-				/*this.setState({
-					name:response.user.name,
-					email:response.user.email,
-					password:"",
-					rol_id:response.user.rol[0].id,
-					user_id:response.user.id,
-				})*/
+				this.setState({
+					name:response.name,
+					description:response.description,
+					display_name:response.display_name,
+					id:response.id
+				});
 			}
 		});
 	}
@@ -76,12 +76,12 @@ class Form extends Component{
 
 		}else{
 			method = 'put';
-			url = 'roles/update/'+this.props.match.params.id;
+			url = 'roles/'+this.props.match.params.id;
 			obj = {
-				id:this.state.user_id,
+				id:this.state.id,
 				name: this.state.name,
-				display_name: this.state.email,
-				description: this.state.rol_id,
+				display_name: this.state.display_name,
+				description: this.state.description,
 			}
 		}
 			
@@ -103,7 +103,6 @@ class Form extends Component{
 			}
 		}).then(response => {
 			if(response !== undefined){
-				console.log(response);
 				//swal('Proceso terminado', response.mensaje, 'success');
 				this.props.history.push('/roles');
 			}

@@ -54,49 +54,81 @@ class Roles extends Component{
 	}
 
 	componentDidMount(){
-		//this.table.setTable();
-		this.getRoles();
-		//this.table.resetTable();
+		this.setState({data:[]});
 		setTimeout(()=>{
-			this.table.setTable();
-		}, 500);
+			this.getRoles();
+		}, 300);
 	}
 
 	getRoles(){
+		this.props.general.waiting.handleShow('Cargando...');
+		fetch(this.props.general.api+'roles',{
+			method:'get',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json'
+			})
+		}).then(res => {
+			this.props.general.waiting.handleClose();
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
+			}
+		}).then(response => {
+			if(response !== undefined){
+				var data = []
+				response.role.map((r)=>{
+					data.push([
+						r.name,
+						r.display_name,
+						r.description,
+						r.id
+					])
+				})
+					
+				this.setState({
+					data: data
+				});
+
+				setTimeout(()=>{
+					this.table.setTable();
+				}, 500);
+			}
+		})
 	}
 
 	editRole(id){
-		console.log(id);
+		this.props.history.push('/roles/'+id+'/edit');
 	}
 
 	deleteRole(id){
-		console.log(id);
-		this.state.data.map((d, i)=>{
-			d.map((v)=>{
-				if(v === id){
-					this.state.data.splice(i, 1);
-				}
+		fetch(this.props.general.api+'roles/'+id,{
+			method:'delete',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json',
 			})
-		})
-
-		console.log(this.state.data)
-		this.forceUpdate();
-
-
-		
-		setTimeout(()=>{
-			console.log(this.state.data.length)
-			if(this.state.data.length === 0){
-				this.table.resetTable()
+		}).then(res => {
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
 			}
-		}, 100);
-
-		
-			
+		}).then(response => {
+			if(response !== undefined){
+				//swal('Proceso terminado', response.mensaje, 'success');
+				this.table.resetTable();
+				this.getRoles();
+				
+			}
+		})
 	}
 
 	assignPermisions(id){
-		console.log(id);
+				
 	}
 
 	render(){
