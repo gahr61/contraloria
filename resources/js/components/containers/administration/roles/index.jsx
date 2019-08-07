@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import Title from '../../../general/title';
 import Table from '../../../general/table';
 import {Link} from 'react-router-dom';
+import ModalPermissions from './modalPermissions';
+
+import 'multiselect/css/multi-select.css';
+import  MultiSelect from 'multiselect';
 
 class Roles extends Component{
 	constructor(props){
@@ -128,7 +132,7 @@ class Roles extends Component{
 	}
 
 	assignPermisions(id){
-				
+		this.modal_permissions.handleShow(id);
 	}
 
 	render(){
@@ -153,10 +157,13 @@ class Roles extends Component{
 								delete 	= {this.deleteRole}
 								getList = {this.getRole}
 								assign 	= {this.assignPermisions}
-								onRef 	= {ref => (this.table = ref)}/>
+								onRef 	= {ref => (this.table = ref)}
+								filter  = {false}/>
 						</div>
 					</div>
 				</div>
+
+				<ModalPermissions {...this.props} onRef={ref => this.modal_permissions = ref} />
 			</div>
 		)
 	}

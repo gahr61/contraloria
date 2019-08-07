@@ -149,7 +149,8 @@ class Users extends Component{
 								delete 	= {this.deleteUser}
 								getList = {this.getUser}
 								reset 	= {this.resetPass}
-								onRef 	= {ref => (this.table = ref)}/>
+								onRef 	= {ref => (this.table = ref)}
+								filter  = {false}/>
 						</div>
 					</div>
 				</div>

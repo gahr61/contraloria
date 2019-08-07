@@ -7,6 +7,8 @@ import Login from './components/auth/login';
 
 {/*Arministration*/}
 import Permissions from './components/containers/administration/permissions/';
+import FormPermission from './components/containers/administration/permissions/form';
+
 import Roles from './components/containers/administration/roles/';
 import FormRole from './components/containers/administration/roles/form';
 
@@ -39,7 +41,9 @@ export default (general)=>
 		<AppliedRoute path="/login" exact component={Login} props={general} />
 
 		<AppliedRoute path="/" exact component={Home} />
-		<AppliedRoute path="/permissions" exact component={Permissions} title="Permisos" />
+		<AppliedRoute path="/permissions" exact component={Permissions} title="Permisos" props={general} />
+		<AppliedRoute path="/permissions/new" exact component={FormPermission} title="Nuevo Permiso" props={general} />
+		<AppliedRoute path="/permissions/:id/edit" exact component={FormPermission} title="Editar Permiso" props={general}/>
 		
 		<AppliedRoute path="/roles" exact component={Roles} title="Roles" props={general} />
 		<AppliedRoute path="/roles/new" exact component={FormRole} title="Nuevo Rol" props={general} />

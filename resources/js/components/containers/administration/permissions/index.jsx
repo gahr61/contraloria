@@ -14,35 +14,69 @@ class Permissions extends Component{
 				{title:'Nombre mostrado'},
 				{title:'Descripción'},
 			],
-			data: [[
-				'admin_menu',
-				'Menu Administración',
-				'Permite ver menu administracion',
-				1
-			],[
-				'admin_user_view',
-				'Ver usuarios',
-				'Permite ver listado de usuarios',
-				2
-			]],
-			actionButton: []
+			data: [],
+			actionButton: [{	
+				btn: true, 
+				name:'Editar', 
+				class:'btn btn-warning btn-xs action-btn', 
+				icon:'fa fa-pencil',
+				clickFn:'edit'
+			},
+			{	btn: true, 
+				name:'Eliminar', 
+				class:'btn btn-danger btn-xs action-btn', 
+				icon:'glyphicon glyphicon-remove-circle',
+				clickFn:'delete'
+			}]
 		}
 	}
 
 	UNSAFE_componentWillMount(){
-		//this.table.setTable();
-		this.getPermissions();
-		//this.table.resetTable();
+		this.setState({data:[]});
 		setTimeout(()=>{
-			this.table.setTable();
-		}, 100);		
+			this.getPermissions();
+		}, 300);		
 	}
 
 	getPermissions(){
+		this.props.general.waiting.handleShow('Cargando...');
+		fetch(this.props.general.api+'permissions',{
+			method:'get',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json'
+			})
+		}).then(res => {
+			this.props.general.waiting.handleClose();
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
+			}
+		}).then(response => {
+			if(response !== undefined){
+				var data = []
+				response.permission.map((r)=>{
+					data.push([
+						r.name,
+						r.display_name,
+						r.description,
+						r.id
+					])
+				})
+					
+				this.setState({
+					data: data
+				});
 
+				setTimeout(()=>{
+					this.table.setTable();
+				}, 500);
+			}
+		})
 		
 	}
-
 
 	render(){
 		return (
@@ -51,11 +85,13 @@ class Permissions extends Component{
 				<div className="box box-default">
 					<div className="box-body">
 						<div className="row">
+							
 							<Table {...this.props} 
 								columns	= {this.state.columns} 
 								data	= {this.state.data} 
 								buttons	= {this.state.actionButton}
-								onRef 	= {ref => (this.table = ref)}/>
+								onRef 	= {ref => (this.table = ref)}
+								filter  = {true} />
 						</div>
 					</div>
 				</div>

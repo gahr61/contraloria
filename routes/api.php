@@ -27,6 +27,11 @@ Route::group([
 	Route::post('me', 'AuthController@me');
 });
 
+Route::resource('permissions', 'PermissionController');
+Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
+route::post('toAssign', 'PermissionController@toAssign');
+route::post('design', 'PermissionController@design');
+
 Route::get('getRoles', 'RolesController@getRoles');
 Route::resource('roles', 'RolesController');
 /*

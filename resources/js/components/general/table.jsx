@@ -36,7 +36,7 @@ class Table extends Component{
 			columns:this.props.columns,
 			paging:false,
 			responsive:true,
-			searching: false,
+			searching: this.props.filter,
 			scrollY:"32em",
 			scrollX: true,
 			autoWidth: false,
