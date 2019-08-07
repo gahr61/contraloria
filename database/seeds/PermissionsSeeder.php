@@ -36,20 +36,26 @@ class PermissionsSeeder extends Seeder
 
             DB::table('permissions')->insert([
                 'name'          => 'admin_roles_assign_permissions',
-                'display_name'  => 'Asignacion de permisos a rol',
+                'display_name'  => 'Asignación de permisos a rol',
                 'description'   => 'Permite asignar permisos a un rol.'
             ]);
 
             DB::table('permissions')->insert([
+                'name'          => 'admin_roles_new',
+                'display_name'  => 'Nuevo de rol',
+                'description'   => 'Permite registrar información de un rol.'
+            ]);
+
+            DB::table('permissions')->insert([
                 'name'          => 'admin_roles_edit',
-                'display_name'  => 'Edicion de rol',
-                'description'   => 'Permite editar informacion de un rol.'
+                'display_name'  => 'Edición de rol',
+                'description'   => 'Permite editar información de un rol.'
             ]);
 
             DB::table('permissions')->insert([
                 'name'          => 'admin_roles_delete',
-                'display_name'  => 'Eliminacion de rol',
-                'description'   => 'Permite eliminar informacion de un rol.'
+                'display_name'  => 'Eliminación de rol',
+                'description'   => 'Permite eliminar información de un rol.'
             ]);
 
             //users
@@ -60,43 +66,22 @@ class PermissionsSeeder extends Seeder
             ]);
 
             DB::table('permissions')->insert([
+                'name'          => 'admin_users_new',
+                'display_name'  => 'Nuevo usuario',
+                'description'   => 'Permite registrar información de un usuario.'
+            ]);
+
+            DB::table('permissions')->insert([
                 'name'          => 'admin_users_edit',
-                'display_name'  => 'Edicion de rol',
-                'description'   => 'Permite editar informacion de un usuario.'
+                'display_name'  => 'Edición de rol',
+                'description'   => 'Permite editar información de un usuario.'
             ]);
 
             DB::table('permissions')->insert([
                 'name'          => 'admin_users_delete',
-                'display_name'  => 'Eliminacion de rol',
-                'description'   => 'Permite eliminar informacion de un usuario.'
-            ]);
-
-        //warehouse
-            DB::table('permissions')->insert([
-                'name'          => 'warehouse_menu',
-                'display_name'  => 'Menu Almacen',
-                'description'   => 'Permite ver el menu de Almacen.'
-            ]);
-
-            //products
-            DB::table('permissions')->insert([
-                'name'          => 'warehouse_products_view',
-                'display_name'  => 'Ver productos',
-                'description'   => 'Permite listado de productos del sistema.'
-            ]);
-
-            DB::table('permissions')->insert([
-                'name'          => 'warehouse_products_edit',
-                'display_name'  => 'Edicion de producto',
-                'description'   => 'Permite editar informacion de un producto.'
-            ]);
-
-            DB::table('permissions')->insert([
-                'name'          => 'warehouse_products_delete',
-                'display_name'  => 'Eliminacion de rol',
-                'description'   => 'Permite eliminar informacion de un producto.'
-            ]);
-            
+                'display_name'  => 'Eliminación de rol',
+                'description'   => 'Permite eliminar información de un usuario.'
+            ]);          
 
 
     }

@@ -12,6 +12,8 @@ class PermissionController extends Controller
     public function index(){
     	$permission = Permission::select('id', 'name', 'display_name', 'description')->get();
 
+        $permissions = Permission::all();
+
     	return response()->json([
     		'permission'=>$permission,
     		'ok'=>true

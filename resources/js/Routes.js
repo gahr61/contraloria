@@ -25,16 +25,6 @@ const Home = ()=>(
 		<h1>Inicio</h1>
 	</div>
 )
-const About = ()=>(
-	<h1>Acerca</h1>
-)
-const Services = ()=>(
-	<h1>Servicios</h1>
-)
-
-const Contact = ()=>(
-	<h1>contacto</h1>
-)
 
 export default (general)=>
 	<Switch>
@@ -55,6 +45,4 @@ export default (general)=>
 
 
 		<AppliedRoute path="/articles" exact component={Products} />
-		<AppliedRoute path="/inventory" exact component={About} />
-		<AppliedRoute path="/notes" exact component={About} />
 	</Switch>;

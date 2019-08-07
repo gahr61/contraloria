@@ -13,9 +13,17 @@ class Login extends Component{
 		    show_alert: false,
 		    message:"",
 
-			user:"admin@admin.com",
-			pass:"adminadmin",
+			user:"sistemas@lacarreta.biz",
+			pass:"s0p0rt3",
 		}
+	}
+
+	componentDidMount(){
+		$('body').addClass("hold-transition login-page");
+		$('.main-header').css({height: '0px', top:'-60px'});
+		$('.main-sidebar').css('width', '0px');
+		$('.content-wrapper').css('margin-left', '0px');
+
 	}
 
 	handleChange(e){
@@ -48,6 +56,10 @@ class Login extends Component{
 			}
 		}).then(response => {
 			if(response !== undefined){
+				sessionStorage.setItem("authenticated", true);
+				sessionStorage.setItem("token", response.access_token);
+				sessionStorage.setItem("permissions", JSON.stringify(response.permissions));
+				sessionStorage.setItem("user", JSON.stringify(response.user));
 				this.setState({show_alert:false});
 				this.props.general.setValues(response);
 			}else{
