@@ -38,7 +38,6 @@ class ModalReset extends Component{
 
 	handleShow(id) {
 		this.setState({user_id:id});
-		console.log(id)
 		$('#modal_reset').addClass('in');
 		$('#modal_reset').css('display', 'block');
 	}
