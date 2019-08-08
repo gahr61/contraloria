@@ -60,14 +60,13 @@ class Companies extends Component{
 		}).then(response => {
 			if(response !== undefined){
 				var data = []
-				/*response.role.map((r)=>{
+				response.company.map((r)=>{
 					data.push([
+						r.id,
 						r.name,
-						r.display_name,
-						r.description,
 						r.id
 					])
-				})*/
+				})
 					
 				this.setState({
 					data: data
@@ -102,7 +101,7 @@ class Companies extends Component{
 			if(response !== undefined){
 				//swal('Proceso terminado', response.mensaje, 'success');
 				this.table.resetTable();
-				this.getRoles();
+				this.getCompany();
 				
 			}
 		})
@@ -127,9 +126,9 @@ class Companies extends Component{
 								columns	= {this.state.columns} 
 								data	= {this.state.data} 
 								buttons	= {this.state.actionButton}
-								edit 	= {this.editRole}
-								delete 	= {this.deleteRole}
-								getList = {this.getRole}
+								edit 	= {this.editCompany}
+								delete 	= {this.deleteCompany}
+								getList = {this.getCompany}
 								onRef 	= {ref => (this.table = ref)}
 								filter  = {true}/>
 						</div>

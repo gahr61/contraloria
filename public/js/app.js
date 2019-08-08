@@ -92934,13 +92934,13 @@ var Home = function Home() {
     path: "/companies/new",
     exact: true,
     component: _components_containers_company_form__WEBPACK_IMPORTED_MODULE_11__["default"],
-    title: "Nuevo Usuario",
+    title: "Nuevo Empresa",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/companies/:id/edit",
     exact: true,
     component: _components_containers_company_form__WEBPACK_IMPORTED_MODULE_11__["default"],
-    title: "Editar Usuario",
+    title: "Editar Empresa",
     props: general
   }));
 });
@@ -95530,14 +95530,9 @@ function (_Component) {
       }).then(function (response) {
         if (response !== undefined) {
           var data = [];
-          /*response.role.map((r)=>{
-          	data.push([
-          		r.name,
-          		r.display_name,
-          		r.description,
-          		r.id
-          	])
-          })*/
+          response.company.map(function (r) {
+            data.push([r.id, r.name, r.id]);
+          });
 
           _this3.setState({
             data: data
@@ -95577,7 +95572,7 @@ function (_Component) {
           //swal('Proceso terminado', response.mensaje, 'success');
           _this4.table.resetTable();
 
-          _this4.getRoles();
+          _this4.getCompany();
         }
       });
     }
@@ -95601,9 +95596,9 @@ function (_Component) {
         columns: this.state.columns,
         data: this.state.data,
         buttons: this.state.actionButton,
-        edit: this.editRole,
-        delete: this.deleteRole,
-        getList: this.getRole,
+        edit: this.editCompany,
+        delete: this.deleteCompany,
+        getList: this.getCompany,
         onRef: function onRef(ref) {
           return _this5.table = ref;
         },

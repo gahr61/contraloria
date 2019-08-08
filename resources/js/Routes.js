@@ -46,6 +46,6 @@ export default (general)=>
 
 
 		<AppliedRoute path="/companies" exact component={Companies} title="Empresas" props={general} />
-		<AppliedRoute path="/companies/new" exact component={FormCompany} title="Nuevo Usuario" props={general} />
-		<AppliedRoute path="/companies/:id/edit" exact component={FormCompany} title="Editar Usuario" props={general} />
+		<AppliedRoute path="/companies/new" exact component={FormCompany} title="Nuevo Empresa" props={general} />
+		<AppliedRoute path="/companies/:id/edit" exact component={FormCompany} title="Editar Empresa" props={general} />
 	</Switch>;

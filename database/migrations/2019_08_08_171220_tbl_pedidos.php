@@ -16,6 +16,8 @@ class TblPedidos extends Migration
         Schema::create('company', function(Blueprint $table){
             $table->increments('id');
             $table->string('name')->unique();
+
+            $table->timestamps();
         });
 
         Schema::create('orders', function(Blueprint $table){

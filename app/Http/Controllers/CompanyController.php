@@ -16,7 +16,10 @@ class CompanyController extends Controller
     {
         $companies = Company::select('id', 'name')->get();
 
-        return response()->json($companies);
+        return response()->json([
+            'ok'=>true,
+            'company'=>$companies
+        ]);
     }
 
 
@@ -28,7 +31,23 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            \DB::beginTransaction();
+            $company = new Company();
+            $company->fill($request->all());
+            $company->save();
+            \DB::commit();
+            
+            return response()->json([
+                'ok' => true,
+                'mensaje' => 'La empresa '.$company->name.' se registro correctamente.'
+            ]);
+            
+        }catch(\Exception $e){
+            \DB::rollback();
+            return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+        }
+
     }
 
 
@@ -40,7 +59,9 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Company::find($id);
+
+        return response()->json($company);
     }
 
     /**
@@ -52,7 +73,22 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            \DB::beginTransaction();
+            $company = Company::find($id);
+            $company->fill($request->all());
+            $company->save();
+            \DB::commit();
+            
+            return response()->json([
+                'ok' => true,
+                'mensaje' => 'La empresa '.$company->name.' se actualizo correctamente.'
+            ]);
+            
+        }catch(\Exception $e){
+            \DB::rollback();
+            return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+        }        
     }
 
     /**
@@ -63,6 +99,21 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            \DB::beginTransaction();    
+            $company = Company::find($id);
+            $company->delete();
+
+            \DB::commit();
+
+            return response()->json([
+                'ok'=>true,
+                'mensaje'=>"La empresa ".$company->name." se elimino con exito."
+            ]);
+        }catch(\Exception $e){
+            \DB::rollback();
+            
+            return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+        }
     }
 }
