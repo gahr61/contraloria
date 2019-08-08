@@ -51,7 +51,8 @@ class AuthController extends Controller
     		'expires_in'=>auth()->factory()->getTTL() * 60,
     		'user'=>[
                 'name'=>auth()->user()->name,
-                'id'=>auth()->user()->id
+                'id'=>auth()->user()->id,
+                'created_at'=>auth()->user()->created_at->toDateString()
             ],
             'permissions'=>$user_permissions,
     		'ok'=>true,

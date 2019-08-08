@@ -16,7 +16,6 @@ class Roles extends Component{
 		this.editRole 	= this.editRole.bind(this);
 		this.deleteRole = this.deleteRole.bind(this)
 
-		console.log(this.props)
 		this.state = {
 			columns: [
 				{title:'Nombre'},

@@ -11,7 +11,7 @@ const LeftPanel = (props)=>(
 	        	</div>
 	        	<div className="pull-left info">
 	          		<p>{props.user.name}</p>
-	          		<Link to="#" onClick={props.logout()}><i className="fa fa-circle text-success"></i> Online</Link>
+	          		<Link to="#"><i className="fa fa-circle text-success"></i> Online</Link>
 	        	</div>
 	      	</div>
 	      	<ul className="sidebar-menu" data-widget="tree">
@@ -35,7 +35,7 @@ const LeftPanel = (props)=>(
 				            {props.permissions.admin_roles_view ?
 				            	<li><Link to="/roles"><i className="fa fa-circle-o"></i>Roles</Link></li>
 				            :null}
-				            {props.permissions.admin_user_view ?
+				            {props.permissions.admin_users_view ?
 				            	<li><Link to="/users"><i className="fa fa-circle-o"></i>Usuarios</Link></li>
 				            :null}
 			          	</ul>

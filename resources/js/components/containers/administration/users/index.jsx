@@ -112,7 +112,6 @@ class Users extends Component{
 				console.log(res.text());
 			}
 		}).then(response => {
-			console.log(response)
 			if(response !== undefined){
 				//swal('Proceso terminado', response.mensaje, 'success');
 				this.table.resetTable();

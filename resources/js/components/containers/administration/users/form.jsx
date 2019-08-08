@@ -126,7 +126,6 @@ class Form extends Component{
 			}
 		}).then(response => {
 			if(response !== undefined){
-				console.log(response);
 				//swal('Proceso terminado', response.mensaje, 'success');
 				this.props.history.push('/users');
 			}

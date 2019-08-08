@@ -10,6 +10,7 @@ import './App.css';
 import Header from './general/header';
 import LeftPanel from './general/leftpanel';
 import Login from './auth/login';
+import ModalReset from './containers/administration/users/modalReset';
 
 const Config = require('../api');
 
@@ -20,6 +21,7 @@ class App extends Component {
 		//this.setToken = this.setToken.bind(this);
 		this.setValues = this.setValues.bind(this);
 		this.logout = this.logout.bind(this);
+		this.resetPass = this.resetPass.bind(this);
 
 		this.state = {
 			authenticated: false,
@@ -81,6 +83,12 @@ class App extends Component {
 		this.props.history.push('/');
 	}
 
+	resetPass(e){
+		e.preventDefault();
+		var id = this.state.user.id;
+		this.modal_reset.handleShow(id);
+	}
+
 
   	render() {
   		const generalProps = {
@@ -96,9 +104,9 @@ class App extends Component {
 			<div>
 				
 				<div className="wrapper">
-					<Header />
+					<Header logout={(e)=>this.logout} reset={(e)=>this.resetPass} user={this.state.user}/>
 	  			
-	  				<LeftPanel logout={(e)=>this.logout} user={this.state.user} permissions={this.state.permissions} />
+	  				<LeftPanel user={this.state.user} permissions={this.state.permissions} />
 
 			  		<div className="content-wrapper">
 			  			<section className="content">
@@ -110,7 +118,7 @@ class App extends Component {
 
 				</div>
 				
-
+				<ModalReset {...this.props} onRef={ref => this.modal_reset = ref} />
 				<WaitingModal {...this.props} onRef={ref => (this.waiting_modal = ref)}/>
 			</div>
 		);
