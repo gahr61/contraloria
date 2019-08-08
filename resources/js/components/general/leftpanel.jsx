@@ -41,20 +41,9 @@ const LeftPanel = (props)=>(
 			          	</ul>
 			        </li>
 	        	:null}
-		        	
-		        <li className="treeview">
-		          	<a href="#">
-			            <i className="fa fa-archive"></i> <span>Almacen</span>
-			            <span className="pull-right-container">
-			              	<i className="fa fa-angle-left pull-right"></i>
-			            </span>
-		          	</a>
-		          	<ul className="treeview-menu">
-			            <li><Link to="/articles"><i className="fa fa-circle-o"></i>Articulos</Link></li>
-			            <li><Link to="/inventory"><i className="fa fa-circle-o"></i>Inventario</Link></li>
-			            <li><Link to="/notes"><i className="fa fa-circle-o"></i>Notas</Link></li>
-		          	</ul>
-		        </li>
+	        	<li><Link to="/companies"><i className="fa fa-book"></i> <span>Empresas</span></Link></li>
+	        	<li><Link to="/orders"><i className="fa fa-circle-o"></i>Pedidos</Link></li>
+		       
 	        </ul>
       	</section>
 	</aside>

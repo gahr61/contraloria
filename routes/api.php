@@ -34,16 +34,8 @@ route::post('design', 'PermissionController@design');
 
 Route::get('getRoles', 'RolesController@getRoles');
 Route::resource('roles', 'RolesController');
-/*
-Route::get('roles/{id}', 'RolesController@edit');
-Route::post('roles', 'RolesController@store');
-Route::put('roles/update/{id}', 'RolesController@update');*/
 
 Route::resource('user', 'UserController');
 Route::post('user/reset_password/{id}', 'UserController@reset_password');
-/*
-Route::post('user', 'UserController@store');
-Route::get('user', 'UserController@index');
-Route::delete('user/{id}/destroy', 'UserController@destroy');
-Route::get('user/{id}', 'UserController@edit');
-Route::put('user/update/{id}', 'UserController@update');*/
+
+Route::resource('companies', 'CompanyController');

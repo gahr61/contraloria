@@ -16,8 +16,9 @@ import FormRole from './components/containers/administration/roles/form';
 import Users from './components/containers/administration/users/';
 import FormUser from './components/containers/administration/users/form';
 
-{/*Almacen*/}
-import Products from './components/containers/warehouse/products/';
+{/*Companies*/}
+import Companies from './components/containers/company/';
+import FormCompany from './components/containers/company/form';
 
 
 const Home = ()=>(
@@ -44,5 +45,7 @@ export default (general)=>
 		<AppliedRoute path="/users/:id/edit" exact component={FormUser} title="Editar Usuario" props={general} />
 
 
-		<AppliedRoute path="/articles" exact component={Products} />
+		<AppliedRoute path="/companies" exact component={Companies} title="Empresas" props={general} />
+		<AppliedRoute path="/companies/new" exact component={FormCompany} title="Nuevo Usuario" props={general} />
+		<AppliedRoute path="/companies/:id/edit" exact component={FormCompany} title="Editar Usuario" props={general} />
 	</Switch>;
