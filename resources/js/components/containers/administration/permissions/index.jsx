@@ -15,7 +15,7 @@ class Permissions extends Component{
 				{title:'Descripción'},
 			],
 			data: [],
-			actionButton: [{	
+			actionButton: [/*{	
 				btn: true, 
 				name:'Editar', 
 				class:'btn btn-warning btn-xs action-btn', 
@@ -27,7 +27,7 @@ class Permissions extends Component{
 				class:'btn btn-danger btn-xs action-btn', 
 				icon:'glyphicon glyphicon-remove-circle',
 				clickFn:'delete'
-			}]
+			}*/]
 		}
 	}
 
@@ -85,7 +85,6 @@ class Permissions extends Component{
 				<div className="box box-default">
 					<div className="box-body">
 						<div className="row">
-							
 							<Table {...this.props} 
 								columns	= {this.state.columns} 
 								data	= {this.state.data} 

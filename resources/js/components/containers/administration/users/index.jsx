@@ -23,19 +23,19 @@ class Users extends Component{
 			],
 			data: [],
 			actionButton: [
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_users_reset, 
 					name:'Reset Contraseña', 
 					class:'btn btn-info btn-xs action-btn',
 					icon:'fa fa-key',
 					clickFn:'reset'
 				},
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_users_edit, 
 					name:'Editar', 
 					class:'btn btn-warning btn-xs action-btn', 
 					icon:'fa fa-pencil',
 					clickFn:'edit'
 				},
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_users_delete, 
 					name:'Eliminar', 
 					class:'btn btn-danger btn-xs', 
 					icon:'glyphicon glyphicon-remove-circle action-btn',
@@ -124,7 +124,6 @@ class Users extends Component{
 
 	resetPass(e, id){
 		e.preventDefault();
-		console.log(id);
 		this.modal_reset.handleShow(id);
 	}
 
@@ -135,11 +134,14 @@ class Users extends Component{
 				<div className="box box-default">
 					<div className="box-body">
 						<div className="row">
-							<div className="col-xs-12 col-sm-1 form-group">
-								<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
-									Nuevo
-								</Link>
-							</div>
+							{this.props.general.permissions.admin_users_new ? 
+								<div className="col-xs-12 col-sm-1 form-group">
+									<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
+										Nuevo
+									</Link>
+								</div>
+							:null}
+								
 
 							<Table {...this.props} 
 								columns	= {this.state.columns} 

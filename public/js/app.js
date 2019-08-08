@@ -75655,13 +75655,21 @@ function (_Component) {
   _createClass(Login, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      $('body').addClass("hold-transition login-page");
-      $('.main-header').css({
-        height: '0px',
-        top: '-60px'
-      });
-      $('.main-sidebar').css('width', '0px');
-      $('.content-wrapper').css('margin-left', '0px');
+      var auth = sessionStorage.getItem('authenticated');
+
+      if (auth === null || auth === undefined) {
+        $('body').addClass("hold-transition login-page");
+        $('.main-header').css({
+          height: '0px',
+          top: '-60px'
+        });
+        $('.main-sidebar').css('width', '0px');
+        $('.content-wrapper').css('margin-left', '0px');
+      } else {
+        if (this.props.history !== undefined) {
+          this.props.history.push('/');
+        }
+      }
     }
   }, {
     key: "handleChange",
@@ -76066,19 +76074,21 @@ function (_Component) {
         title: 'Descripción'
       }],
       data: [],
-      actionButton: [{
-        btn: true,
-        name: 'Editar',
-        class: 'btn btn-warning btn-xs action-btn',
-        icon: 'fa fa-pencil',
-        clickFn: 'edit'
-      }, {
-        btn: true,
-        name: 'Eliminar',
-        class: 'btn btn-danger btn-xs action-btn',
-        icon: 'glyphicon glyphicon-remove-circle',
-        clickFn: 'delete'
-      }]
+      actionButton: [
+        /*{	
+        btn: true, 
+        name:'Editar', 
+        class:'btn btn-warning btn-xs action-btn', 
+        icon:'fa fa-pencil',
+        clickFn:'edit'
+        },
+        {	btn: true, 
+        name:'Eliminar', 
+        class:'btn btn-danger btn-xs action-btn', 
+        icon:'glyphicon glyphicon-remove-circle',
+        clickFn:'delete'
+        }*/
+      ]
     };
     return _this;
   }
@@ -76447,6 +76457,7 @@ function (_Component) {
     _this.assignPermisions = _this.assignPermisions.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.editRole = _this.editRole.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.deleteRole = _this.deleteRole.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    console.log(_this.props);
     _this.state = {
       columns: [{
         title: 'Nombre'
@@ -76459,19 +76470,19 @@ function (_Component) {
       }],
       data: [['test', 'test', 'test', 1], ['Paleleria', 'papeleria', 'Permite utilizar los modulos de papeleria', 2]],
       actionButton: [{
-        btn: true,
+        btn: _this.props.general.permissions.admin_roles_assign_permissions,
         name: 'Permisos',
         class: 'btn btn-success btn-xs action-btn',
         icon: null,
         clickFn: 'assign'
       }, {
-        btn: true,
+        btn: _this.props.general.permissions.admin_roles_edit,
         name: 'Editar',
         class: 'btn btn-warning btn-xs action-btn',
         icon: 'fa fa-pencil',
         clickFn: 'edit'
       }, {
-        btn: true,
+        btn: _this.props.general.permissions.admin_roles_delete,
         name: 'Eliminar',
         class: 'btn btn-danger btn-xs action-btn',
         icon: 'glyphicon glyphicon-remove-circle',
@@ -76579,12 +76590,12 @@ function (_Component) {
         className: "box-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.general.permissions.admin_roles_new ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 col-sm-1 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
         to: "".concat(this.props.match.url, "/new"),
         className: "btn btn-block btn-primary btn-sm"
-      }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, this.props, {
+      }, "Nuevo")) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, this.props, {
         columns: this.state.columns,
         data: this.state.data,
         buttons: this.state.actionButton,
@@ -77154,19 +77165,19 @@ function (_Component) {
       }],
       data: [],
       actionButton: [{
-        btn: true,
+        btn: _this.props.general.permissions.admin_users_reset,
         name: 'Reset Contraseña',
         class: 'btn btn-info btn-xs action-btn',
         icon: 'fa fa-key',
         clickFn: 'reset'
       }, {
-        btn: true,
+        btn: _this.props.general.permissions.admin_users_edit,
         name: 'Editar',
         class: 'btn btn-warning btn-xs action-btn',
         icon: 'fa fa-pencil',
         clickFn: 'edit'
       }, {
-        btn: true,
+        btn: _this.props.general.permissions.admin_users_delete,
         name: 'Eliminar',
         class: 'btn btn-danger btn-xs',
         icon: 'glyphicon glyphicon-remove-circle action-btn',
@@ -77265,7 +77276,6 @@ function (_Component) {
     key: "resetPass",
     value: function resetPass(e, id) {
       e.preventDefault();
-      console.log(id);
       this.modal_reset.handleShow(id);
     }
   }, {
@@ -77279,12 +77289,12 @@ function (_Component) {
         className: "box-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.general.permissions.admin_users_new ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 col-sm-1 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "".concat(this.props.match.url, "/new"),
         className: "btn btn-block btn-primary btn-sm"
-      }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, this.props, {
+      }, "Nuevo")) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, this.props, {
         columns: this.state.columns,
         data: this.state.data,
         buttons: this.state.actionButton,
@@ -77814,7 +77824,7 @@ var LeftPanel = function LeftPanel(props) {
     to: "/"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-book"
-  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Dashboard"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Dashboard"))), props.permissions.admin_menu ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "treeview"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#"
@@ -77826,19 +77836,19 @@ var LeftPanel = function LeftPanel(props) {
     className: "fa fa-angle-left pull-right"
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "treeview-menu"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, props.permissions.admin_permissions_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/permissions"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "Permisos")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }), "Permisos")) : null, props.permissions.admin_roles_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/roles"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "Roles")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }), "Roles")) : null, props.permissions.admin_user_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/users"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "Usuarios")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }), "Usuarios")) : null)) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "treeview"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#"

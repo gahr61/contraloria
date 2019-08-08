@@ -81,7 +81,12 @@ class PermissionsSeeder extends Seeder
                 'name'          => 'admin_users_delete',
                 'display_name'  => 'Eliminación de rol',
                 'description'   => 'Permite eliminar información de un usuario.'
-            ]);          
+            ]);    
+            DB::table('permissions')->insert([
+                'name'          => 'admin_users_reset',
+                'display_name'  => 'Reestablecer contraseña de usuario',
+                'description'   => 'Permite reestablecer la contraseña de un usuario.'
+            ]);       
 
 
     }

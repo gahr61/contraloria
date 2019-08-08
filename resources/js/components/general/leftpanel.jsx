@@ -16,20 +16,32 @@ const LeftPanel = (props)=>(
 	      	</div>
 	      	<ul className="sidebar-menu" data-widget="tree">
 	        	<li><Link to="/"><i className="fa fa-book"></i> <span>Dashboard</span></Link></li>
-	        	
-	        	<li className="treeview">
-		          	<a href="#">
-			            <i className="fa fa-group if("></i> <span>Administración</span>
-			            <span className="pull-right-container">
-			              	<i className="fa fa-angle-left pull-right"></i>
-			            </span>
-		          	</a>
-		          	<ul className="treeview-menu">
-			            <li><Link to="/permissions"><i className="fa fa-circle-o"></i>Permisos</Link></li>
-			            <li><Link to="/roles"><i className="fa fa-circle-o"></i>Roles</Link></li>
-			            <li><Link to="/users"><i className="fa fa-circle-o"></i>Usuarios</Link></li>
-		          	</ul>
-		        </li>
+	        	{props.permissions.admin_menu ?
+	        		<li className="treeview">
+			          	<a href="#">
+				            <i className="fa fa-group if("></i> <span>Administración</span>
+				            <span className="pull-right-container">
+				              	<i className="fa fa-angle-left pull-right"></i>
+				            </span>
+			          	</a>
+			          	<ul className="treeview-menu">
+				            {props.permissions.admin_permissions_view ? 
+				            	<li>
+					            	<Link to="/permissions">
+					            		<i className="fa fa-circle-o"></i>Permisos
+					            	</Link>
+				            	</li>
+				            :null}
+				            {props.permissions.admin_roles_view ?
+				            	<li><Link to="/roles"><i className="fa fa-circle-o"></i>Roles</Link></li>
+				            :null}
+				            {props.permissions.admin_user_view ?
+				            	<li><Link to="/users"><i className="fa fa-circle-o"></i>Usuarios</Link></li>
+				            :null}
+			          	</ul>
+			        </li>
+	        	:null}
+		        	
 		        <li className="treeview">
 		          	<a href="#">
 			            <i className="fa fa-archive"></i> <span>Almacen</span>

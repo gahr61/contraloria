@@ -19,11 +19,17 @@ class Login extends Component{
 	}
 
 	componentDidMount(){
-		$('body').addClass("hold-transition login-page");
-		$('.main-header').css({height: '0px', top:'-60px'});
-		$('.main-sidebar').css('width', '0px');
-		$('.content-wrapper').css('margin-left', '0px');
-
+		var auth = sessionStorage.getItem('authenticated');
+		if(auth === null || auth === undefined){
+			$('body').addClass("hold-transition login-page");
+			$('.main-header').css({height: '0px', top:'-60px'});
+			$('.main-sidebar').css('width', '0px');
+			$('.content-wrapper').css('margin-left', '0px');
+		}else{
+			if(this.props.history !== undefined){
+				this.props.history.push('/');
+			}
+		}
 	}
 
 	handleChange(e){

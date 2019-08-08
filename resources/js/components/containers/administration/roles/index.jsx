@@ -16,6 +16,7 @@ class Roles extends Component{
 		this.editRole 	= this.editRole.bind(this);
 		this.deleteRole = this.deleteRole.bind(this)
 
+		console.log(this.props)
 		this.state = {
 			columns: [
 				{title:'Nombre'},
@@ -35,19 +36,19 @@ class Roles extends Component{
 				2
 			]],
 			actionButton: [
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_roles_assign_permissions, 
 					name:'Permisos', 
 					class:'btn btn-success btn-xs action-btn',
 					icon:null,
 					clickFn:'assign'
 				},
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_roles_edit, 
 					name:'Editar', 
 					class:'btn btn-warning btn-xs action-btn', 
 					icon:'fa fa-pencil',
 					clickFn:'edit'
 				},
-				{	btn: true, 
+				{	btn: this.props.general.permissions.admin_roles_delete, 
 					name:'Eliminar', 
 					class:'btn btn-danger btn-xs action-btn', 
 					icon:'glyphicon glyphicon-remove-circle',
@@ -142,12 +143,13 @@ class Roles extends Component{
 				<div className="box box-default">
 					<div className="box-body">
 						<div className="row">
-							<div className="col-xs-12 col-sm-1 form-group">
-								<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
-									Nuevo
-								</Link>
-
-							</div>
+							{this.props.general.permissions.admin_roles_new?
+								<div className="col-xs-12 col-sm-1 form-group">
+									<Link to={`${this.props.match.url}/new`} className="btn btn-block btn-primary btn-sm">
+										Nuevo
+									</Link>
+								</div>
+							:null}
 
 							<Table {...this.props} 
 								columns	= {this.state.columns} 

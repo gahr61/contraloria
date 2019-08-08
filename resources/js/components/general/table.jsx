@@ -8,7 +8,6 @@ class Table extends Component{
 	constructor(props){
 		super(props);
 
-		
 		this.setTable 	= this.setTable.bind(this);
 		this.resetTable = this.resetTable.bind(this);
 
@@ -47,6 +46,7 @@ class Table extends Component{
                 $('td:eq('+i+')', row).html('');
                 this.props.buttons.map((b)=>{
                 	var icon = b.icon !== null ? '<i class="'+b.icon+'"></i>' : b.name;
+
                     if(b.btn){
                         $('td:eq('+i+')', row).append(
                             '<button class="'+b.class+'" name="'+b.clickFn+'"'+
@@ -57,7 +57,6 @@ class Table extends Component{
                         );
                     }
                 })
-
           	}
 		});
 
@@ -71,8 +70,6 @@ class Table extends Component{
 			}else{
 				this.props[clickFn](id);
 			}
-			
-
 		})
 	}
 
