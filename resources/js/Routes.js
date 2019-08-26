@@ -20,6 +20,9 @@ import FormUser from './components/containers/administration/users/form';
 import Companies from './components/containers/company/';
 import FormCompany from './components/containers/company/form';
 
+{/*Orders*/}
+import Orders from './components/containers/order/';
+import FormOrder from './components/containers/order/form';
 
 const Home = ()=>(
 	<div style={{height:"100%"}}>
@@ -48,4 +51,9 @@ export default (general)=>
 		<AppliedRoute path="/companies" exact component={Companies} title="Empresas" props={general} />
 		<AppliedRoute path="/companies/new" exact component={FormCompany} title="Nuevo Empresa" props={general} />
 		<AppliedRoute path="/companies/:id/edit" exact component={FormCompany} title="Editar Empresa" props={general} />
+
+		<AppliedRoute path="/orders" exact component={Orders} title="Pedidos" props={general} />
+		<AppliedRoute path="/orders/new" exact component={FormOrder} title="Nuevo Pedido" props={general} />
+		<AppliedRoute path="/orders/:id/edit" exact component={FormOrder} title="Editar Pedido" props={general} />
+
 	</Switch>;

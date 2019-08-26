@@ -43,7 +43,7 @@ class Permissions extends Component{
 		fetch(this.props.general.api+'permissions',{
 			method:'get',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json'
 			})

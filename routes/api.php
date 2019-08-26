@@ -27,15 +27,17 @@ Route::group([
 	Route::post('me', 'AuthController@me');
 });
 
-Route::resource('permissions', 'PermissionController');
-Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
-route::post('toAssign', 'PermissionController@toAssign');
-route::post('design', 'PermissionController@design');
+	Route::resource('permissions', 'PermissionController');
+	Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
+	route::post('toAssign', 'PermissionController@toAssign');
+	route::post('design', 'PermissionController@design');
 
-Route::get('getRoles', 'RolesController@getRoles');
-Route::resource('roles', 'RolesController');
+	Route::get('getRoles', 'RolesController@getRoles');
+	Route::resource('roles', 'RolesController');
 
-Route::resource('user', 'UserController');
-Route::post('user/reset_password/{id}', 'UserController@reset_password');
+	Route::resource('user', 'UserController');
+	Route::post('user/reset_password/{id}', 'UserController@reset_password');
 
-Route::resource('companies', 'CompanyController');
+	Route::resource('companies', 'CompanyController');
+
+	Route::resource('orders', 'OrderController');

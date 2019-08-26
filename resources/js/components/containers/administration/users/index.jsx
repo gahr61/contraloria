@@ -59,7 +59,7 @@ class Users extends Component{
 		fetch(this.props.general.api+'user',{
 			method:'get',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json'
 			})
@@ -98,7 +98,7 @@ class Users extends Component{
 	}
 
 	deleteUser(id){
-		fetch(this.props.general.api+'user/'+id+'/destroy',{
+		fetch(this.props.general.api+'user/'+id,{
 			method:'delete',
 			headers: new Headers({
 				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),

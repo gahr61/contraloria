@@ -12,15 +12,35 @@ class Form extends Component{
 
 		this.state = {
 			client:"",
-			address:"",
+			direction:"",
 			phone:"",
 			company_id:"",
+			companies:[],
 			id:"",
 		}
 	}
 
 	componentDidMount(){
-		
+		this.props.general.waiting.handleShow('Cargando...');
+		fetch(this.props.general.api + 'companies',{
+			method:'get',
+			headers: new Headers({
+				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json',
+			})
+		}).then(res => {
+			this.props.general.waiting.handleClose();
+			if(res.ok){
+				return res.json();
+			}else{
+				console.log(res.text());
+			}
+		}).then(response => {
+			if(response !== undefined){
+				this.setState({companies:response.company});
+			}
+		})
 	}
 
 	handleChange(e){
@@ -35,17 +55,23 @@ class Form extends Component{
 		var obj = {}
 		if(this.props.match.params.id === undefined){
 			method = 'post';
-			url = 'companies';
+			url = 'orders';
 			obj = {
-				name: this.state.name
+				client: this.state.client,
+				direction: this.state.direction,
+				phone: this.state.phone,
+				company_id: this.state.company_id
 			}
 
 		}else{
 			method = 'put';
-			url = 'companies/'+this.props.match.params.id;
+			url = 'orders/'+this.props.match.params.id;
 			obj = {
 				id:this.state.id,
-				name: this.state.name
+				client: this.state.client,
+				direction: this.state.direction,
+				phone: this.state.phone,
+				company_id: this.state.company_id
 			}
 		}
 			
@@ -68,14 +94,14 @@ class Form extends Component{
 		}).then(response => {
 			if(response !== undefined){
 				//swal('Proceso terminado', response.mensaje, 'success');
-				this.props.history.push('/companies');
+				this.props.history.push('/orders');
 			}
 		})
 	}
 
 	canceling(e){
 		e.preventDefault();
-		this.props.history.push('/companies');
+		this.props.history.push('/orders');
 	}
 
 	render(){
@@ -86,11 +112,36 @@ class Form extends Component{
 					<div className="box-body">
 						<div className="row">
 							<form>
+								<div className="col-xs-12 form-group">
+									<span>Llene los datos de su pedido (*)</span>
+								</div>
 								<div className="col-xs-12 col-sm-6 col-sm-offset-3">
 									<div className="col-xs-12 form-group">
-										<span>Nombre</span>
-										<input type="text" name="name" id="name" className="form-control input-sm"
-											value={this.state.name} onChange={this.handleChange} />
+										<span>Nombre de cliente *</span>
+										<input type="text" name="client" id="client" className="form-control input-sm"
+											value={this.state.client} onChange={this.handleChange} required/>
+									</div>
+									<div className="col-xs-12 form-group">
+										<span>Dirección (*)</span>
+										<input type="text" name="direction" id="direction" className="form-control input-sm"
+											value={this.state.direction} onChange={this.handleChange} required/>
+									</div>
+									<div className="col-xs-12 form-group">
+										<span>Telefono de contacto (*)</span>
+										<input type="text" name="phone" id="phone" className="form-control input-sm"
+											value={this.state.phone} onChange={this.handleChange} required/>
+									</div>
+									<div className="col-xs-12 form-group">
+										<span>Empresa de reparto (*)</span>
+										<select className="form-control" name="company_id" id="company_id"
+											value={this.state.company_id} onChange={this.handleChange} required>
+											<option value="">Seleccione...</option>
+											{this.state.companies.map((c, i)=>(
+												<option key={i} value={c.id}>
+													{c.name}
+												</option>
+											))}
+										</select>
 									</div>
 
 									<BtnsForm 

@@ -41,8 +41,8 @@ const LeftPanel = (props)=>(
 			          	</ul>
 			        </li>
 	        	:null}
-	        	<li><Link to="/companies"><i className="fa fa-book"></i> <span>Empresas</span></Link></li>
-	        	<li><Link to="/orders"><i className="fa fa-circle-o"></i>Pedidos</Link></li>
+	        	<li><Link to="/companies"><i className="fa fa-industry"></i> <span>Empresas</span></Link></li>
+	        	<li><Link to="/orders"><i className="fa fa-cart-plus"></i>Pedidos</Link></li>
 		       
 	        </ul>
       	</section>

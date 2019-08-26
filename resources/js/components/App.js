@@ -22,6 +22,8 @@ class App extends Component {
 		this.setValues = this.setValues.bind(this);
 		this.logout = this.logout.bind(this);
 		this.resetPass = this.resetPass.bind(this);
+		this.isValidForm = this.isValidForm.bind(this);
+		this.showCtrlError = this.showCtrlError.bind(this);
 
 		this.state = {
 			authenticated: false,
@@ -89,6 +91,43 @@ class App extends Component {
 		this.modal_reset.handleShow(id);
 	}
 
+	isValidForm() {
+		const inputs = document.querySelectorAll('select,input');
+	    let isFormValid = true;
+	    
+	    inputs.forEach(input => {
+	    	if(input.required){
+    			const isInputValid = this.showCtrlError(input.name);
+		      	if (!isInputValid) {
+		        	isFormValid = false;
+		    	}	   
+		  	}
+	    });
+	    
+	    return isFormValid;
+	}
+
+	showCtrlError(refName) {
+		var res = null;
+		var control = document.getElementById(refName);
+	
+		if (control.value === "") {
+			if(control !== null){
+				control.parentNode.classList.add('has-error');
+			}
+			res = false;
+		} else{
+			if(control !== null){
+				if(control.required && control.parentNode.className.includes('has-error')){
+					control.parentNode.classList.remove('has-error');
+				}
+			}
+			res = true;
+		}
+		
+		return res;
+	}
+
 
   	render() {
   		const generalProps = {
@@ -98,6 +137,8 @@ class App extends Component {
   			api 			: this.state.api,
   			permissions 	: this.state.permissions,
   			setValues  		: this.setValues,
+  			isValidForm 	: this.isValidForm,
+  			showCtrlError 	: this.showCtrlError,
   		}
 
 		return (

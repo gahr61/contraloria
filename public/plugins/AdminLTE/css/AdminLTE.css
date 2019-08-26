@@ -409,8 +409,8 @@ a:focus {
  * ------------------
  */
 .main-sidebar {
-  /*position: absolute; modificado */
-  position: fixed;
+  position: absolute;/*modificado 
+  /*position: fixed;*/
   top: 0;
   left: 0;
   padding-top: 50px;

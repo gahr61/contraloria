@@ -8,7 +8,7 @@ class Companies extends Component{
 		super(props);
 
 		this.editCompany 	= this.editCompany.bind(this);
-		this.deleteCompany = this.deleteCompany.bind(this)
+		this.deleteCompany = this.deleteCompany.bind(this);
 
 		this.state = {
 			columns: [
