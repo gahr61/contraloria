@@ -30,7 +30,7 @@ class Form extends Component{
 		fetch(this.props.general.api+'companies/'+this.props.match.params.id+'/edit',{
 			method:'get',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json'
 			})
@@ -39,7 +39,15 @@ class Form extends Component{
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log(res.text());
+				res.text().then((msg)=>{
+					var error = JSON.parse(msg);
+
+					if(error.message === 'Token has expired'){
+						this.props.general.logout();
+					}else{
+						console.log(error);
+					}
+				});
 			}
 		}).then(response => {
 			if(response !== undefined){
@@ -82,7 +90,7 @@ class Form extends Component{
 			method:method,
 			body:JSON.stringify(obj),
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json',
 			})
@@ -91,7 +99,15 @@ class Form extends Component{
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log(res.text());
+				res.text().then((msg)=>{
+					var error = JSON.parse(msg);
+
+					if(error.message === 'Token has expired'){
+						this.props.general.logout();
+					}else{
+						console.log(error);
+					}
+				});
 			}
 		}).then(response => {
 			if(response !== undefined){

@@ -27,6 +27,7 @@ Route::group([
 	Route::post('me', 'AuthController@me');
 });
 
+Route::middleware('jwt')->group(function(){
 	Route::resource('permissions', 'PermissionController');
 	Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
 	route::post('toAssign', 'PermissionController@toAssign');
@@ -39,5 +40,7 @@ Route::group([
 	Route::post('user/reset_password/{id}', 'UserController@reset_password');
 
 	Route::resource('companies', 'CompanyController');
+	Route::get('user_company', 'CompanyController@getUserCompany');
 
 	Route::resource('orders', 'OrderController');
+});

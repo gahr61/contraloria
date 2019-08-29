@@ -15,7 +15,7 @@ const LeftPanel = (props)=>(
 	        	</div>
 	      	</div>
 	      	<ul className="sidebar-menu" data-widget="tree">
-	        	<li><Link to="/"><i className="fa fa-book"></i> <span>Dashboard</span></Link></li>
+	        	{/*<li><Link to="/"><i className="fa fa-book"></i> <span>Dashboard</span></Link></li>*/}
 	        	{props.permissions.admin_menu ?
 	        		<li className="treeview">
 			          	<a href="#">
@@ -41,8 +41,12 @@ const LeftPanel = (props)=>(
 			          	</ul>
 			        </li>
 	        	:null}
-	        	<li><Link to="/companies"><i className="fa fa-industry"></i> <span>Empresas</span></Link></li>
-	        	<li><Link to="/orders"><i className="fa fa-cart-plus"></i>Pedidos</Link></li>
+	        	{props.permissions.admin_company_view ? 
+	        		<li><Link to="/companies"><i className="fa fa-industry"></i> <span>Empresas</span></Link></li>
+	        	:null}
+	        	{props.permissions.admin_order_view ? 
+	        		<li><Link to="/orders"><i className="fa fa-cart-plus"></i>Pedidos</Link></li>
+	        	:null}
 		       
 	        </ul>
       	</section>

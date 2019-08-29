@@ -96082,7 +96082,18 @@ function (_Component) {
   }, {
     key: "logout",
     value: function logout(e) {
-      e.preventDefault();
+      if (e !== undefined) {
+        e.preventDefault();
+      } else {
+        $('body').addClass("hold-transition login-page");
+        $('.main-header').css({
+          height: '0px',
+          top: '-60px'
+        });
+        $('.main-sidebar').css('width', '0px');
+        $('.content-wrapper').css('margin-left', '0px');
+      }
+
       this.setState({
         authenticated: false,
         token: "",
@@ -96174,7 +96185,8 @@ function (_Component) {
         permissions: this.state.permissions,
         setValues: this.setValues,
         isValidForm: this.isValidForm,
-        showCtrlError: this.showCtrlError
+        showCtrlError: this.showCtrlError,
+        logout: this.logout
       };
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wrapper"
@@ -96528,7 +96540,7 @@ function (_Component) {
       fetch(this.props.general.api + 'permissions/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -96538,7 +96550,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -96590,7 +96610,7 @@ function (_Component) {
         method: method,
         body: JSON.stringify(obj),
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -96600,7 +96620,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -96767,7 +96795,7 @@ function (_Component) {
       fetch(this.props.general.api + 'permissions', {
         method: 'get',
         headers: new Headers({
-          'Autorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -96777,7 +96805,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -96839,6 +96875,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../general/title */ "./resources/js/components/general/title.js");
 /* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -96858,6 +96896,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -96907,7 +96946,7 @@ function (_Component) {
       fetch(this.props.general.api + 'roles/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -96917,7 +96956,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -96941,52 +96988,65 @@ function (_Component) {
       var _this4 = this;
 
       e.preventDefault();
-      var method = "";
-      var url = "";
-      var obj = {};
 
-      if (this.props.match.params.id === undefined) {
-        method = 'post';
-        url = 'roles';
-        obj = {
-          name: this.state.name,
-          display_name: this.state.display_name,
-          description: this.state.description
-        };
-      } else {
-        method = 'put';
-        url = 'roles/' + this.props.match.params.id;
-        obj = {
-          id: this.state.id,
-          name: this.state.name,
-          display_name: this.state.display_name,
-          description: this.state.description
-        };
-      }
+      if (this.props.general.isValidForm()) {
+        var method = "";
+        var url = "";
+        var obj = {};
 
-      this.props.general.waiting.handleShow('Guardando...');
-      fetch(this.props.general.api + url, {
-        method: method,
-        body: JSON.stringify(obj),
-        headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this4.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
+        if (this.props.match.params.id === undefined) {
+          method = 'post';
+          url = 'roles';
+          obj = {
+            name: this.state.name,
+            display_name: this.state.display_name,
+            description: this.state.description
+          };
         } else {
-          console.log(res.text());
+          method = 'put';
+          url = 'roles/' + this.props.match.params.id;
+          obj = {
+            id: this.state.id,
+            name: this.state.name,
+            display_name: this.state.display_name,
+            description: this.state.description
+          };
         }
-      }).then(function (response) {
-        if (response !== undefined) {
-          //swal('Proceso terminado', response.mensaje, 'success');
-          _this4.props.history.push('/roles');
-        }
-      });
+
+        this.props.general.waiting.handleShow('Guardando...');
+        fetch(this.props.general.api + url, {
+          method: method,
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this4.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
+          } else {
+            res.text().then(function (msg) {
+              var error = JSON.parse(msg);
+
+              if (error.message === 'Token has expired') {
+                _this4.props.general.logout();
+              } else {
+                console.log(error);
+              }
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            //swal('Proceso terminado', response.mensaje, 'success');
+            _this4.props.history.push('/roles');
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Los campos marcados son requeridos', 'error');
+      }
     }
   }, {
     key: "canceling",
@@ -97165,7 +97225,7 @@ function (_Component) {
       fetch(this.props.general.api + 'roles', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97175,7 +97235,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97204,18 +97272,29 @@ function (_Component) {
     value: function deleteRole(id) {
       var _this4 = this;
 
+      this.props.general.waiting.handleShow('Eliminando...');
       fetch(this.props.general.api + 'roles/' + id, {
         method: 'delete',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this4.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97363,7 +97442,7 @@ function (_Component) {
       fetch(this.props.general.api + 'assignedPermissions/' + id, {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97373,7 +97452,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97410,6 +97497,8 @@ function (_Component) {
   }, {
     key: "assign_design",
     value: function assign_design(url, id) {
+      var _this3 = this;
+
       var obj = {
         role_id: this.state.role_id,
         permission_id: id
@@ -97418,7 +97507,7 @@ function (_Component) {
         method: 'post',
         body: JSON.stringify(obj),
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97426,20 +97515,28 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {});
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal fade",
         id: "modal_reset",
         ref: function ref(el) {
-          return _this3.el = el;
+          return _this4.el = el;
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-dialog"
@@ -97462,7 +97559,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         multiple: "multiple",
         ref: function ref(el) {
-          return _this3.el = el;
+          return _this4.el = el;
         },
         id: "permissions",
         name: "permissions",
@@ -97566,7 +97663,7 @@ function (_Component) {
       fetch(this.props.general.api + 'getRoles', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97574,7 +97671,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97586,7 +97691,7 @@ function (_Component) {
       fetch(this.props.general.api + 'companies', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97596,7 +97701,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97625,7 +97738,7 @@ function (_Component) {
       fetch(this.props.general.api + 'user/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -97635,7 +97748,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -97728,7 +97849,7 @@ function (_Component) {
             method: method,
             body: JSON.stringify(obj),
             headers: new Headers({
-              'Autorization': 'Bearer ' + sessionStorage.getItem('token'),
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             })
@@ -97738,7 +97859,15 @@ function (_Component) {
             if (res.ok) {
               return res.json();
             } else {
-              console.log(res.text());
+              res.text().then(function (msg) {
+                var error = JSON.parse(msg);
+
+                if (error.message === 'Token has expired') {
+                  _this4.props.general.logout();
+                } else {
+                  console.log(error);
+                }
+              });
             }
           }).then(function (response) {
             if (response !== undefined) {
@@ -97998,7 +98127,7 @@ function (_Component) {
       fetch(this.props.general.api + 'user', {
         method: 'get',
         headers: new Headers({
-          'Autorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -98008,7 +98137,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98037,18 +98174,29 @@ function (_Component) {
     value: function deleteUser(id) {
       var _this4 = this;
 
+      this.props.general.waiting.handleShow('Eliminando...');
       fetch(this.props.general.api + 'user/' + id, {
         method: 'delete',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this4.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98121,9 +98269,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
-/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -98143,7 +98290,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 
 
 
@@ -98236,7 +98382,7 @@ function (_Component) {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: new Headers({
-              //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             })
@@ -98246,7 +98392,15 @@ function (_Component) {
             if (res.ok) {
               return res.json();
             } else {
-              console.log(res.text());
+              res.text().then(function (msg) {
+                var error = JSON.parse(msg);
+
+                if (error.message === 'Token has expired') {
+                  _this2.props.general.logout();
+                } else {
+                  console.log(error);
+                }
+              });
             }
           }).then(function (response) {
             if (response !== undefined) {
@@ -98414,7 +98568,7 @@ function (_Component) {
       fetch(this.props.general.api + 'companies/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -98424,7 +98578,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98470,7 +98632,7 @@ function (_Component) {
         method: method,
         body: JSON.stringify(obj),
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -98480,7 +98642,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98632,7 +98802,7 @@ function (_Component) {
       fetch(this.props.general.api + 'companies', {
         method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -98642,7 +98812,15 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98671,18 +98849,29 @@ function (_Component) {
     value: function deleteCompany(id) {
       var _this4 = this;
 
+      this.props.general.waiting.handleShow('Eliminando...');
       fetch(this.props.general.api + 'companies/' + id, {
         method: 'delete',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this4.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
@@ -98744,7 +98933,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
 /* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -98768,6 +98961,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var Form =
 /*#__PURE__*/
 function (_Component) {
@@ -98782,13 +98976,17 @@ function (_Component) {
     _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getUserCompany = _this.getUserCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getOrder = _this.getOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       client: "",
       direction: "",
       phone: "",
       company_id: "",
       companies: [],
-      id: ""
+      id: "",
+      show_company: false,
+      title_company: ""
     };
     return _this;
   }
@@ -98798,72 +98996,24 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'companies', {
-        method: 'get',
-        headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this2.props.general.waiting.handleClose();
+      this.getUserCompany();
 
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log(res.text());
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          _this2.setState({
-            companies: response.company
-          });
-        }
-      });
+      if (this.props.match.params.id !== undefined) {
+        setTimeout(function () {
+          _this2.getOrder();
+        }, 300);
+      }
     }
   }, {
-    key: "handleChange",
-    value: function handleChange(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: "saving",
-    value: function saving(e) {
+    key: "getUserCompany",
+    value: function getUserCompany() {
       var _this3 = this;
 
-      e.preventDefault();
-      var method = "";
-      var url = "";
-      var obj = {};
-
-      if (this.props.match.params.id === undefined) {
-        method = 'post';
-        url = 'orders';
-        obj = {
-          client: this.state.client,
-          direction: this.state.direction,
-          phone: this.state.phone,
-          company_id: this.state.company_id
-        };
-      } else {
-        method = 'put';
-        url = 'orders/' + this.props.match.params.id;
-        obj = {
-          id: this.state.id,
-          client: this.state.client,
-          direction: this.state.direction,
-          phone: this.state.phone,
-          company_id: this.state.company_id
-        };
-      }
-
-      this.props.general.waiting.handleShow('Guardando...');
-      fetch(this.props.general.api + url, {
-        method: method,
-        body: JSON.stringify(obj),
+      this.props.general.waiting.handleShow('Cargando...');
+      fetch(this.props.general.api + 'user_company', {
+        method: 'get',
         headers: new Headers({
-          //'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
@@ -98873,14 +99023,163 @@ function (_Component) {
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
-          //swal('Proceso terminado', response.mensaje, 'success');
-          _this3.props.history.push('/orders');
+          if (response.companies.length > 1) {
+            if (response.companies.length === response.user_company.length) {
+              _this3.setState({
+                show_company: true
+              });
+            }
+
+            if (response.user_company.length === 1) {
+              var index = response.companies.findIndex(function (obj) {
+                return obj.id === response.user_company[0].id;
+              });
+
+              _this3.setState({
+                show_company: false,
+                company_id: response.companies[index].id,
+                title_company: response.companies[index].name
+              });
+            }
+          }
+
+          _this3.setState({
+            companies: response.companies
+          });
         }
       });
+    }
+  }, {
+    key: "getOrder",
+    value: function getOrder() {
+      var _this4 = this;
+
+      this.props.general.waiting.handleShow('Cargando...');
+      fetch(this.props.general.api + 'orders/' + this.props.match.params.id + '/edit', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        _this4.props.general.waiting.handleClose();
+
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this4.setState({
+            client: response.order.client,
+            company_id: response.order.company_id,
+            direction: response.order.direction,
+            phone: response.order.phone,
+            id: response.order.id
+          });
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+
+      if (e.target.value !== "") {
+        this.props.general.showCtrlError(e.target.name);
+      }
+    }
+  }, {
+    key: "saving",
+    value: function saving(e) {
+      var _this5 = this;
+
+      e.preventDefault();
+
+      if (this.props.general.isValidForm()) {
+        var method = "";
+        var url = "";
+        var obj = {};
+
+        if (this.props.match.params.id === undefined) {
+          method = 'post';
+          url = 'orders';
+          obj = {
+            client: this.state.client,
+            direction: this.state.direction,
+            phone: this.state.phone,
+            company_id: this.state.company_id,
+            status: 'open'
+          };
+        } else {
+          method = 'put';
+          url = 'orders/' + this.props.match.params.id;
+          obj = {
+            id: this.state.id,
+            client: this.state.client,
+            direction: this.state.direction,
+            phone: this.state.phone,
+            company_id: this.state.company_id,
+            status: 'open'
+          };
+        }
+
+        this.props.general.waiting.handleShow('Guardando...');
+        fetch(this.props.general.api + url, {
+          method: method,
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this5.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
+          } else {
+            res.text().then(function (msg) {
+              var error = JSON.parse(msg);
+
+              if (error.message === 'Token has expired') {
+                _this5.props.general.logout();
+              } else {
+                console.log(error);
+              }
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            //swal('Proceso terminado', response.mensaje, 'success');
+            _this5.props.history.push('/orders');
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Los campos marcados son requeridos', 'error');
+      }
     }
   }, {
     key: "canceling",
@@ -98891,7 +99190,9 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, this.props, {
+        company: this.state.title_company
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box-body"
@@ -98924,14 +99225,14 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Telefono de contacto (*)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "number",
         name: "phone",
         id: "phone",
         className: "form-control input-sm",
         value: this.state.phone,
         onChange: this.handleChange,
         required: true
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), this.state.show_company ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresa de reparto (*)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "form-control",
@@ -98947,7 +99248,7 @@ function (_Component) {
           key: i,
           value: c.id
         }, c.name);
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         btnSave: "Guardar",
         btnCancel: "Cancelar",
         save: this.saving,
@@ -98977,9 +99278,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
 /* harmony import */ var _general_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/table */ "./resources/js/components/general/table.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _modalPaid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modalPaid */ "./resources/js/components/containers/order/modalPaid.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -99002,6 +99306,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var Orders =
 /*#__PURE__*/
 function (_Component) {
@@ -99013,10 +99318,13 @@ function (_Component) {
     _classCallCheck(this, Orders);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Orders).call(this, props));
+    _this.getUserCompany = _this.getUserCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.getOrder = _this.getOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.editOrder = _this.editOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.deleteOrder = _this.deleteOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.endOrder = _this.endOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.refresh = _this.refresh.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       columns: [{
         title: 'id'
@@ -99052,7 +99360,10 @@ function (_Component) {
         icon: 'fa fa-check',
         clickFn: 'ending'
       }],
-      company: 'all'
+      company: 'all',
+      companies: [],
+      show_company: false,
+      title_company: ""
     };
     return _this;
   }
@@ -99066,16 +99377,95 @@ function (_Component) {
         data: []
       });
       setTimeout(function () {
-        _this2.getOrder();
+        _this2.getUserCompany();
       }, 500);
+    }
+  }, {
+    key: "getUserCompany",
+    value: function getUserCompany() {
+      var _this3 = this;
+
+      this.props.general.waiting.handleShow('Cargando...');
+      fetch(this.props.general.api + 'user_company', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this3.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          if (response.companies.length > 1) {
+            if (response.companies.length === response.user_company.length) {
+              _this3.setState({
+                show_company: true,
+                company: 'all'
+              });
+            }
+
+            if (response.user_company.length === 1) {
+              var index = response.companies.findIndex(function (obj) {
+                return obj.id === response.user_company[0].id;
+              });
+
+              _this3.setState({
+                show_company: false,
+                company: response.companies[index].id,
+                title_company: response.companies[index].name
+              });
+            }
+          }
+
+          _this3.setState({
+            companies: response.companies
+          });
+
+          setTimeout(function () {
+            _this3.getOrder();
+          }, 500);
+        } else {
+          _this3.props.general.waiting.handleClose();
+        }
+      });
     }
   }, {
     key: "getOrder",
     value: function getOrder() {
-      var _this3 = this;
+      var _this4 = this;
 
-      console.log(sessionStorage.getItem('token'));
-      this.props.general.waiting.handleShow('Cargando...');
+      var cols = this.state.columns;
+
+      if (this.state.company === 'all') {
+        cols.splice(4, 0, {
+          title: 'Empresa'
+        });
+      } else {
+        var index = cols.findIndex(function (obj) {
+          return obj.title === 'Empresa';
+        });
+
+        if (index !== -1) {
+          cols.splice(4, 1);
+        }
+      }
+
+      this.setState({
+        columns: cols
+      });
       fetch(this.props.general.api + 'orders?company=' + this.state.company, {
         method: 'get',
         headers: new Headers({
@@ -99084,27 +99474,47 @@ function (_Component) {
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
-        _this3.props.general.waiting.handleClose();
+        _this4.props.general.waiting.handleClose();
 
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this4.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
-          console.log(response);
-          var data = [];
+          var data = [],
+              obj = [];
           response.order.map(function (r) {
-            data.push([r.id, r.client, r.direction, r.phone, r.id]);
+            obj = [];
+            obj.push(r.id, r.client, r.direction, r.phone, r.id);
+
+            if (_this4.state.company === 'all') {
+              obj.splice(4, 0, r.company);
+            } else {
+              var index = cols.findIndex(function (obj) {
+                return obj.title === 'Empresa';
+              });
+              if (index !== -1) obj.splice(4, 1);
+            }
+
+            data.push(obj);
           });
 
-          _this3.setState({
+          _this4.setState({
             data: data
           });
 
           setTimeout(function () {
-            _this3.table.setTable();
+            _this4.table.setTable();
           }, 500);
         }
       });
@@ -99117,39 +99527,73 @@ function (_Component) {
   }, {
     key: "deleteOrder",
     value: function deleteOrder(id) {
-      var _this4 = this;
+      var _this5 = this;
 
+      this.props.general.waiting.handleShow('Eliminando...');
       fetch(this.props.general.api + 'orders/' + id, {
         method: 'delete',
         headers: new Headers({
-          'Autorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         })
       }).then(function (res) {
+        _this5.props.general.waiting.handleClose();
+
         if (res.ok) {
           return res.json();
         } else {
-          console.log(res.text());
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this5.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
         }
       }).then(function (response) {
         if (response !== undefined) {
           //swal('Proceso terminado', response.mensaje, 'success');
-          _this4.table.resetTable();
-
-          _this4.getOrder();
+          _this5.refresh();
         }
       });
     }
   }, {
     key: "endOrder",
-    value: function endOrder(id) {}
+    value: function endOrder(id) {
+      this.modal_paid.handleShow(id);
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      var _this$setState,
+          _this6 = this;
+
+      this.setState((_this$setState = {}, _defineProperty(_this$setState, e.target.name, e.target.value), _defineProperty(_this$setState, "title_company", e.target.value === 'all' ? '' : e.target.options[e.target.selectedIndex].text), _this$setState));
+      setTimeout(function () {
+        _this6.props.general.waiting.handleShow('Cargando...');
+
+        _this6.table.resetTable();
+
+        _this6.getOrder();
+      }, 500);
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      this.table.resetTable();
+      this.getOrder();
+    }
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this7 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, this.props, {
+        company: this.state.title_company
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box-body"
@@ -99157,13 +99601,21 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.show_company ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 col-sm-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        className: "form-control input-sm"
+        className: "form-control input-sm",
+        name: "company",
+        value: this.state.company,
+        onChange: this.handleChange
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "all"
-      }, "TODOS"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "TODOS"), this.state.companies.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: c.id
+        }, c.name);
+      }))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 col-sm-2",
         style: {
           marginTop: '20px'
@@ -99180,10 +99632,15 @@ function (_Component) {
         ending: this.endOrder,
         getList: this.getOrder,
         onRef: function onRef(ref) {
-          return _this5.table = ref;
+          return _this7.table = ref;
         },
         filter: true
-      }))))));
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modalPaid__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({}, this.props, {
+        onRef: function onRef(ref) {
+          return _this7.modal_paid = ref;
+        },
+        refresh: this.refresh
+      })));
     }
   }]);
 
@@ -99191,6 +99648,221 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Orders);
+
+/***/ }),
+
+/***/ "./resources/js/components/containers/order/modalPaid.jsx":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/containers/order/modalPaid.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+var ModalPaid =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ModalPaid, _Component);
+
+  function ModalPaid(props) {
+    var _this;
+
+    _classCallCheck(this, ModalPaid);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ModalPaid).call(this, props));
+    _this.handleShow = _this.handleShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      total: "",
+      id: ""
+    };
+    return _this;
+  }
+
+  _createClass(ModalPaid, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.onRef(this);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.onRef(null);
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose() {
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').modal('hide');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').removeClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('.modal-backdrop').remove();
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').css('display', 'none');
+    }
+  }, {
+    key: "handleShow",
+    value: function handleShow(id) {
+      this.setState({
+        id: id
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').addClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').css('display', 'block');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#total').focus();
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "saving",
+    value: function saving(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+
+      if (this.state.total !== "") {
+        this.props.general.waiting.handleShow('Terminando...');
+        var obj = {
+          total: this.state.total,
+          status: 'paid'
+        };
+        fetch(this.props.general.api + 'orders/' + this.state.id, {
+          method: 'put',
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this2.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
+          } else {
+            res.text().then(function (msg) {
+              var error = JSON.parse(msg);
+
+              if (error.message === 'Token has expired') {
+                _this2.props.general.logout();
+              } else {
+                console.log(error);
+              }
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            _this2.handleClose();
+
+            sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Correcto!', 'El pedido fue terminado correctamente', 'success');
+
+            _this2.props.refresh();
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Error!', 'Debe agregar un total', 'error');
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modal_reset",
+        ref: function ref(el) {
+          return _this3.el = el;
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog modal-sm"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close",
+        onClick: this.handleClose
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "modal-title"
+      }, "Terminar Pedido")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
+        className: "form-control input-sm",
+        value: this.state.total,
+        name: "total",
+        id: "total",
+        onChange: this.handleChange
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12",
+        style: {
+          textAlign: 'center'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary",
+        style: {
+          marginRight: '5px'
+        },
+        onClick: this.saving
+      }, "Terminar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-info",
+        style: {
+          marginLeft: '5px'
+        },
+        onClick: this.handleClose
+      }, "Cancelar")))))));
+    }
+  }]);
+
+  return ModalPaid;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (ModalPaid);
 
 /***/ }),
 
@@ -99344,11 +100016,7 @@ var LeftPanel = function LeftPanel(props) {
   }), " Online"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "sidebar-menu",
     "data-widget": "tree"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-book"
-  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Dashboard"))), props.permissions.admin_menu ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+  }, props.permissions.admin_menu ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "treeview"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#"
@@ -99372,15 +100040,15 @@ var LeftPanel = function LeftPanel(props) {
     to: "/users"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "Usuarios")) : null)) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }), "Usuarios")) : null)) : null, props.permissions.admin_company_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/companies"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-industry"
-  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresas"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresas"))) : null, props.permissions.admin_order_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/orders"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-cart-plus"
-  }), "Pedidos")))));
+  }), "Pedidos")) : null)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (LeftPanel);
@@ -99557,7 +100225,7 @@ __webpack_require__.r(__webpack_exports__);
 var Title = function Title(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: "content-header"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, props.title, " ", props.company !== undefined ? props.company : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ol", {
     className: "breadcrumb"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/"

@@ -73,21 +73,76 @@ class PermissionsSeeder extends Seeder
 
             DB::table('permissions')->insert([
                 'name'          => 'admin_users_edit',
-                'display_name'  => 'Edición de rol',
+                'display_name'  => 'Edición de usuario',
                 'description'   => 'Permite editar información de un usuario.'
             ]);
 
             DB::table('permissions')->insert([
                 'name'          => 'admin_users_delete',
-                'display_name'  => 'Eliminación de rol',
+                'display_name'  => 'Eliminación de usuario',
                 'description'   => 'Permite eliminar información de un usuario.'
             ]);    
             DB::table('permissions')->insert([
                 'name'          => 'admin_users_reset',
                 'display_name'  => 'Reestablecer contraseña de usuario',
                 'description'   => 'Permite reestablecer la contraseña de un usuario.'
-            ]);       
+            ]);     
 
+            //company
+            DB::table('permissions')->insert([
+                'name'          => 'admin_company_view',
+                'display_name'  => 'Submenu Empresas',
+                'description'   => 'Permite ver el listado de empresas registradas en el sistema.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_company_new',
+                'display_name'  => 'Nueva empresa',
+                'description'   => 'Permite registrar información de una empresa.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_company_edit',
+                'display_name'  => 'Edición de empresa',
+                'description'   => 'Permite editar información de una empresa.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_company_delete',
+                'display_name'  => 'Eliminación de empresa',
+                'description'   => 'Permite eliminar información de una empresa.'
+            ]); 
+
+            //order   
+            DB::table('permissions')->insert([
+                'name'          => 'admin_order_view',
+                'display_name'  => 'Submenu Pedidos',
+                'description'   => 'Permite ver el listado de pedidos registradas en el sistema.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_order_new',
+                'display_name'  => 'Nuevo pedido',
+                'description'   => 'Permite registrar información de un pedido.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_order_edit',
+                'display_name'  => 'Edición de pedido',
+                'description'   => 'Permite editar información de un pedido.'
+            ]);
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_order_delete',
+                'display_name'  => 'Eliminación de pedido',
+                'description'   => 'Permite eliminar información de un pedido.'
+            ]); 
+
+            DB::table('permissions')->insert([
+                'name'          => 'admin_order_finish',
+                'display_name'  => 'Finalizar pedido',
+                'description'   => 'Permite finalizar un pedido.'
+            ]); 
 
     }
 }

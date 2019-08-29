@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Title from '../../../general/title';
 import BtnsForm from '../../../general/btnsForm';
+import Swal from 'sweetalert2';
 
 class Form extends Component{
 	constructor(props){
@@ -32,7 +33,7 @@ class Form extends Component{
 		fetch(this.props.general.api+'roles/'+this.props.match.params.id+'/edit',{
 			method:'get',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json'
 			})
@@ -41,7 +42,15 @@ class Form extends Component{
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log(res.text());
+				res.text().then((msg)=>{
+					var error = JSON.parse(msg);
+
+					if(error.message === 'Token has expired'){
+						this.props.general.logout();
+					}else{
+						console.log(error);
+					}
+				});
 			}
 		}).then(response => {
 			if(response !== undefined){
@@ -62,51 +71,63 @@ class Form extends Component{
 	saving(e){
 		e.preventDefault();
 
-		var method = "";
-		var url = "";
-		var obj = {}
-		if(this.props.match.params.id === undefined){
-			method = 'post';
-			url = 'roles';
-			obj = {
-				name: this.state.name,
-				display_name: this.state.display_name,
-				description: this.state.description
-			}
+		if(this.props.general.isValidForm()){
+			var method = "";
+			var url = "";
+			var obj = {}
+			if(this.props.match.params.id === undefined){
+				method = 'post';
+				url = 'roles';
+				obj = {
+					name: this.state.name,
+					display_name: this.state.display_name,
+					description: this.state.description
+				}
 
-		}else{
-			method = 'put';
-			url = 'roles/'+this.props.match.params.id;
-			obj = {
-				id:this.state.id,
-				name: this.state.name,
-				display_name: this.state.display_name,
-				description: this.state.description,
-			}
-		}
-			
-		this.props.general.waiting.handleShow('Guardando...');
-		fetch(this.props.general.api + url,{
-			method:method,
-			body:JSON.stringify(obj),
-			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
-				'Accept'		: 'application/json',
-				'Content-Type'	: 'application/json',
-			})
-		}).then(res => {
-			this.props.general.waiting.handleClose();
-			if(res.ok){
-				return res.json();
 			}else{
-				console.log(res.text());
+				method = 'put';
+				url = 'roles/'+this.props.match.params.id;
+				obj = {
+					id:this.state.id,
+					name: this.state.name,
+					display_name: this.state.display_name,
+					description: this.state.description,
+				}
 			}
-		}).then(response => {
-			if(response !== undefined){
-				//swal('Proceso terminado', response.mensaje, 'success');
-				this.props.history.push('/roles');
-			}
-		})
+				
+			this.props.general.waiting.handleShow('Guardando...');
+			fetch(this.props.general.api + url,{
+				method:method,
+				body:JSON.stringify(obj),
+				headers: new Headers({
+					'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
+					'Accept'		: 'application/json',
+					'Content-Type'	: 'application/json',
+				})
+			}).then(res => {
+				this.props.general.waiting.handleClose();
+				if(res.ok){
+					return res.json();
+				}else{
+					res.text().then((msg)=>{
+						var error = JSON.parse(msg);
+
+						if(error.message === 'Token has expired'){
+							this.props.general.logout();
+						}else{
+							console.log(error);
+						}
+					});
+				}
+			}).then(response => {
+				if(response !== undefined){
+					//swal('Proceso terminado', response.mensaje, 'success');
+					this.props.history.push('/roles');
+				}
+			})
+		}else{
+			Swal.fire('Error!','Los campos marcados son requeridos','error');
+		}
 	}
 
 	canceling(e){

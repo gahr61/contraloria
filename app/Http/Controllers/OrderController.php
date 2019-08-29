@@ -4,15 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
-use App\Company;
-use App\CompanyUser;
+
 
 class OrderController extends Controller
 {
-    public function __construct(){
-        $this->middleware('jwt');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,23 +15,29 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $order = Order::all();
-        $companies = Company::select('id', 'name')->get();
-        $id = auth()->user()->id;
-        $user_company = CompanyUser::join('company', function($j){
-                                    $j->on('company.id', '=', 'company_user.company_id');
-                                })
-                                ->select('company.id')
-                                ->where('user_id', '=', $id)->get();
-
+        $id = $request->company;
+        if($id == 'all'){
+            $order = Order::join('company', function($j){
+                                $j->on('company.id', '=', 'orders.company_id');
+                            })
+                            ->select('orders.id as id', 'client', 'direction', 'phone', 'company.name as company')
+                            ->where('status', 'open')->get();
+        }else{
+             $order = Order::join('company', function($j){
+                                $j->on('company.id', '=', 'orders.company_id');
+                            })
+                            ->select('orders.id as id', 'client', 'direction', 'phone', 'company.name as company')
+                            ->where('company_id', $id)
+                            ->where('status', 'open')->get();
+        }
+       
 
         return response()->json([
-            'order' => $order,
-            'companies' => $companies,
-            'user_company' => $user_company
+            'order' => $order
         ]);
         
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -65,17 +66,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -83,7 +73,12 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::select('id', 'client', 'direction', 'phone', 'company_id')
+                        ->where('id',$id)->first();
+
+        return response()->json([
+            'order' => $order
+        ]);
     }
 
     /**
@@ -95,7 +90,23 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            \DB::beginTransaction();
+            $order = Order::find($id);
+            $order->fill($request->all());
+            $order->save();
+            \DB::commit();
+            
+            return response()->json([
+                'ok' => true,
+                'mensaje' => 'El pedido '.$order->id.' del cliente '.$order->client.' se actualizo correctamente.'
+            ]);
+            
+        }catch(\Exception $e){
+            \DB::rollback();
+            dd($e);
+            return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+        }
     }
 
     /**
@@ -106,6 +117,21 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            \DB::beginTransaction();    
+            $order = Order::find($id);
+            $order->delete();
+
+            \DB::commit();
+
+            return response()->json([
+                'ok'=>true,
+                'mensaje'=>"La empresa ".$order->id." se elimino con exito."
+            ]);
+        }catch(\Exception $e){
+            \DB::rollback();
+            
+            return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
+        }
     }
 }

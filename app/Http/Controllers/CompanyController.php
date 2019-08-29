@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Company;
+use App\CompanyUser;
 
 class CompanyController extends Controller
 {
@@ -115,5 +116,26 @@ class CompanyController extends Controller
             
             return response()->json(['error'=>'ERROR ('.$e->getCode().'): '.$e->getMessage()]);
         }
+    }
+
+    public function getUserCompany(){
+        $companies = Company::select('id', 'name')->get();
+        $id = auth()->user()->id;
+        $user_company = CompanyUser::join('company', function($j){
+                                    $j->on('company.id', '=', 'company_user.company_id');
+                                })
+                                ->select('company.id')
+                                ->where('user_id', '=', $id)->get();
+
+        $company = [];
+
+        foreach ($user_company as $u) {
+            $company[]  = $u->id; 
+        }
+
+        return response()->json([
+            'companies' => $companies,
+            'user_company' => $user_company
+        ]);
     }
 }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import * as $ from 'jquery';
-import {Modal} from 'react-bootstrap';
 
 import modal from 'bootstrap/js/dist/modal';
 
@@ -76,7 +75,7 @@ class ModalReset extends Component{
 					method:'POST',
 					body:JSON.stringify(obj),
 					headers: new Headers({
-						//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+						'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 						'Accept'		: 'application/json',
 						'Content-Type'	: 'application/json'
 					})
@@ -85,7 +84,15 @@ class ModalReset extends Component{
 					if(res.ok){
 						return res.json();
 					}else{
-						console.log(res.text());
+						res.text().then((msg)=>{
+							var error = JSON.parse(msg);
+
+							if(error.message === 'Token has expired'){
+								this.props.general.logout();
+							}else{
+								console.log(error);
+							}
+						});
 					}
 				}).then(response => {
 					if(response !== undefined){

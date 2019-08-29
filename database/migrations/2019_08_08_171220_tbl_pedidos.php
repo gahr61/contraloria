@@ -24,7 +24,9 @@ class TblPedidos extends Migration
             $table->increments('id');
             $table->string('client');
             $table->string('direction');
-            $table->string('phone');
+            $table->string('phone', 15);
+            $table->decimal('total', 15, 2);
+            $table->enum('status', ['open', 'paid', 'canceled']);
             $table->integer('company_id')->unsigned()->index();
 
             $table->foreign('company_id')->references('id')->on('company');

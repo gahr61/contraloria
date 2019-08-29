@@ -54,7 +54,15 @@ class App extends Component {
 	}
 
 	logout(e){
-		e.preventDefault();
+		if(e !== undefined){
+			e.preventDefault();
+		}else{
+			$('body').addClass("hold-transition login-page");
+			$('.main-header').css({height: '0px', top:'-60px'});
+			$('.main-sidebar').css('width', '0px');
+			$('.content-wrapper').css('margin-left', '0px');
+		}
+		
 		this.setState({
 			authenticated: false,
 			token: "",
@@ -139,6 +147,7 @@ class App extends Component {
   			setValues  		: this.setValues,
   			isValidForm 	: this.isValidForm,
   			showCtrlError 	: this.showCtrlError,
+  			logout 			: this.logout,
   		}
 
 		return (

@@ -46,7 +46,7 @@ class Companies extends Component{
 		fetch(this.props.general.api+'companies',{
 			method:'get',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('toke'),
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json'
 			})
@@ -55,7 +55,15 @@ class Companies extends Component{
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log(res.text());
+				res.text().then((msg)=>{
+					var error = JSON.parse(msg);
+
+					if(error.message === 'Token has expired'){
+						this.props.general.logout();
+					}else{
+						console.log(error);
+					}
+				});
 			}
 		}).then(response => {
 			if(response !== undefined){
@@ -84,18 +92,28 @@ class Companies extends Component{
 	}
 
 	deleteCompany(id){
+		this.props.general.waiting.handleShow('Eliminando...');
 		fetch(this.props.general.api+'companies/'+id,{
 			method:'delete',
 			headers: new Headers({
-				//'Autorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
 				'Accept'		: 'application/json',
 				'Content-Type'	: 'application/json',
 			})
 		}).then(res => {
+			this.props.general.waiting.handleClose();
 			if(res.ok){
 				return res.json();
 			}else{
-				console.log(res.text());
+				res.text().then((msg)=>{
+					var error = JSON.parse(msg);
+
+					if(error.message === 'Token has expired'){
+						this.props.general.logout();
+					}else{
+						console.log(error);
+					}
+				});
 			}
 		}).then(response => {
 			if(response !== undefined){

@@ -10,9 +10,6 @@ use App\CompanyUser;
 class UserController extends Controller
 {
 
-	public function __construct(){
-	    //$this->middleware('jwt');
-	}
     public function index(){
     	$user = User::select('id', 'name', 'email')->get();
 
