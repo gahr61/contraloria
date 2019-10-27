@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>Sistema Administrativo</title>
+    <title>SCTI Sistema de Evalución</title>
     
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/dist/css/bootstrap.min.css') }}">

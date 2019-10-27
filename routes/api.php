@@ -27,7 +27,7 @@ Route::group([
 	Route::post('me', 'AuthController@me');
 });
 
-Route::middleware('jwt')->group(function(){
+//Route::middleware('jwt')->group(function(){
 	Route::resource('permissions', 'PermissionController');
 	Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
 	route::post('toAssign', 'PermissionController@toAssign');
@@ -39,8 +39,16 @@ Route::middleware('jwt')->group(function(){
 	Route::resource('user', 'UserController');
 	Route::post('user/reset_password/{id}', 'UserController@reset_password');
 
-	Route::resource('companies', 'CompanyController');
-	Route::get('user_company', 'CompanyController@getUserCompany');
+	Route::resource('institucion', 'InstitucionController');
+	
+	Route::get('ejercicio', 'GeneralController@getEjercicio');
 
-	Route::resource('orders', 'OrderController');
-});
+	Route::get('criterio_evaluacion', 'GeneralController@getCriterioEval');	
+
+
+	Route::resource('matriz', 'MatrizController');
+	Route::delete('proceso_prior/{id}', [
+		'uses'	=> 'MatrizController@destroy',
+		'as'	=> 'proceso_prior.destroy'
+	]);
+//});

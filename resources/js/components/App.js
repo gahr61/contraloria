@@ -152,7 +152,7 @@ class App extends Component {
 
 		return (
 			<div>
-				
+				{console.log(window.location.href)}
 				<div className="wrapper">
 					<Header logout={(e)=>this.logout} reset={(e)=>this.resetPass} user={this.state.user}/>
 	  			

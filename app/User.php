@@ -48,7 +48,7 @@ class User extends Authenticatable implements JWTSubject //Authenticatable
         return $this->belongsToMany('App\Role')->select('id', 'display_name');
     }
 
-    public function company(){
-        return $this->belongsToMany('App\Company');
+    public function matriz(){
+        return $this->belongsToMany('App\Matriz', 'user_matriz')->select('id', 'id_institucion', 'id_ejercicio');
     }
 }
