@@ -6,8 +6,12 @@ const Header = (props)=>(
 	<header className="main-header">
 
     	<Link to="/" className="logo">
-			<span className="logo-mini"><b>Sys</b>Adm</span>
-      		<span className="logo-lg"><b>Sys</b>Admin</span>
+			<span className="logo-mini">
+                <img src={"images/contraloria-logo.png"} style={{position:'relative', width:'100%'}}/>
+            </span>
+      		<span className="logo-lg">
+                <img src={"images/contraloria.png"} style={{position:'relative', width:'100%', top:'-35px'}}/>
+            </span>
     	</Link>
 
     	<nav className="navbar navbar-static-top">

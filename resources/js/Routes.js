@@ -16,13 +16,12 @@ import FormRole from './components/containers/administration/roles/form';
 import Users from './components/containers/administration/users/';
 import FormUser from './components/containers/administration/users/form';
 
-{/*Companies*/}
-import Companies from './components/containers/company/';
-import FormCompany from './components/containers/company/form';
+import Institucion from './components/containers/institution/';
+import FormInstitucion from './components/containers/institution/form';
 
-{/*Orders*/}
-import Orders from './components/containers/order/';
-import FormOrder from './components/containers/order/form';
+{/*captura*/}
+import Matriz from './components/containers/information_load/matriz';
+import PTCI from './components/containers/information_load/ptci';
 
 const Home = ()=>(
 	<div style={{height:"100%"}}>
@@ -42,18 +41,19 @@ export default (general)=>
 		<AppliedRoute path="/roles" exact component={Roles} title="Roles" props={general} />
 		<AppliedRoute path="/roles/new" exact component={FormRole} title="Nuevo Rol" props={general} />
 		<AppliedRoute path="/roles/:id/edit" exact component={FormRole} title="Editar Rol" props={general}/>
+
+		<AppliedRoute path="/institucion" exact component={Institucion} title="Institución" props={general} />
+		<AppliedRoute path="/institucion/new" exact component={FormInstitucion} title="Nueva Institución" props={general} />
+		<AppliedRoute path="/institucion/:id/edit" exact component={FormInstitucion} title="Editar Institución" props={general}/>
 		
 		<AppliedRoute path="/users" exact component={Users} title="Usuarios" props={general} />
 		<AppliedRoute path="/users/new" exact component={FormUser} title="Nuevo Usuario" props={general} />
 		<AppliedRoute path="/users/:id/edit" exact component={FormUser} title="Editar Usuario" props={general} />
 
+		<AppliedRoute path="/matriz_evaluacion" exact component={Matriz} title="SCII Matriz de Evaluación" props={general} />
+		<AppliedRoute path="/ptci_institucional" exact component={PTCI} title="PTCI Institucional" props={general} />
+		<AppliedRoute path="/ptci_especifico" exact component={PTCI} title="PTCI Procesos Especificos" props={general} />
 
-		<AppliedRoute path="/companies" exact component={Companies} title="Empresas" props={general} />
-		<AppliedRoute path="/companies/new" exact component={FormCompany} title="Nuevo Empresa" props={general} />
-		<AppliedRoute path="/companies/:id/edit" exact component={FormCompany} title="Editar Empresa" props={general} />
-
-		<AppliedRoute path="/orders" exact component={Orders} title="Pedidos" props={general} />
-		<AppliedRoute path="/orders/new" exact component={FormOrder} title="Nuevo Pedido" props={general} />
-		<AppliedRoute path="/orders/:id/edit" exact component={FormOrder} title="Editar Pedido" props={general} />
+		
 
 	</Switch>;

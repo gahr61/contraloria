@@ -232,6 +232,1386 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/dropdown.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/dropdown.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _loadingIndicator = __webpack_require__(/*! ./loading-indicator.js */ "./node_modules/@khanacademy/react-multi-select/dist/loading-indicator.js");
+
+var _loadingIndicator2 = _interopRequireDefault(_loadingIndicator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * A generic dropdown component.  It takes the children of the component
+ * and hosts it in the component.  When the component is selected, it
+ * drops-down the contentComponent and applies the contentProps.
+ */
+
+
+var Dropdown = function (_Component) {
+    _inherits(Dropdown, _Component);
+
+    function Dropdown() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Dropdown);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            expanded: false,
+            hasFocus: false
+        }, _this.handleDocumentClick = function (event) {
+            if (_this.wrapper && !_this.wrapper.contains(event.target)) {
+                _this.setState({ expanded: false });
+            }
+        }, _this.handleKeyDown = function (e) {
+            switch (e.which) {
+                case 27:
+                    // Escape
+                    _this.toggleExpanded(false);
+                    break;
+                case 38:
+                    // Up Arrow
+                    _this.toggleExpanded(false);
+                    break;
+                case 13: // Enter Key
+                case 32: // Space
+                case 40:
+                    // Down Arrow
+                    _this.toggleExpanded(true);
+                    break;
+                default:
+                    return;
+            }
+
+            e.preventDefault();
+        }, _this.handleFocus = function (e) {
+            var hasFocus = _this.state.hasFocus;
+
+
+            if (e.target === _this.wrapper && !hasFocus) {
+                _this.setState({ hasFocus: true });
+            }
+        }, _this.handleBlur = function (e) {
+            var hasFocus = _this.state.hasFocus;
+
+
+            if (hasFocus) {
+                _this.setState({ hasFocus: false });
+            }
+        }, _this.handleMouseEnter = function (e) {
+            _this.handleHover(true);
+        }, _this.handleMouseLeave = function (e) {
+            _this.handleHover(false);
+        }, _this.handleHover = function (toggleExpanded) {
+            var shouldToggleOnHover = _this.props.shouldToggleOnHover;
+
+
+            if (shouldToggleOnHover) {
+                _this.toggleExpanded(toggleExpanded);
+            }
+        }, _this.toggleExpanded = function (value) {
+            var isLoading = _this.props.isLoading;
+            var expanded = _this.state.expanded;
+
+
+            if (isLoading) {
+                return;
+            }
+
+            var newExpanded = value === undefined ? !expanded : !!value;
+
+            _this.setState({ expanded: newExpanded });
+
+            if (!newExpanded && _this.wrapper) {
+                _this.wrapper.focus();
+            }
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Dropdown, [{
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate() {
+            document.addEventListener('touchstart', this.handleDocumentClick);
+            document.addEventListener('mousedown', this.handleDocumentClick);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            document.removeEventListener('touchstart', this.handleDocumentClick);
+            document.removeEventListener('mousedown', this.handleDocumentClick);
+        }
+    }, {
+        key: 'renderPanel',
+        value: function renderPanel() {
+            var _props = this.props,
+                ContentComponent = _props.contentComponent,
+                contentProps = _props.contentProps;
+
+
+            return _react2.default.createElement(
+                'div',
+                {
+                    className: 'dropdown-content',
+                    style: styles.panelContainer
+                },
+                _react2.default.createElement(ContentComponent, contentProps)
+            );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _state = this.state,
+                expanded = _state.expanded,
+                hasFocus = _state.hasFocus;
+            var _props2 = this.props,
+                children = _props2.children,
+                isLoading = _props2.isLoading,
+                disabled = _props2.disabled,
+                labelledBy = _props2.labelledBy;
+
+
+            var expandedHeaderStyle = expanded ? styles.dropdownHeaderExpanded : undefined;
+
+            var focusedHeaderStyle = hasFocus ? styles.dropdownHeaderFocused : undefined;
+
+            var arrowStyle = expanded ? styles.dropdownArrowUp : styles.dropdownArrowDown;
+
+            var focusedArrowStyle = hasFocus ? styles.dropdownArrowDownFocused : undefined;
+
+            var headingStyle = _extends({}, styles.dropdownChildren, disabled ? styles.disabledDropdownChildren : {});
+
+            return _react2.default.createElement(
+                'div',
+                {
+                    className: 'dropdown',
+                    tabIndex: '0',
+                    role: 'combobox',
+                    'aria-labelledby': labelledBy,
+                    'aria-expanded': expanded,
+                    'aria-readonly': 'true',
+                    'aria-disabled': disabled,
+                    style: styles.dropdownContainer,
+                    ref: function ref(_ref2) {
+                        return _this2.wrapper = _ref2;
+                    },
+                    onKeyDown: this.handleKeyDown,
+                    onFocus: this.handleFocus,
+                    onBlur: this.handleBlur,
+                    onMouseEnter: this.handleMouseEnter,
+                    onMouseLeave: this.handleMouseLeave
+                },
+                _react2.default.createElement(
+                    'div',
+                    {
+                        className: 'dropdown-heading',
+                        style: _extends({}, styles.dropdownHeader, expandedHeaderStyle, focusedHeaderStyle),
+                        onClick: function onClick() {
+                            return _this2.toggleExpanded();
+                        }
+                    },
+                    _react2.default.createElement(
+                        'span',
+                        {
+                            className: 'dropdown-heading-value',
+                            style: headingStyle
+                        },
+                        children
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        {
+                            className: 'dropdown-heading-loading-container',
+                            style: styles.loadingContainer
+                        },
+                        isLoading && _react2.default.createElement(_loadingIndicator2.default, null)
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        {
+                            className: 'dropdown-heading-dropdown-arrow',
+                            style: styles.dropdownArrow
+                        },
+                        _react2.default.createElement('span', { style: _extends({}, arrowStyle, focusedArrowStyle)
+                        })
+                    )
+                ),
+                expanded && this.renderPanel()
+            );
+        }
+    }]);
+
+    return Dropdown;
+}(_react.Component);
+
+var focusColor = '#78c008';
+
+var styles = {
+    dropdownArrow: {
+        boxSizing: 'border-box',
+        cursor: 'pointer',
+        display: 'table-cell',
+        position: 'relative',
+        textAlign: 'center',
+        verticalAlign: 'middle',
+        width: 25,
+        paddingRight: 5
+    },
+    dropdownArrowDown: {
+        boxSizing: 'border-box',
+        borderColor: '#999 transparent transparent',
+        borderStyle: 'solid',
+        borderWidth: '5px 5px 2.5px',
+        display: 'inline-block',
+        height: 0,
+        width: 0,
+        position: 'relative'
+    },
+    dropdownArrowDownFocused: {
+        borderColor: focusColor + ' transparent transparent'
+    },
+    dropdownArrowUp: {
+        boxSizing: 'border-box',
+        top: '-2px',
+        borderColor: 'transparent transparent #999',
+        borderStyle: 'solid',
+        borderWidth: '0px 5px 5px',
+        display: 'inline-block',
+        height: 0,
+        width: 0,
+        position: 'relative'
+    },
+    dropdownChildren: {
+        boxSizing: 'border-box',
+        bottom: 0,
+        color: '#333',
+        left: 0,
+        lineHeight: '34px',
+        paddingLeft: 10,
+        paddingRight: 10,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        maxWidth: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+    },
+    disabledDropdownChildren: {
+        opacity: 0.5
+    },
+    dropdownContainer: {
+        position: 'relative',
+        boxSizing: 'border-box',
+        outline: 'none'
+    },
+    dropdownHeader: {
+        boxSizing: 'border-box',
+        backgroundColor: '#fff',
+        borderColor: '#d9d9d9 #ccc #b3b3b3',
+        borderRadius: 4,
+        borderBottomRightRadius: 4,
+        borderBottomLeftRadius: 4,
+        border: '1px solid #ccc',
+        color: '#333',
+        cursor: 'default',
+        display: 'table',
+        borderSpacing: 0,
+        borderCollapse: 'separate',
+        height: 36,
+        outline: 'none',
+        overflow: 'hidden',
+        position: 'relative',
+        width: '100%'
+    },
+    dropdownHeaderFocused: {
+        borderColor: focusColor,
+        boxShadow: 'none'
+    },
+    dropdownHeaderExpanded: {
+        borderBottomRightRadius: '0px',
+        borderBottomLeftRadius: '0px'
+    },
+    loadingContainer: {
+        cursor: 'pointer',
+        display: 'table-cell',
+        verticalAlign: 'middle',
+        width: '16px'
+    },
+    panelContainer: {
+        borderBottomRightRadius: '4px',
+        borderBottomLeftRadius: '4px',
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        borderTopColor: '#e6e6e6',
+        boxShadow: '0 1px 0 rgba(0, 0, 0, 0.06)',
+        boxSizing: 'border-box',
+        marginTop: '-1px',
+        maxHeight: '300px',
+        position: 'absolute',
+        top: '100%',
+        width: '100%',
+        zIndex: 1,
+        overflowY: 'auto'
+    }
+};
+
+exports.default = Dropdown;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/get-string.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/get-string.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var strings = {
+    selectSomeItems: "Select some items...",
+    allItemsAreSelected: "All items are selected",
+    selectAll: "Select All",
+    search: "Search"
+};
+
+function getString(key, overrideStrings) {
+    if (overrideStrings && overrideStrings[key]) {
+        return overrideStrings[key];
+    }
+
+    return strings[key];
+}
+
+exports.default = getString;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/index.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SelectItem = exports.SelectPanel = exports.Dropdown = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _dropdown = __webpack_require__(/*! ./dropdown.js */ "./node_modules/@khanacademy/react-multi-select/dist/dropdown.js");
+
+var _dropdown2 = _interopRequireDefault(_dropdown);
+
+var _selectPanel = __webpack_require__(/*! ./select-panel.js */ "./node_modules/@khanacademy/react-multi-select/dist/select-panel.js");
+
+var _selectPanel2 = _interopRequireDefault(_selectPanel);
+
+var _getString = __webpack_require__(/*! ./get-string.js */ "./node_modules/@khanacademy/react-multi-select/dist/get-string.js");
+
+var _getString2 = _interopRequireDefault(_getString);
+
+var _selectItem = __webpack_require__(/*! ./select-item.js */ "./node_modules/@khanacademy/react-multi-select/dist/select-item.js");
+
+var _selectItem2 = _interopRequireDefault(_selectItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * This component is designed to be a multi-selct component which supports
+ * the selection of several items in a picklist.  It was meant to mimic the
+ * style of react-select but the multi-select behavior didn't work for our
+ * our needs.
+ *
+ * Arguments:
+ * - options: The {value, label}[] options to be displayed
+ * - values: The currently selected values []
+ * - onSelectedChanged: An event to notify the caller of new values
+ * - valueRenderer: A fn to support overriding the message in the component
+ * - isLoading: Show a loading indicator
+ */
+
+
+var MultiSelect = function (_Component) {
+    _inherits(MultiSelect, _Component);
+
+    function MultiSelect() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, MultiSelect);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MultiSelect.__proto__ || Object.getPrototypeOf(MultiSelect)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectedChanged = function (selected) {
+            var _this$props = _this.props,
+                onSelectedChanged = _this$props.onSelectedChanged,
+                disabled = _this$props.disabled;
+
+
+            if (disabled) {
+                return;
+            }
+
+            if (onSelectedChanged) {
+                onSelectedChanged(selected);
+            }
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(MultiSelect, [{
+        key: 'getSelectedText',
+        value: function getSelectedText() {
+            var _props = this.props,
+                options = _props.options,
+                selected = _props.selected;
+
+
+            var selectedOptions = selected.map(function (s) {
+                return options.find(function (o) {
+                    return o.value === s;
+                });
+            });
+
+            var selectedLabels = selectedOptions.map(function (s) {
+                return s ? s.label : "";
+            });
+
+            return selectedLabels.join(", ");
+        }
+    }, {
+        key: 'renderHeader',
+        value: function renderHeader() {
+            var _props2 = this.props,
+                options = _props2.options,
+                selected = _props2.selected,
+                valueRenderer = _props2.valueRenderer,
+                overrideStrings = _props2.overrideStrings;
+
+
+            var noneSelected = selected.length === 0;
+            var allSelected = selected.length === options.length;
+
+            var customText = valueRenderer && valueRenderer(selected, options);
+
+            if (noneSelected) {
+                return _react2.default.createElement(
+                    'span',
+                    { style: styles.noneSelected },
+                    customText || (0, _getString2.default)("selectSomeItems", overrideStrings)
+                );
+            }
+
+            if (customText) {
+                return _react2.default.createElement(
+                    'span',
+                    null,
+                    customText
+                );
+            }
+
+            return _react2.default.createElement(
+                'span',
+                null,
+                allSelected ? (0, _getString2.default)("allItemsAreSelected", overrideStrings) : this.getSelectedText()
+            );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props3 = this.props,
+                ItemRenderer = _props3.ItemRenderer,
+                options = _props3.options,
+                selected = _props3.selected,
+                selectAllLabel = _props3.selectAllLabel,
+                isLoading = _props3.isLoading,
+                disabled = _props3.disabled,
+                disableSearch = _props3.disableSearch,
+                filterOptions = _props3.filterOptions,
+                shouldToggleOnHover = _props3.shouldToggleOnHover,
+                hasSelectAll = _props3.hasSelectAll,
+                overrideStrings = _props3.overrideStrings,
+                labelledBy = _props3.labelledBy;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'multi-select' },
+                _react2.default.createElement(
+                    _dropdown2.default,
+                    {
+                        isLoading: isLoading,
+                        contentComponent: _selectPanel2.default,
+                        shouldToggleOnHover: shouldToggleOnHover,
+                        contentProps: {
+                            ItemRenderer: ItemRenderer,
+                            options: options,
+                            selected: selected,
+                            hasSelectAll: hasSelectAll,
+                            selectAllLabel: selectAllLabel,
+                            onSelectedChanged: this.handleSelectedChanged,
+                            disabled: disabled,
+                            disableSearch: disableSearch,
+                            filterOptions: filterOptions,
+                            overrideStrings: overrideStrings
+                        },
+                        disabled: disabled,
+                        labelledBy: labelledBy
+                    },
+                    this.renderHeader()
+                )
+            );
+        }
+    }]);
+
+    return MultiSelect;
+}(_react.Component);
+
+MultiSelect.defaultProps = {
+    hasSelectAll: true,
+    shouldToggleOnHover: false
+};
+
+
+var styles = {
+    noneSelected: {
+        color: "#aaa"
+    }
+};
+
+exports.default = MultiSelect;
+exports.Dropdown = _dropdown2.default;
+exports.SelectPanel = _selectPanel2.default;
+exports.SelectItem = _selectItem2.default;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/loading-indicator.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/loading-indicator.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * A simple loading indicator, modeled after react-select.  Since react styles
+ * don't support animations, hack it so we inject the keyframe animation
+ * into the document.
+ */
+
+
+var STYLESHEET_NAME = "__react-multi-select_style_inject__";
+
+function findStylesheet() {
+    var styleSheet = Array.from(document.styleSheets).find(function (stylesheet) {
+        return stylesheet.title === STYLESHEET_NAME;
+    });
+
+    // upcast as CSSStyleSheet
+    var cssStylesheet = styleSheet;
+
+    return cssStylesheet;
+}
+
+function registerStylesheet(css) {
+    try {
+        if (findStylesheet()) {
+            return;
+        }
+
+        var style = document.createElement("style");
+        style.setAttribute("title", STYLESHEET_NAME);
+        document.head && document.head.appendChild(style);
+
+        var stylesheet = findStylesheet();
+        if (!stylesheet) {
+            // Someting bad happened.  Abort!
+            return;
+        }
+
+        stylesheet.insertRule(css, 0);
+    } catch (e) {}
+}
+
+var LoadingIndicator = function (_Component) {
+    _inherits(LoadingIndicator, _Component);
+
+    function LoadingIndicator() {
+        _classCallCheck(this, LoadingIndicator);
+
+        return _possibleConstructorReturn(this, (LoadingIndicator.__proto__ || Object.getPrototypeOf(LoadingIndicator)).apply(this, arguments));
+    }
+
+    _createClass(LoadingIndicator, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            // React styles don't support adding keyframe rules.  Create a
+            // stylesheet and inject the keyframe animarion into it.
+            registerStylesheet(keyFrames);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement("span", {
+                className: "loading-indicator",
+                style: styles.loading
+            });
+        }
+    }]);
+
+    return LoadingIndicator;
+}(_react.Component);
+
+LoadingIndicator.propTypes = {};
+
+
+var keyFrames = "\n@keyframes react-multi-select_loading-spin {\n    to {\n        transform: rotate(1turn);\n    }\n}\n";
+
+var styles = {
+    loading: {
+        "animation": "react-multi-select_loading-spin 400ms infinite linear",
+        "width": "16px",
+        "height": "16px",
+        boxSizing: "border-box",
+        borderRadius: "50%",
+        border: "2px solid #ccc",
+        borderRightColor: "#333",
+        display: "inline-block",
+        position: "relative",
+        verticalAlign: "middle"
+    }
+};
+
+exports.default = LoadingIndicator;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/select-item.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/select-item.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * This component represents an individual item in the multi-select drop-down
+ */
+
+
+var DefaultItemRenderer = function (_Component) {
+    _inherits(DefaultItemRenderer, _Component);
+
+    function DefaultItemRenderer() {
+        _classCallCheck(this, DefaultItemRenderer);
+
+        return _possibleConstructorReturn(this, (DefaultItemRenderer.__proto__ || Object.getPrototypeOf(DefaultItemRenderer)).apply(this, arguments));
+    }
+
+    _createClass(DefaultItemRenderer, [{
+        key: "render",
+        value: function render() {
+            var _props = this.props,
+                checked = _props.checked,
+                option = _props.option,
+                onClick = _props.onClick,
+                disabled = _props.disabled;
+
+
+            var style = _extends({}, styles.label, disabled ? styles.labelDisabled : undefined);
+
+            return _react2.default.createElement(
+                "span",
+                {
+                    className: "item-renderer"
+                },
+                _react2.default.createElement("input", {
+                    type: "checkbox",
+                    onChange: onClick,
+                    checked: checked,
+                    tabIndex: "-1",
+                    disabled: disabled
+                }),
+                _react2.default.createElement(
+                    "span",
+                    { style: style },
+                    option.label
+                )
+            );
+        }
+    }]);
+
+    return DefaultItemRenderer;
+}(_react.Component);
+
+var SelectItem = function (_Component2) {
+    _inherits(SelectItem, _Component2);
+
+    function SelectItem() {
+        var _ref;
+
+        var _temp, _this2, _ret;
+
+        _classCallCheck(this, SelectItem);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = SelectItem.__proto__ || Object.getPrototypeOf(SelectItem)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {
+            hovered: false
+        }, _this2.onChecked = function (e) {
+            var onSelectionChanged = _this2.props.onSelectionChanged;
+            var checked = e.target.checked;
+
+
+            onSelectionChanged(checked);
+        }, _this2.toggleChecked = function () {
+            var _this2$props = _this2.props,
+                checked = _this2$props.checked,
+                onSelectionChanged = _this2$props.onSelectionChanged;
+
+            onSelectionChanged(!checked);
+        }, _this2.handleClick = function (e) {
+            var onClick = _this2.props.onClick;
+
+            _this2.toggleChecked();
+            onClick(e);
+        }, _this2.handleKeyDown = function (e) {
+            switch (e.which) {
+                case 13: // Enter
+                case 32:
+                    // Space
+                    _this2.toggleChecked();
+                    break;
+                default:
+                    return;
+            }
+
+            e.preventDefault();
+        }, _temp), _possibleConstructorReturn(_this2, _ret);
+    }
+
+    _createClass(SelectItem, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.updateFocus();
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate() {
+            this.updateFocus();
+        }
+    }, {
+        key: "updateFocus",
+        value: function updateFocus() {
+            var focused = this.props.focused;
+
+
+            if (focused && this.itemRef) {
+                this.itemRef.focus();
+            }
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this3 = this;
+
+            var _props2 = this.props,
+                ItemRenderer = _props2.ItemRenderer,
+                option = _props2.option,
+                checked = _props2.checked,
+                focused = _props2.focused,
+                disabled = _props2.disabled;
+            var hovered = this.state.hovered;
+
+
+            var focusStyle = focused || hovered ? styles.itemContainerHover : undefined;
+
+            return _react2.default.createElement(
+                "label",
+                {
+                    className: "select-item",
+                    role: "option",
+                    "aria-selected": checked,
+                    selected: checked,
+                    tabIndex: "-1",
+                    style: _extends({}, styles.itemContainer, focusStyle),
+                    ref: function ref(_ref2) {
+                        return _this3.itemRef = _ref2;
+                    },
+                    onKeyDown: this.handleKeyDown,
+                    onMouseOver: function onMouseOver() {
+                        return _this3.setState({ hovered: true });
+                    },
+                    onMouseOut: function onMouseOut() {
+                        return _this3.setState({ hovered: false });
+                    }
+                },
+                _react2.default.createElement(ItemRenderer, {
+                    option: option,
+                    checked: checked,
+                    onClick: this.handleClick,
+                    disabled: disabled
+                })
+            );
+        }
+    }]);
+
+    return SelectItem;
+}(_react.Component);
+
+SelectItem.defaultProps = {
+    ItemRenderer: DefaultItemRenderer
+};
+
+
+var styles = {
+    itemContainer: {
+        boxSizing: 'border-box',
+        backgroundColor: '#fff',
+        color: '#666666',
+        cursor: 'pointer',
+        display: 'block',
+        padding: '8px 10px'
+    },
+    itemContainerHover: {
+        backgroundColor: '#ebf5ff',
+        outline: 0
+    },
+    label: {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        borderBottomRightRadius: '2px',
+        borderTopRightRadius: '2px',
+        cursor: 'default',
+        padding: '2px 5px'
+    },
+    labelDisabled: {
+        opacity: 0.5
+    }
+};
+
+exports.default = SelectItem;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/select-list.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/select-list.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _selectItem = __webpack_require__(/*! ./select-item.js */ "./node_modules/@khanacademy/react-multi-select/dist/select-item.js");
+
+var _selectItem2 = _interopRequireDefault(_selectItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * This component represents an unadorned list of SelectItem (s).
+ */
+
+
+var SelectList = function (_Component) {
+    _inherits(SelectList, _Component);
+
+    function SelectList() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, SelectList);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectList.__proto__ || Object.getPrototypeOf(SelectList)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectionChanged = function (option, checked) {
+            var _this$props = _this.props,
+                selected = _this$props.selected,
+                onSelectedChanged = _this$props.onSelectedChanged,
+                disabled = _this$props.disabled;
+
+
+            if (disabled) {
+                true;
+            }
+
+            if (checked) {
+                onSelectedChanged([].concat(_toConsumableArray(selected), [option.value]));
+            } else {
+                var _index = selected.indexOf(option.value);
+                var removed = [].concat(_toConsumableArray(selected.slice(0, _index)), _toConsumableArray(selected.slice(_index + 1)));
+                onSelectedChanged(removed);
+            }
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(SelectList, [{
+        key: 'renderItems',
+        value: function renderItems() {
+            var _this2 = this;
+
+            var _props = this.props,
+                ItemRenderer = _props.ItemRenderer,
+                options = _props.options,
+                selected = _props.selected,
+                focusIndex = _props.focusIndex,
+                onClick = _props.onClick,
+                disabled = _props.disabled;
+
+
+            return options.map(function (o, i) {
+                return _react2.default.createElement(
+                    'li',
+                    {
+                        style: styles.listItem,
+                        key: o.hasOwnProperty("key") ? o.key : i
+                    },
+                    _react2.default.createElement(_selectItem2.default, {
+                        focused: focusIndex === i,
+                        option: o,
+                        onSelectionChanged: function onSelectionChanged(c) {
+                            return _this2.handleSelectionChanged(o, c);
+                        },
+                        checked: selected.includes(o.value),
+                        onClick: function (_onClick) {
+                            function onClick(_x) {
+                                return _onClick.apply(this, arguments);
+                            }
+
+                            onClick.toString = function () {
+                                return _onClick.toString();
+                            };
+
+                            return onClick;
+                        }(function (e) {
+                            return onClick(e, i);
+                        }),
+                        ItemRenderer: ItemRenderer,
+                        disabled: o.disabled || disabled
+                    })
+                );
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'ul',
+                {
+                    className: 'select-list',
+                    style: styles.list
+                },
+                this.renderItems()
+            );
+        }
+    }]);
+
+    return SelectList;
+}(_react.Component);
+
+var styles = {
+    list: {
+        margin: 0,
+        paddingLeft: 0
+    },
+    listItem: {
+        listStyle: 'none'
+    }
+};
+
+exports.default = SelectList;
+
+/***/ }),
+
+/***/ "./node_modules/@khanacademy/react-multi-select/dist/select-panel.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@khanacademy/react-multi-select/dist/select-panel.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _fuzzyMatchUtils = __webpack_require__(/*! fuzzy-match-utils */ "./node_modules/fuzzy-match-utils/dist/fuzzy-match-utils.js");
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _selectItem = __webpack_require__(/*! ./select-item.js */ "./node_modules/@khanacademy/react-multi-select/dist/select-item.js");
+
+var _selectItem2 = _interopRequireDefault(_selectItem);
+
+var _selectList = __webpack_require__(/*! ./select-list.js */ "./node_modules/@khanacademy/react-multi-select/dist/select-list.js");
+
+var _selectList2 = _interopRequireDefault(_selectList);
+
+var _getString = __webpack_require__(/*! ./get-string.js */ "./node_modules/@khanacademy/react-multi-select/dist/get-string.js");
+
+var _getString2 = _interopRequireDefault(_getString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/**
+ * This component represents the entire panel which gets dropped down when the
+ * user selects the component.  It encapsulates the search filter, the
+ * Select-all item, and the list of options.
+ */
+
+
+var SelectPanel = function (_Component) {
+    _inherits(SelectPanel, _Component);
+
+    function SelectPanel() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, SelectPanel);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SelectPanel.__proto__ || Object.getPrototypeOf(SelectPanel)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            searchHasFocus: false,
+            searchText: "",
+            focusIndex: 0
+        }, _this.selectAll = function () {
+            var _this$props = _this.props,
+                onSelectedChanged = _this$props.onSelectedChanged,
+                options = _this$props.options;
+
+            var allValues = options.map(function (o) {
+                return o.value;
+            });
+
+            onSelectedChanged(allValues);
+        }, _this.selectNone = function () {
+            var onSelectedChanged = _this.props.onSelectedChanged;
+
+
+            onSelectedChanged([]);
+        }, _this.selectAllChanged = function (checked) {
+            if (checked) {
+                _this.selectAll();
+            } else {
+                _this.selectNone();
+            }
+        }, _this.handleSearchChange = function (e) {
+            _this.setState({
+                searchText: e.target.value,
+                focusIndex: -1
+            });
+        }, _this.handleItemClicked = function (index) {
+            _this.setState({ focusIndex: index });
+        }, _this.clearSearch = function () {
+            _this.setState({ searchText: "" });
+        }, _this.handleKeyDown = function (e) {
+            switch (e.which) {
+                case 38:
+                    // Up Arrow
+                    if (e.altKey) {
+                        return;
+                    }
+
+                    _this.updateFocus(-1);
+                    break;
+                case 40:
+                    // Down Arrow
+                    if (e.altKey) {
+                        return;
+                    }
+
+                    _this.updateFocus(1);
+                    break;
+                default:
+                    return;
+            }
+
+            e.stopPropagation();
+            e.preventDefault();
+        }, _this.handleSearchFocus = function (searchHasFocus) {
+            _this.setState({
+                searchHasFocus: searchHasFocus,
+                focusIndex: -1
+            });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(SelectPanel, [{
+        key: 'allAreSelected',
+        value: function allAreSelected() {
+            var _props = this.props,
+                options = _props.options,
+                selected = _props.selected;
+
+            return options.length === selected.length;
+        }
+    }, {
+        key: 'filteredOptions',
+        value: function filteredOptions() {
+            var searchText = this.state.searchText;
+            var _props2 = this.props,
+                options = _props2.options,
+                customFilterOptions = _props2.filterOptions;
+
+
+            return customFilterOptions ? customFilterOptions(options, searchText) : (0, _fuzzyMatchUtils.filterOptions)(options, searchText);
+        }
+    }, {
+        key: 'updateFocus',
+        value: function updateFocus(offset) {
+            var focusIndex = this.state.focusIndex;
+            var options = this.props.options;
+
+
+            var newFocus = focusIndex + offset;
+            newFocus = Math.max(0, newFocus);
+            newFocus = Math.min(newFocus, options.length);
+
+            this.setState({ focusIndex: newFocus });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _state = this.state,
+                focusIndex = _state.focusIndex,
+                searchHasFocus = _state.searchHasFocus;
+            var _props3 = this.props,
+                ItemRenderer = _props3.ItemRenderer,
+                selectAllLabel = _props3.selectAllLabel,
+                disabled = _props3.disabled,
+                disableSearch = _props3.disableSearch,
+                hasSelectAll = _props3.hasSelectAll,
+                overrideStrings = _props3.overrideStrings;
+
+
+            var selectAllOption = {
+                label: selectAllLabel || (0, _getString2.default)("selectAll", overrideStrings),
+                value: ""
+            };
+
+            var focusedSearchStyle = searchHasFocus ? styles.searchFocused : undefined;
+
+            return _react2.default.createElement(
+                'div',
+                {
+                    className: 'select-panel',
+                    style: styles.panel,
+                    role: 'listbox',
+                    onKeyDown: this.handleKeyDown
+                },
+                !disableSearch && _react2.default.createElement(
+                    'div',
+                    { style: styles.searchContainer },
+                    _react2.default.createElement('input', {
+                        placeholder: (0, _getString2.default)("search", overrideStrings),
+                        type: 'text',
+                        onChange: this.handleSearchChange,
+                        style: _extends({}, styles.search, focusedSearchStyle),
+                        onFocus: function onFocus() {
+                            return _this2.handleSearchFocus(true);
+                        },
+                        onBlur: function onBlur() {
+                            return _this2.handleSearchFocus(false);
+                        }
+                    })
+                ),
+                hasSelectAll && _react2.default.createElement(_selectItem2.default, {
+                    focused: focusIndex === 0,
+                    checked: this.allAreSelected(),
+                    option: selectAllOption,
+                    onSelectionChanged: this.selectAllChanged,
+                    onClick: function onClick() {
+                        return _this2.handleItemClicked(0);
+                    },
+                    ItemRenderer: ItemRenderer,
+                    disabled: disabled
+                }),
+                _react2.default.createElement(_selectList2.default, _extends({}, this.props, {
+                    options: this.filteredOptions(),
+                    focusIndex: focusIndex - 1,
+                    onClick: function onClick(e, index) {
+                        return _this2.handleItemClicked(index + 1);
+                    },
+                    ItemRenderer: ItemRenderer,
+                    disabled: disabled
+                }))
+            );
+        }
+    }]);
+
+    return SelectPanel;
+}(_react.Component);
+
+var styles = {
+    panel: {
+        boxSizing: 'border-box'
+    },
+    search: {
+        display: "block",
+
+        maxWidth: "100%",
+        borderRadius: "3px",
+
+        boxSizing: 'border-box',
+        height: '30px',
+        lineHeight: '24px',
+        border: '1px solid',
+        borderColor: '#dee2e4',
+        padding: '10px',
+        width: "100%",
+        outline: "none"
+    },
+    searchFocused: {
+        borderColor: "#78c008"
+    },
+    searchContainer: {
+        width: "100%",
+        boxSizing: 'border-box',
+        padding: "0.5em"
+    }
+};
+
+exports.default = SelectPanel;
+
+/***/ }),
+
 /***/ "./node_modules/@restart/context/forwardRef.js":
 /*!*****************************************************!*\
   !*** ./node_modules/@restart/context/forwardRef.js ***!
@@ -1887,6 +3267,25 @@ exports.push([module.i, "\n.react-spinner-loader-svg svg {\n  -webkit-transform-
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/react-tabs/style/react-tabs.css":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/react-tabs/style/react-tabs.css ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".react-tabs {\n  -webkit-tap-highlight-color: transparent;\n}\n\n.react-tabs__tab-list {\n  border-bottom: 1px solid #aaa;\n  margin: 0 0 10px;\n  padding: 0;\n}\n\n.react-tabs__tab {\n  display: inline-block;\n  border: 1px solid transparent;\n  border-bottom: none;\n  bottom: -1px;\n  position: relative;\n  list-style: none;\n  padding: 6px 12px;\n  cursor: pointer;\n}\n\n.react-tabs__tab--selected {\n  background: #fff;\n  border-color: #aaa;\n  color: black;\n  border-radius: 5px 5px 0 0;\n}\n\n.react-tabs__tab--disabled {\n  color: GrayText;\n  cursor: default;\n}\n\n.react-tabs__tab:focus {\n  box-shadow: 0 0 5px hsl(208, 99%, 50%);\n  border-color: hsl(208, 99%, 50%);\n  outline: none;\n}\n\n.react-tabs__tab:focus:after {\n  content: \"\";\n  position: absolute;\n  height: 5px;\n  left: -4px;\n  right: -4px;\n  bottom: -5px;\n  background: #fff;\n}\n\n.react-tabs__tab-panel {\n  display: none;\n}\n\n.react-tabs__tab-panel--selected {\n  display: block;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./resources/js/components/App.css":
 /*!*************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/js/components/App.css ***!
@@ -1899,7 +3298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".App {\r\n  text-align: center;\r\n}\r\n\r\n.App-logo {\r\n  -webkit-animation: App-logo-spin infinite 20s linear;\r\n          animation: App-logo-spin infinite 20s linear;\r\n  height: 40vmin;\r\n  pointer-events: none;\r\n}\r\n\r\n.App-header {\r\n  background-color: #282c34;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: calc(10px + 2vmin);\r\n  color: white;\r\n}\r\n\r\n.App-link {\r\n  color: #61dafb;\r\n}\r\n\r\n@-webkit-keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n\r\n.btn-form{\r\n  text-align: center;\r\n}\r\n\r\n.btn-form > .btn-save{\r\n  margin-right: 10px;\r\n}", ""]);
+exports.push([module.i, ".App {\r\n  text-align: center;\r\n}\r\n\r\n.App-logo {\r\n  -webkit-animation: App-logo-spin infinite 20s linear;\r\n          animation: App-logo-spin infinite 20s linear;\r\n  height: 40vmin;\r\n  pointer-events: none;\r\n}\r\n\r\n.App-header {\r\n  background-color: #282c34;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: calc(10px + 2vmin);\r\n  color: white;\r\n}\r\n\r\n.App-link {\r\n  color: #61dafb;\r\n}\r\n\r\n@-webkit-keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n.btn-form{\r\n  text-align: center;\r\n}\r\n\r\n.btn-form > .btn-save{\r\n  margin-right: 10px;\r\n}\r\n\r\n.swal2-popup {\r\n  font-size: 1.6rem !important;\r\n}", ""]);
 
 // exports
 
@@ -18455,6 +19854,237 @@ function scrollbarSize(recalc) {
 }
 
 module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/fuzzy-match-utils/dist/fuzzy-match-utils.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/fuzzy-match-utils/dist/fuzzy-match-utils.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.filterOptions = filterOptions;
+exports.typeaheadSimilarity = typeaheadSimilarity;
+exports.fullStringDistance = fullStringDistance;
+exports.cleanUpText = cleanUpText;
+
+
+/**
+ * Filters React Select options and sorts by similarity to a search filter.
+ * Handles partial matches, eg. searching for "Waberg High" will find "Raoul
+ * Wallenberg Traditional High School". Case insensitive. Ignores
+ * non-alphanumeric characters.
+ *
+ * @param  options  An unfiltered list of Options.
+ * @param? filter  A string to compare against Option labels.
+ * @param? substitutions  Strings with multiple spellings or variations that we
+ *           expect to match, eg. accented characters or abbreviated words.
+ *
+ * @return A filtered and sorted array of Options.
+ */
+
+/**
+ * A collection of string matching algorithms built with React Select in mind.
+ */
+
+// Option type from React Select and similar libraries.
+function filterOptions(options, filter, substitutions) {
+    // If the filter is blank, return the full list of Options.
+    if (!filter) {
+        return options;
+    }
+
+    var cleanFilter = cleanUpText(filter, substitutions);
+    return options
+    // Filter out undefined or null Options.
+    .filter(function (_ref) {
+        var label = _ref.label,
+            value = _ref.value;
+        return label != null && value != null;
+    })
+    // Create a {score, Option} pair for each Option based on its label's
+    // similarity to the filter text.
+    .map(function (option) {
+        return {
+            option: option,
+            score: typeaheadSimilarity(cleanUpText(option.label, substitutions), cleanFilter)
+        };
+    })
+    // Only include matches of the entire substring, with a slight
+    // affordance for transposition or extra characters.
+    .filter(function (pair) {
+        return pair.score >= cleanFilter.length - 2;
+    })
+    // Sort 'em by order of their score.
+    .sort(function (a, b) {
+        return b.score - a.score;
+    })
+    // …and grab the original Options back from their pairs.
+    .map(function (pair) {
+        return pair.option;
+    });
+}
+
+/**
+ * Scores the similarity between two strings by returning the length of the
+ * longest common subsequence. Intended for comparing strings of different
+ * lengths; eg. when matching a typeahead search input with a school name.
+
+ * Meant for use in an instant search box where results are being fetched
+ * as a user is typing.
+ *
+ * @param  a  The longer string (though, we flip them if it's shorter).
+ * @param  b  The shorter string, eg. a typeahead search input.
+ *
+ * @return The length of the longest common subsequence. Higher scores indicate
+ *           closer matches.
+ */
+function typeaheadSimilarity(a, b) {
+    var aLength = a.length;
+    var bLength = b.length;
+    var table = [];
+
+    if (!aLength || !bLength) {
+        return 0;
+    }
+
+    // Ensure `a` isn't shorter than `b`.
+    if (aLength < bLength) {
+        var _ref2 = [b, a];
+        a = _ref2[0];
+        b = _ref2[1];
+    }
+
+    // Early exit if `a` includes `b`; these will be scored higher than any
+    // other options with the same `b` (filter string), with a preference for
+    // shorter `a` strings (option labels).
+    if (a.indexOf(b) !== -1) {
+        return bLength + 1 / aLength;
+    }
+
+    // Initialize the table axes:
+    //
+    //    0 0 0 0 ... bLength
+    //    0
+    //    0
+    //
+    //   ...
+    //
+    // aLength
+    //
+    for (var x = 0; x <= aLength; ++x) {
+        table[x] = [0];
+    }
+    for (var y = 0; y <= bLength; ++y) {
+        table[0][y] = 0;
+    }
+
+    // Populate the rest of the table with a dynamic programming algorithm.
+    for (var _x = 1; _x <= aLength; ++_x) {
+        for (var _y = 1; _y <= bLength; ++_y) {
+            table[_x][_y] = a[_x - 1] === b[_y - 1] ? 1 + table[_x - 1][_y - 1] : Math.max(table[_x][_y - 1], table[_x - 1][_y]);
+        }
+    }
+
+    return table[aLength][bLength];
+}
+
+/**
+ * Returns the Levenshtein distance between two strings.
+ *
+ * NOTE: The Jaro-Winkler distance also worked well and is slightly more
+ * performant. Levenshtein seems to match more reliably, which is more
+ * important here.
+ *
+ * @param  a  The first string for comparison.
+ * @param  b  The second string for comparison.
+ *
+ * @return The Levenshtein distance, where lower distance indicates higher
+ *           similarity.
+ */
+function fullStringDistance(a, b) {
+    var aLength = a.length;
+    var bLength = b.length;
+    var table = [];
+
+    if (!aLength) {
+        return bLength;
+    }
+    if (!bLength) {
+        return aLength;
+    }
+
+    // Initialize the table axes:
+    //
+    //    0 1 2 3 4 ... bLength
+    //    1
+    //    2
+    //
+    //   ...
+    //
+    // aLength
+    //
+    for (var x = 0; x <= aLength; ++x) {
+        table[x] = [x];
+    }
+    for (var y = 0; y <= bLength; ++y) {
+        table[0][y] = y;
+    }
+
+    // Populate the rest of the table with a dynamic programming algorithm.
+    for (var _x2 = 1; _x2 <= aLength; ++_x2) {
+        for (var _y2 = 1; _y2 <= bLength; ++_y2) {
+            table[_x2][_y2] = a[_x2 - 1] === b[_y2 - 1] ? table[_x2 - 1][_y2 - 1] : 1 + Math.min(table[_x2 - 1][_y2], // Substitution,
+            table[_x2][_y2 - 1], // insertion,
+            table[_x2 - 1][_y2 - 1]); // and deletion.
+        }
+    }
+
+    return table[aLength][bLength];
+}
+
+/**
+ * Apply string substitutions, remove non-alphanumeric characters, and convert
+ * all letters to uppercase.
+ *
+ * eg. 'Scoil Bhríde Primary School' may become 'SCOILBHRIDEPRIMARYSCHOOL'.
+ *
+ * @param  input  An unsanitized input string.
+ * @param  substitutions  Strings with multiple spellings or variations that we
+ *          expect to match, for example accented characters or abbreviated
+ *          words.
+ *
+ * @return The sanitized text.
+ */
+function cleanUpText(input, substitutions) {
+    if (!input) {
+        return '';
+    }
+
+    // Uppercase and remove all non-alphanumeric, non-accented characters.
+    // Also remove underscores.
+    input = input.toUpperCase().replace(/((?=[^\u00E0-\u00FC])\W)|_/g, '');
+
+    if (!substitutions) {
+        return input;
+    }
+    var safeSubstitutions = substitutions; // For Flow.
+
+    // Replace all strings in `safeSubstitutions` with their standardized
+    // counterparts.
+    return Object.keys(safeSubstitutions).reduce(function (output, substitution) {
+        var unsubbed = new RegExp(substitution, 'g');
+        return output.replace(unsubbed, safeSubstitutions[substitution]);
+    }, input);
+}
+
 
 /***/ }),
 
@@ -88311,6 +89941,1104 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
+/***/ "./node_modules/react-tabs/esm/components/Tab.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tab.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tab; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+var DEFAULT_CLASS = 'react-tabs__tab';
+
+var Tab =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(Tab, _Component);
+
+  function Tab() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = Tab.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.checkFocus();
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this.checkFocus();
+  };
+
+  _proto.checkFocus = function checkFocus() {
+    var _this$props = this.props,
+        selected = _this$props.selected,
+        focus = _this$props.focus;
+
+    if (selected && focus) {
+      this.node.focus();
+    }
+  };
+
+  _proto.render = function render() {
+    var _cx,
+        _this = this;
+
+    var _this$props2 = this.props,
+        children = _this$props2.children,
+        className = _this$props2.className,
+        disabled = _this$props2.disabled,
+        disabledClassName = _this$props2.disabledClassName,
+        focus = _this$props2.focus,
+        id = _this$props2.id,
+        panelId = _this$props2.panelId,
+        selected = _this$props2.selected,
+        selectedClassName = _this$props2.selectedClassName,
+        tabIndex = _this$props2.tabIndex,
+        tabRef = _this$props2.tabRef,
+        attributes = _objectWithoutPropertiesLoose(_this$props2, ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, (_cx = {}, _cx[selectedClassName] = selected, _cx[disabledClassName] = disabled, _cx)),
+      ref: function ref(node) {
+        _this.node = node;
+        if (tabRef) tabRef(node);
+      },
+      role: "tab",
+      id: id,
+      "aria-selected": selected ? 'true' : 'false',
+      "aria-disabled": disabled ? 'true' : 'false',
+      "aria-controls": panelId,
+      tabIndex: tabIndex || (selected ? '0' : null)
+    }), children);
+  };
+
+  return Tab;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+Tab.defaultProps = {
+  className: DEFAULT_CLASS,
+  disabledClassName: DEFAULT_CLASS + "--disabled",
+  focus: false,
+  id: null,
+  panelId: null,
+  selected: false,
+  selectedClassName: DEFAULT_CLASS + "--selected"
+};
+
+Tab.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  tabIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  disabledClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  focus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  panelId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  selectedClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  tabRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func // private
+
+} : undefined;
+Tab.tabsRole = 'Tab';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabList.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabList.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TabList; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+var TabList =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(TabList, _Component);
+
+  function TabList() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = TabList.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        className = _this$props.className,
+        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className),
+      role: "tablist"
+    }), children);
+  };
+
+  return TabList;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+TabList.defaultProps = {
+  className: 'react-tabs__tab-list'
+};
+
+TabList.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array]),
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])
+} : undefined;
+TabList.tabsRole = 'TabList';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabPanel.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabPanel.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TabPanel; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+var DEFAULT_CLASS = 'react-tabs__tab-panel';
+
+var TabPanel =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(TabPanel, _Component);
+
+  function TabPanel() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = TabPanel.prototype;
+
+  _proto.render = function render() {
+    var _cx;
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        className = _this$props.className,
+        forceRender = _this$props.forceRender,
+        id = _this$props.id,
+        selected = _this$props.selected,
+        selectedClassName = _this$props.selectedClassName,
+        tabId = _this$props.tabId,
+        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "forceRender", "id", "selected", "selectedClassName", "tabId"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, (_cx = {}, _cx[selectedClassName] = selected, _cx)),
+      role: "tabpanel",
+      id: id,
+      "aria-labelledby": tabId
+    }), forceRender || selected ? children : null);
+  };
+
+  return TabPanel;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+TabPanel.defaultProps = {
+  className: DEFAULT_CLASS,
+  forceRender: false,
+  selectedClassName: DEFAULT_CLASS + "--selected"
+};
+
+TabPanel.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.node,
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  forceRender: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  selectedClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  tabId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string // private
+
+} : undefined;
+TabPanel.tabsRole = 'TabPanel';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/Tabs.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tabs.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tabs; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _UncontrolledTabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UncontrolledTabs */ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var MODE_CONTROLLED = 0;
+var MODE_UNCONTROLLED = 1;
+
+var Tabs =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(Tabs, _Component);
+
+  function Tabs(props) {
+    var _this;
+
+    _this = _Component.call(this, props) || this;
+
+    _this.handleSelected = function (index, last, event) {
+      var onSelect = _this.props.onSelect;
+      var mode = _this.state.mode; // Call change event handler
+
+      if (typeof onSelect === 'function') {
+        // Check if the change event handler cancels the tab change
+        if (onSelect(index, last, event) === false) return;
+      }
+
+      var state = {
+        // Set focus if the change was triggered from the keyboard
+        focus: event.type === 'keydown'
+      };
+
+      if (mode === MODE_UNCONTROLLED) {
+        // Update selected index
+        state.selectedIndex = index;
+      }
+
+      _this.setState(state);
+    };
+
+    _this.state = Tabs.copyPropsToState(_this.props, {}, props.defaultFocus);
+    return _this;
+  }
+
+  Tabs.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    return Tabs.copyPropsToState(props, state);
+  };
+
+  Tabs.getModeFromProps = function getModeFromProps(props) {
+    return props.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
+  };
+
+  // preserve the existing selectedIndex from state.
+  // If the state has not selectedIndex, default to the defaultIndex or 0
+  Tabs.copyPropsToState = function copyPropsToState(props, state, focus) {
+    if (focus === void 0) {
+      focus = false;
+    }
+
+    if ( true && state.mode !== undefined && state.mode !== Tabs.getModeFromProps(props)) {
+      throw new Error("Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.\nFor more information about controlled and uncontrolled mode of react-tabs see the README.");
+    }
+
+    var newState = {
+      focus: focus,
+      mode: Tabs.getModeFromProps(props)
+    };
+
+    if (newState.mode === MODE_UNCONTROLLED) {
+      var maxTabIndex = Object(_helpers_count__WEBPACK_IMPORTED_MODULE_4__["getTabsCount"])(props.children) - 1;
+      var selectedIndex = null;
+
+      if (state.selectedIndex != null) {
+        selectedIndex = Math.min(state.selectedIndex, maxTabIndex);
+      } else {
+        selectedIndex = props.defaultIndex || 0;
+      }
+
+      newState.selectedIndex = selectedIndex;
+    }
+
+    return newState;
+  };
+
+  var _proto = Tabs.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        defaultIndex = _this$props.defaultIndex,
+        defaultFocus = _this$props.defaultFocus,
+        props = _objectWithoutPropertiesLoose(_this$props, ["children", "defaultIndex", "defaultFocus"]);
+
+    var _this$state = this.state,
+        focus = _this$state.focus,
+        selectedIndex = _this$state.selectedIndex;
+    props.focus = focus;
+    props.onSelect = this.handleSelected;
+
+    if (selectedIndex != null) {
+      props.selectedIndex = selectedIndex;
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_UncontrolledTabs__WEBPACK_IMPORTED_MODULE_3__["default"], props, children);
+  };
+
+  return Tabs;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+Tabs.defaultProps = {
+  defaultFocus: false,
+  forceRenderTabPanel: false,
+  selectedIndex: null,
+  defaultIndex: null
+};
+
+Tabs.propTypes =  true ? {
+  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["childrenPropType"],
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  defaultFocus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  defaultIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  disabledTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  domRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  forceRenderTabPanel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  onSelect: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["onSelectPropType"],
+  selectedIndex: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["selectedIndexPropType"],
+  selectedTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  selectedTabPanelClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+} : undefined;
+Tabs.tabsRole = 'Tabs';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/UncontrolledTabs.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UncontrolledTabs; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+/* harmony import */ var _helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+function isNode(node) {
+  return node && 'getAttribute' in node;
+} // Determine if a node from event.target is a Tab element
+
+
+function isTabNode(node) {
+  return isNode(node) && node.getAttribute('role') === 'tab';
+} // Determine if a tab node is disabled
+
+
+function isTabDisabled(node) {
+  return isNode(node) && node.getAttribute('aria-disabled') === 'true';
+}
+
+var canUseActiveElement;
+
+try {
+  canUseActiveElement = !!(typeof window !== 'undefined' && window.document && window.document.activeElement);
+} catch (e) {
+  // Work around for IE bug when accessing document.activeElement in an iframe
+  // Refer to the following resources:
+  // http://stackoverflow.com/a/10982960/369687
+  // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12733599
+  canUseActiveElement = false;
+}
+
+var UncontrolledTabs =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(UncontrolledTabs, _Component);
+
+  function UncontrolledTabs() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.tabNodes = [];
+
+    _this.handleKeyDown = function (e) {
+      if (_this.isTabFromContainer(e.target)) {
+        var index = _this.props.selectedIndex;
+        var preventDefault = false;
+        var useSelectedIndex = false;
+
+        if (e.keyCode === 32 || e.keyCode === 13) {
+          preventDefault = true;
+          useSelectedIndex = false;
+
+          _this.handleClick(e);
+        }
+
+        if (e.keyCode === 37 || e.keyCode === 38) {
+          // Select next tab to the left
+          index = _this.getPrevTab(index);
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 39 || e.keyCode === 40) {
+          // Select next tab to the right
+          index = _this.getNextTab(index);
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 35) {
+          // Select last tab (End key)
+          index = _this.getLastTab();
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 36) {
+          // Select first tab (Home key)
+          index = _this.getFirstTab();
+          preventDefault = true;
+          useSelectedIndex = true;
+        } // This prevents scrollbars from moving around
+
+
+        if (preventDefault) {
+          e.preventDefault();
+        } // Only use the selected index in the state if we're not using the tabbed index
+
+
+        if (useSelectedIndex) {
+          _this.setSelected(index, e);
+        }
+      }
+    };
+
+    _this.handleClick = function (e) {
+      var node = e.target; // eslint-disable-next-line no-cond-assign
+
+      do {
+        if (_this.isTabFromContainer(node)) {
+          if (isTabDisabled(node)) {
+            return;
+          }
+
+          var index = [].slice.call(node.parentNode.children).filter(isTabNode).indexOf(node);
+
+          _this.setSelected(index, e);
+
+          return;
+        }
+      } while ((node = node.parentNode) != null);
+    };
+
+    return _this;
+  }
+
+  var _proto = UncontrolledTabs.prototype;
+
+  _proto.setSelected = function setSelected(index, event) {
+    // Check index boundary
+    if (index < 0 || index >= this.getTabsCount()) return;
+    var _this$props = this.props,
+        onSelect = _this$props.onSelect,
+        selectedIndex = _this$props.selectedIndex; // Call change event handler
+
+    onSelect(index, selectedIndex, event);
+  };
+
+  _proto.getNextTab = function getNextTab(index) {
+    var count = this.getTabsCount(); // Look for non-disabled tab from index to the last tab on the right
+
+    for (var i = index + 1; i < count; i++) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // If no tab found, continue searching from first on left to index
+
+
+    for (var _i = 0; _i < index; _i++) {
+      if (!isTabDisabled(this.getTab(_i))) {
+        return _i;
+      }
+    } // No tabs are disabled, return index
+
+
+    return index;
+  };
+
+  _proto.getPrevTab = function getPrevTab(index) {
+    var i = index; // Look for non-disabled tab from index to first tab on the left
+
+    while (i--) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // If no tab found, continue searching from last tab on right to index
+
+
+    i = this.getTabsCount();
+
+    while (i-- > index) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // No tabs are disabled, return index
+
+
+    return index;
+  };
+
+  _proto.getFirstTab = function getFirstTab() {
+    var count = this.getTabsCount(); // Look for non disabled tab from the first tab
+
+    for (var i = 0; i < count; i++) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    }
+
+    return null;
+  };
+
+  _proto.getLastTab = function getLastTab() {
+    var i = this.getTabsCount(); // Look for non disabled tab from the last tab
+
+    while (i--) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    }
+
+    return null;
+  };
+
+  _proto.getTabsCount = function getTabsCount() {
+    var children = this.props.children;
+    return Object(_helpers_count__WEBPACK_IMPORTED_MODULE_5__["getTabsCount"])(children);
+  };
+
+  _proto.getPanelsCount = function getPanelsCount() {
+    var children = this.props.children;
+    return Object(_helpers_count__WEBPACK_IMPORTED_MODULE_5__["getPanelsCount"])(children);
+  };
+
+  _proto.getTab = function getTab(index) {
+    return this.tabNodes["tabs-" + index];
+  };
+
+  _proto.getChildren = function getChildren() {
+    var _this2 = this;
+
+    var index = 0;
+    var _this$props2 = this.props,
+        children = _this$props2.children,
+        disabledTabClassName = _this$props2.disabledTabClassName,
+        focus = _this$props2.focus,
+        forceRenderTabPanel = _this$props2.forceRenderTabPanel,
+        selectedIndex = _this$props2.selectedIndex,
+        selectedTabClassName = _this$props2.selectedTabClassName,
+        selectedTabPanelClassName = _this$props2.selectedTabPanelClassName;
+    this.tabIds = this.tabIds || [];
+    this.panelIds = this.panelIds || [];
+    var diff = this.tabIds.length - this.getTabsCount(); // Add ids if new tabs have been added
+    // Don't bother removing ids, just keep them in case they are added again
+    // This is more efficient, and keeps the uuid counter under control
+
+    while (diff++ < 0) {
+      this.tabIds.push(Object(_helpers_uuid__WEBPACK_IMPORTED_MODULE_3__["default"])());
+      this.panelIds.push(Object(_helpers_uuid__WEBPACK_IMPORTED_MODULE_3__["default"])());
+    } // Map children to dynamically setup refs
+
+
+    return Object(_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__["deepMap"])(children, function (child) {
+      var result = child; // Clone TabList and Tab components to have refs
+
+      if (Object(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTabList"])(child)) {
+        var listIndex = 0; // Figure out if the current focus in the DOM is set on a Tab
+        // If it is we should keep the focus on the next selected tab
+
+        var wasTabFocused = false;
+
+        if (canUseActiveElement) {
+          wasTabFocused = react__WEBPACK_IMPORTED_MODULE_1___default.a.Children.toArray(child.props.children).filter(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTab"]).some(function (tab, i) {
+            return document.activeElement === _this2.getTab(i);
+          });
+        }
+
+        result = Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(child, {
+          children: Object(_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__["deepMap"])(child.props.children, function (tab) {
+            var key = "tabs-" + listIndex;
+            var selected = selectedIndex === listIndex;
+            var props = {
+              tabRef: function tabRef(node) {
+                _this2.tabNodes[key] = node;
+              },
+              id: _this2.tabIds[listIndex],
+              panelId: _this2.panelIds[listIndex],
+              selected: selected,
+              focus: selected && (focus || wasTabFocused)
+            };
+            if (selectedTabClassName) props.selectedClassName = selectedTabClassName;
+            if (disabledTabClassName) props.disabledClassName = disabledTabClassName;
+            listIndex++;
+            return Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(tab, props);
+          })
+        });
+      } else if (Object(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTabPanel"])(child)) {
+        var props = {
+          id: _this2.panelIds[index],
+          tabId: _this2.tabIds[index],
+          selected: selectedIndex === index
+        };
+        if (forceRenderTabPanel) props.forceRender = forceRenderTabPanel;
+        if (selectedTabPanelClassName) props.selectedClassName = selectedTabPanelClassName;
+        index++;
+        result = Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(child, props);
+      }
+
+      return result;
+    });
+  };
+
+  /**
+   * Determine if a node from event.target is a Tab element for the current Tabs container.
+   * If the clicked element is not a Tab, it returns false.
+   * If it finds another Tabs container between the Tab and `this`, it returns false.
+   */
+  _proto.isTabFromContainer = function isTabFromContainer(node) {
+    // return immediately if the clicked element is not a Tab.
+    if (!isTabNode(node)) {
+      return false;
+    } // Check if the first occurrence of a Tabs container is `this` one.
+
+
+    var nodeAncestor = node.parentElement;
+
+    do {
+      if (nodeAncestor === this.node) return true;
+      if (nodeAncestor.getAttribute('data-tabs')) break;
+      nodeAncestor = nodeAncestor.parentElement;
+    } while (nodeAncestor);
+
+    return false;
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    // Delete all known props, so they don't get added to DOM
+    var _this$props3 = this.props,
+        children = _this$props3.children,
+        className = _this$props3.className,
+        disabledTabClassName = _this$props3.disabledTabClassName,
+        domRef = _this$props3.domRef,
+        focus = _this$props3.focus,
+        forceRenderTabPanel = _this$props3.forceRenderTabPanel,
+        onSelect = _this$props3.onSelect,
+        selectedIndex = _this$props3.selectedIndex,
+        selectedTabClassName = _this$props3.selectedTabClassName,
+        selectedTabPanelClassName = _this$props3.selectedTabPanelClassName,
+        attributes = _objectWithoutPropertiesLoose(_this$props3, ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className),
+      onClick: this.handleClick,
+      onKeyDown: this.handleKeyDown,
+      ref: function ref(node) {
+        _this3.node = node;
+        if (domRef) domRef(node);
+      },
+      "data-tabs": true
+    }), this.getChildren());
+  };
+
+  return UncontrolledTabs;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+UncontrolledTabs.defaultProps = {
+  className: 'react-tabs',
+  focus: false
+};
+
+UncontrolledTabs.propTypes =  true ? {
+  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_4__["childrenPropType"],
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  disabledTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  domRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  focus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  forceRenderTabPanel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  onSelect: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func.isRequired,
+  selectedIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,
+  selectedTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  selectedTabPanelClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+} : undefined;
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/childrenDeepMap.js ***!
+  \****************************************************************/
+/*! exports provided: deepMap, deepForEach */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepMap", function() { return deepMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepForEach", function() { return deepForEach; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+function isTabChild(child) {
+  return Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child);
+}
+
+function deepMap(children, callback) {
+  return react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(children, function (child) {
+    // null happens when conditionally rendering TabPanel/Tab
+    // see https://github.com/reactjs/react-tabs/issues/37
+    if (child === null) return null;
+
+    if (isTabChild(child)) {
+      return callback(child);
+    }
+
+    if (child.props && child.props.children && typeof child.props.children === 'object') {
+      // Clone the child that has children and map them too
+      return Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, _objectSpread({}, child.props, {
+        children: deepMap(child.props.children, callback)
+      }));
+    }
+
+    return child;
+  });
+}
+function deepForEach(children, callback) {
+  return react__WEBPACK_IMPORTED_MODULE_0__["Children"].forEach(children, function (child) {
+    // null happens when conditionally rendering TabPanel/Tab
+    // see https://github.com/reactjs/react-tabs/issues/37
+    if (child === null) return;
+
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) {
+      callback(child);
+    } else if (child.props && child.props.children && typeof child.props.children === 'object') {
+      if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child)) callback(child);
+      deepForEach(child.props.children, callback);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/count.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/count.js ***!
+  \******************************************************/
+/*! exports provided: getTabsCount, getPanelsCount */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTabsCount", function() { return getTabsCount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPanelsCount", function() { return getPanelsCount; });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+
+
+function getTabsCount(children) {
+  var tabCount = 0;
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child)) tabCount++;
+  });
+  return tabCount;
+}
+function getPanelsCount(children) {
+  var panelCount = 0;
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) panelCount++;
+  });
+  return panelCount;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/elementTypes.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/elementTypes.js ***!
+  \*************************************************************/
+/*! exports provided: isTab, isTabPanel, isTabList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTab", function() { return isTab; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTabPanel", function() { return isTabPanel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTabList", function() { return isTabList; });
+function isTab(el) {
+  return el.type && el.type.tabsRole === 'Tab';
+}
+function isTabPanel(el) {
+  return el.type && el.type.tabsRole === 'TabPanel';
+}
+function isTabList(el) {
+  return el.type && el.type.tabsRole === 'TabList';
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/propTypes.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/propTypes.js ***!
+  \**********************************************************/
+/*! exports provided: childrenPropType, onSelectPropType, selectedIndexPropType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "childrenPropType", function() { return childrenPropType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onSelectPropType", function() { return onSelectPropType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectedIndexPropType", function() { return selectedIndexPropType; });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+
+
+function childrenPropType(props, propName, componentName) {
+  var error;
+  var tabsCount = 0;
+  var panelsCount = 0;
+  var tabListFound = false;
+  var listTabs = [];
+  var children = props[propName];
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child)) {
+      if (child.props && child.props.children && typeof child.props.children === 'object') {
+        Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(child.props.children, function (listChild) {
+          return listTabs.push(listChild);
+        });
+      }
+
+      if (tabListFound) {
+        error = new Error("Found multiple 'TabList' components inside 'Tabs'. Only one is allowed.");
+      }
+
+      tabListFound = true;
+    }
+
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child)) {
+      if (!tabListFound || listTabs.indexOf(child) === -1) {
+        error = new Error("Found a 'Tab' component outside of the 'TabList' component. 'Tab' components " + "have to be inside the 'TabList' component.");
+      }
+
+      tabsCount++;
+    } else if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) {
+      panelsCount++;
+    }
+  });
+
+  if (!error && tabsCount !== panelsCount) {
+    error = new Error("There should be an equal number of 'Tab' and 'TabPanel' in `" + componentName + "`. " + ("Received " + tabsCount + " 'Tab' and " + panelsCount + " 'TabPanel'."));
+  }
+
+  return error;
+}
+function onSelectPropType(props, propName, componentName, location, propFullName) {
+  var prop = props[propName];
+  var name = propFullName || propName;
+  var error = null;
+
+  if (prop && typeof prop !== 'function') {
+    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied " + ("to `" + componentName + "`, expected `function`."));
+  } else if (props.selectedIndex != null && prop == null) {
+    error = new Error("The " + location + " `" + name + "` is marked as required in `" + componentName + "`, but " + "its value is `undefined` or `null`.\n" + "`onSelect` is required when `selectedIndex` is also set. Not doing so will " + "make the tabs not do anything, as `selectedIndex` indicates that you want to " + "handle the selected tab yourself.\n" + "If you only want to set the inital tab replace `selectedIndex` with `defaultIndex`.");
+  }
+
+  return error;
+}
+function selectedIndexPropType(props, propName, componentName, location, propFullName) {
+  var prop = props[propName];
+  var name = propFullName || propName;
+  var error = null;
+
+  if (prop != null && typeof prop !== 'number') {
+    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied to " + ("`" + componentName + "`, expected `number`."));
+  } else if (props.defaultIndex != null && prop != null) {
+    return new Error("The " + location + " `" + name + "` cannot be used together with `defaultIndex` " + ("in `" + componentName + "`.\n") + ("Either remove `" + name + "` to let `" + componentName + "` handle the selected ") + "tab internally or remove `defaultIndex` to handle it yourself.");
+  }
+
+  return error;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/uuid.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/uuid.js ***!
+  \*****************************************************/
+/*! exports provided: default, reset */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return uuid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reset", function() { return reset; });
+// Get a universally unique identifier
+var count = 0;
+function uuid() {
+  return "react-tabs-" + count++;
+}
+function reset() {
+  count = 0;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/react-tabs/esm/index.js ***!
+  \**********************************************/
+/*! exports provided: Tabs, TabList, Tab, TabPanel, resetIdCounter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Tabs */ "./node_modules/react-tabs/esm/components/Tabs.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tabs", function() { return _components_Tabs__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _components_TabList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TabList */ "./node_modules/react-tabs/esm/components/TabList.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabList", function() { return _components_TabList__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _components_Tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Tab */ "./node_modules/react-tabs/esm/components/Tab.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tab", function() { return _components_Tab__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TabPanel */ "./node_modules/react-tabs/esm/components/TabPanel.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabPanel", function() { return _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "resetIdCounter", function() { return _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__["reset"]; });
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/style/react-tabs.css":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/style/react-tabs.css ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./react-tabs.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/react-tabs/style/react-tabs.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/react-transition-group/esm/Transition.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-transition-group/esm/Transition.js ***!
@@ -97071,10 +99799,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_containers_administration_roles_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/containers/administration/roles/form */ "./resources/js/components/containers/administration/roles/form.jsx");
 /* harmony import */ var _components_containers_administration_users___WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/containers/administration/users/ */ "./resources/js/components/containers/administration/users/index.jsx");
 /* harmony import */ var _components_containers_administration_users_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/containers/administration/users/form */ "./resources/js/components/containers/administration/users/form.jsx");
-/* harmony import */ var _components_containers_company___WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/containers/company/ */ "./resources/js/components/containers/company/index.jsx");
-/* harmony import */ var _components_containers_company_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/containers/company/form */ "./resources/js/components/containers/company/form.jsx");
-/* harmony import */ var _components_containers_order___WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/containers/order/ */ "./resources/js/components/containers/order/index.jsx");
-/* harmony import */ var _components_containers_order_form__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/containers/order/form */ "./resources/js/components/containers/order/form.jsx");
+/* harmony import */ var _components_containers_institution___WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/containers/institution/ */ "./resources/js/components/containers/institution/index.jsx");
+/* harmony import */ var _components_containers_institution_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/containers/institution/form */ "./resources/js/components/containers/institution/form.jsx");
+/* harmony import */ var _components_containers_information_load_matriz__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/containers/information_load/matriz */ "./resources/js/components/containers/information_load/matriz.jsx");
+/* harmony import */ var _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/containers/information_load/ptci */ "./resources/js/components/containers/information_load/ptci.jsx");
 
 
 
@@ -97088,13 +99816,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-{
-  /*Companies*/
-}
 
 
 {
-  /*Orders*/
+  /*captura*/
 }
 
 
@@ -97154,6 +99879,24 @@ var Home = function Home() {
     title: "Editar Rol",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/institucion",
+    exact: true,
+    component: _components_containers_institution___WEBPACK_IMPORTED_MODULE_10__["default"],
+    title: "Instituci\xF3n",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/institucion/new",
+    exact: true,
+    component: _components_containers_institution_form__WEBPACK_IMPORTED_MODULE_11__["default"],
+    title: "Nueva Instituci\xF3n",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/institucion/:id/edit",
+    exact: true,
+    component: _components_containers_institution_form__WEBPACK_IMPORTED_MODULE_11__["default"],
+    title: "Editar Instituci\xF3n",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: "/users",
     exact: true,
     component: _components_containers_administration_users___WEBPACK_IMPORTED_MODULE_8__["default"],
@@ -97172,40 +99915,22 @@ var Home = function Home() {
     title: "Editar Usuario",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/companies",
+    path: "/matriz_evaluacion",
     exact: true,
-    component: _components_containers_company___WEBPACK_IMPORTED_MODULE_10__["default"],
-    title: "Empresas",
+    component: _components_containers_information_load_matriz__WEBPACK_IMPORTED_MODULE_12__["default"],
+    title: "SCII Matriz de Evaluaci\xF3n",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/companies/new",
+    path: "/ptci_institucional",
     exact: true,
-    component: _components_containers_company_form__WEBPACK_IMPORTED_MODULE_11__["default"],
-    title: "Nuevo Empresa",
+    component: _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__["default"],
+    title: "PTCI Institucional",
     props: general
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/companies/:id/edit",
+    path: "/ptci_especifico",
     exact: true,
-    component: _components_containers_company_form__WEBPACK_IMPORTED_MODULE_11__["default"],
-    title: "Editar Empresa",
-    props: general
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/orders",
-    exact: true,
-    component: _components_containers_order___WEBPACK_IMPORTED_MODULE_12__["default"],
-    title: "Pedidos",
-    props: general
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/orders/new",
-    exact: true,
-    component: _components_containers_order_form__WEBPACK_IMPORTED_MODULE_13__["default"],
-    title: "Nuevo Pedido",
-    props: general
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    path: "/orders/:id/edit",
-    exact: true,
-    component: _components_containers_order_form__WEBPACK_IMPORTED_MODULE_13__["default"],
-    title: "Editar Pedido",
+    component: _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__["default"],
+    title: "PTCI Procesos Especificos",
     props: general
   }));
 });
@@ -97221,8 +99946,11 @@ var Home = function Home() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var url = window.location.href;
+url = 'http://localhost/seprimi/public'; //url.substr(0, url.length - 2);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  api: 'http://127.0.0.1:8000/api/'
+  api: url + '/api/'
 });
 
 /***/ }),
@@ -97467,11 +100195,11 @@ function (_Component) {
     value: function isValidForm() {
       var _this2 = this;
 
-      var inputs = document.querySelectorAll('select,input');
+      var inputs = document.querySelectorAll('select,input, textarea');
       var isFormValid = true;
       inputs.forEach(function (input) {
         if (input.required) {
-          var isInputValid = _this2.showCtrlError(input.name);
+          var isInputValid = _this2.showCtrlError(input.id);
 
           if (!isInputValid) {
             isFormValid = false;
@@ -97487,6 +100215,8 @@ function (_Component) {
       var control = document.getElementById(refName);
 
       if (control.value === "") {
+        console.log(control);
+
         if (control !== null) {
           control.parentNode.classList.add('has-error');
         }
@@ -97643,7 +100373,8 @@ function (_Component) {
     _this.state = {
       show_alert: false,
       message: "",
-      user: "sistemas@lacarreta.biz",
+      user: "user@mail.com",
+      alias: "user",
       pass: "s0p0rt3"
     };
     return _this;
@@ -97680,8 +100411,9 @@ function (_Component) {
 
       e.preventDefault();
       var obj = {
-        "email": this.state.user,
-        "password": this.state.pass
+        //"email": this.state.user,
+        alias: this.state.alias,
+        password: this.state.pass
       };
       this.props.general.waiting.handleShow('Iniciando...');
       fetch('api/auth/login', {
@@ -97745,12 +100477,12 @@ function (_Component) {
       }, "Usuario y/o Contrase\xF1a incorrecta.") : null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "form-group has-feedback"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        type: "email",
+        type: "text",
         className: "form-control",
-        name: "user",
-        id: "user",
-        placeholder: "Email",
-        value: this.state.user,
+        name: "alias",
+        id: "alias",
+        placeholder: "Usuario",
+        value: this.state.alias,
         onChange: this.handleChange
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
         className: "glyphicon glyphicon-envelope form-control-feedback"
@@ -98971,17 +101703,13 @@ function (_Component) {
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.getUser = _this.getUser.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onChecked = _this.onChecked.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       name: "",
       email: "",
       password: "",
       rol_id: "",
       user_id: "",
-      roles: [],
-      companies: [],
-      all_companies: false,
-      company_select: []
+      roles: []
     };
     return _this;
   }
@@ -98993,34 +101721,6 @@ function (_Component) {
 
       this.props.general.waiting.handleShow('Cargando...');
       fetch(this.props.general.api + 'getRoles', {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this2.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          _this2.setState({
-            roles: response
-          });
-        }
-      });
-      fetch(this.props.general.api + 'companies', {
         method: 'get',
         headers: new Headers({
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
@@ -99045,12 +101745,8 @@ function (_Component) {
         }
       }).then(function (response) {
         if (response !== undefined) {
-          response.company.map(function (c) {
-            c.check = false;
-          });
-
           _this2.setState({
-            companies: response.company
+            roles: response
           });
         }
       });
@@ -99138,78 +101834,60 @@ function (_Component) {
         var method = "";
         var url = "";
         var obj = {};
-        var comp = [];
-        this.state.companies.map(function (c) {
-          if (_this4.state.all_companies) {
-            comp.push({
-              company_id: c.id
-            });
+
+        if (this.props.match.params.id === undefined) {
+          method = 'post';
+          url = 'user';
+          obj = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            rol_id: this.state.rol_id,
+            companies: comp
+          };
+        } else {
+          method = 'put';
+          url = 'user/' + this.props.match.params.id;
+          obj = {
+            id: this.state.user_id,
+            name: this.state.name,
+            email: this.state.email,
+            rol_id: this.state.rol_id,
+            companies: comp
+          };
+        }
+
+        this.props.general.waiting.handleShow('Guardando...');
+        fetch(this.props.general.api + url, {
+          method: method,
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this4.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
           } else {
-            if (c.check) {
-              comp.push({
-                company_id: c.id
-              });
-            }
+            res.text().then(function (msg) {
+              var error = JSON.parse(msg);
+
+              if (error.message === 'Token has expired') {
+                _this4.props.general.logout();
+              } else {
+                console.log(error);
+              }
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            //swal('Proceso terminado', response.mensaje, 'success');
+            _this4.props.history.push('/users');
           }
         });
-
-        if (comp.length > 0) {
-          if (this.props.match.params.id === undefined) {
-            method = 'post';
-            url = 'user';
-            obj = {
-              name: this.state.name,
-              email: this.state.email,
-              password: this.state.password,
-              rol_id: this.state.rol_id,
-              companies: comp
-            };
-          } else {
-            method = 'put';
-            url = 'user/' + this.props.match.params.id;
-            obj = {
-              id: this.state.user_id,
-              name: this.state.name,
-              email: this.state.email,
-              rol_id: this.state.rol_id,
-              companies: comp
-            };
-          }
-
-          this.props.general.waiting.handleShow('Guardando...');
-          fetch(this.props.general.api + url, {
-            method: method,
-            body: JSON.stringify(obj),
-            headers: new Headers({
-              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            })
-          }).then(function (res) {
-            _this4.props.general.waiting.handleClose();
-
-            if (res.ok) {
-              return res.json();
-            } else {
-              res.text().then(function (msg) {
-                var error = JSON.parse(msg);
-
-                if (error.message === 'Token has expired') {
-                  _this4.props.general.logout();
-                } else {
-                  console.log(error);
-                }
-              });
-            }
-          }).then(function (response) {
-            if (response !== undefined) {
-              //swal('Proceso terminado', response.mensaje, 'success');
-              _this4.props.history.push('/users');
-            }
-          });
-        } else {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Debe marcar por lo menos una empresa', 'error');
-        }
       } else {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Los campos marcados son requeridos', 'error');
       }
@@ -99221,44 +101899,8 @@ function (_Component) {
       this.props.history.push('/users');
     }
   }, {
-    key: "onChecked",
-    value: function onChecked(e) {
-      if (e.target.name === 'all_check') {
-        this.setState({
-          all_companies: e.target.checked ? true : false
-        });
-        this.state.companies.map(function (c) {
-          c.check = e.target.checked ? true : false;
-        });
-      } else {
-        this.state.companies.map(function (c) {
-          c.id === parseInt(e.target.id) ? c.check = e.target.checked ? true : false : null;
-        });
-        var num = 0;
-        this.state.companies.map(function (c) {
-          if (c.check) {
-            num++;
-          }
-        });
-
-        if (num === this.state.companies.length) {
-          this.setState({
-            all_companies: true
-          });
-        } else {
-          this.setState({
-            all_companies: false
-          });
-        }
-      }
-
-      this.forceUpdate();
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -99312,25 +101954,6 @@ function (_Component) {
           key: i,
           value: rol.id
         }, rol.display_name);
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresas"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox",
-        name: "all_check",
-        checked: this.state.all_companies,
-        onChange: this.onChecked
-      }), " Todos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.companies.map(function (c, i) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "col-xs-12 col-sm-4",
-          key: i
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "checkbox",
-          checked: c.check,
-          id: c.id,
-          onChange: _this5.onChecked
-        }), " ", c.name);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         btnSave: "Guardar",
         btnCancel: "Cancelar",
@@ -99821,10 +102444,1304 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/containers/company/form.jsx":
-/*!*************************************************************!*\
-  !*** ./resources/js/components/containers/company/form.jsx ***!
-  \*************************************************************/
+/***/ "./resources/js/components/containers/information_load/accion_modal.jsx":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/containers/information_load/accion_modal.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var AccionModal =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(AccionModal, _Component);
+
+  function AccionModal(props) {
+    var _this;
+
+    _classCallCheck(this, AccionModal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AccionModal).call(this, props));
+    _this.handleShow = _this.handleShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      comp: "",
+      ele: ""
+    };
+    return _this;
+  }
+
+  _createClass(AccionModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.onRef(this);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.onRef(null);
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose() {
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').modal('hide');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').removeClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('.modal-backdrop').remove();
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').css('display', 'none');
+      this.setState({
+        comp: "",
+        ele: ""
+      });
+    }
+  }, {
+    key: "handleShow",
+    value: function handleShow(comp, ele, campo) {
+      this.setState({
+        comp: comp,
+        ele: ele
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').addClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').css('display', 'block');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var comp = this.state.comp;
+      var ele = this.state.ele;
+      var element = "";
+
+      if (comp !== "" && ele !== "") {
+        element = this.props.components[comp].elemento[ele];
+      } else {
+        element = "";
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modal_accion",
+        ref: function ref(el) {
+          return _this2.el = el;
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog modal-lg"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close",
+        onClick: this.handleClose
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "modal-title"
+      }, "Acci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fecha Inicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        className: "form-control input-sm",
+        value: element.f_inicio,
+        required: true,
+        id: 'f_inicio',
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'f_inicio', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fecha Terminado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        className: "form-control input-sm",
+        value: element.f_fin,
+        required: true,
+        id: 'f_fin',
+        min: element.f_inicio,
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'f_fin', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Mejora"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "form-control",
+        value: element.accion,
+        required: true,
+        id: 'accion',
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'accion', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12",
+        style: {
+          textAlign: 'center'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-info",
+        style: {
+          marginLeft: '5px'
+        },
+        onClick: this.handleClose
+      }, "Cerrar")))))));
+    }
+  }]);
+
+  return AccionModal;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (AccionModal);
+
+/***/ }),
+
+/***/ "./resources/js/components/containers/information_load/matriz.jsx":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/containers/information_load/matriz.jsx ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
+/* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @khanacademy/react-multi-select */ "./node_modules/@khanacademy/react-multi-select/dist/index.js");
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+var Matriz =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Matriz, _Component);
+
+  function Matriz(props) {
+    var _this;
+
+    _classCallCheck(this, Matriz);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Matriz).call(this, props));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.addProccess = _this.addProccess.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.selectEvaluacion = _this.selectEvaluacion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.eliminaProceso = _this.eliminaProceso.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      ejercicio: "",
+      ejercicios: [],
+      criterio: "",
+      criterios: [],
+      institucion: "",
+      instituciones: [],
+      proccess_name: "",
+      proccess_type: "Administrativo",
+      matriz_id: "",
+      evaluation_crit: [],
+      evaluation_selected: [],
+      responsable_unit: "",
+      responsable_person: "",
+      procesos: []
+    };
+    return _this;
+  }
+
+  _createClass(Matriz, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      //get ejercicios
+      fetch(this.props.general.api + 'ejercicio', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this2.setState({
+            ejercicios: response.ejercicio
+          });
+        }
+      }); //get instituciones
+
+      fetch(this.props.general.api + 'institucion', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this2.setState({
+            instituciones: response.institucion
+          });
+        }
+      }); //get criterios de evaluacion
+
+      fetch(this.props.general.api + 'criterio_evaluacion', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var criterios = [];
+          response.criterio.map(function (c) {
+            criterios.push({
+              label: c.criterio,
+              value: c.id
+            });
+          });
+
+          _this2.setState({
+            criterios: criterios
+          });
+        }
+      });
+      this.getMatriz();
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "getMatriz",
+    value: function getMatriz() {
+      var _this3 = this;
+
+      //verifica si la matriz fue guardada
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'matriz/' + user.id, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var matriz = response.user.matriz;
+
+          if (matriz.length > 0) {
+            _this3.setState({
+              ejercicio: matriz[0].id_ejercicio,
+              institucion: matriz[0].id_institucion,
+              matriz_id: matriz[0].id,
+              procesos: matriz[0].proceso
+            });
+          }
+        }
+      });
+    }
+  }, {
+    key: "addProccess",
+    value: function addProccess(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      var obj = {
+        user_id: user.id,
+        ejercicio: this.state.ejercicio,
+        institucion: this.state.institucion,
+        proceso: {
+          nombre: this.state.proccess_name,
+          tipo: this.state.proccess_type,
+          criterios: this.state.evaluation_selected,
+          total: this.state.evaluation_selected.length,
+          unidad: this.state.responsable_unit,
+          persona: this.state.responsable_person
+        }
+      };
+
+      if (this.state.matriz_id !== "") {
+        obj.id_matriz = this.state.matriz_id;
+      }
+
+      if (this.props.general.isValidForm()) {
+        if (obj.proceso.criterios.length > 0) {
+          this.props.general.waiting.handleShow('Guardando...');
+          fetch(this.props.general.api + 'matriz', {
+            method: 'Post',
+            body: JSON.stringify(obj),
+            headers: new Headers({
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            })
+          }).then(function (res) {
+            _this4.props.general.waiting.handleClose();
+
+            if (res.ok) {
+              return res.json();
+            } else {
+              console.log(res);
+            }
+          }).then(function (response) {
+            if (response !== undefined) {
+              _this4.setState({
+                matriz_id: response.id_matriz,
+                proccess_name: "",
+                proccess_type: "Administrativo",
+                evaluation_selected: [],
+                responsable_unit: "",
+                responsable_person: "",
+                procesos: [].concat(_toConsumableArray(_this4.state.procesos), [response.proceso])
+              });
+            }
+          });
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Error', 'Debe seleccionar un criterio de evaluación');
+        }
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Error', 'Campos incompletos', 'error');
+      }
+    }
+  }, {
+    key: "selectEvaluacion",
+    value: function selectEvaluacion(selected) {
+      this.setState({
+        evaluation_selected: selected
+      });
+    }
+  }, {
+    key: "eliminaProceso",
+    value: function eliminaProceso(id) {
+      var _this5 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+        title: 'Esta seguro?',
+        text: 'Realmente desea eliminar el proceso',
+        type: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar'
+      }).then(function (result) {
+        if (result.value) {
+          _this5.props.general.waiting.handleShow('Eliminando...');
+
+          fetch(_this5.props.general.api + 'proceso_prior/' + id, {
+            method: 'delete',
+            headers: new Headers({
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            })
+          }).then(function (res) {
+            _this5.props.general.waiting.handleClose();
+
+            if (res.ok) {
+              return res.json();
+            } else {
+              res.text().then(function (msg) {
+                sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Error', msg, 'error');
+              });
+            }
+          }).then(function (response) {
+            if (response !== undefined) {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Eliminado', 'El proceso ha sido eliminado', 'success');
+
+              _this5.getMatriz();
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      var evaluation_selected = this.state.evaluation_selected;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_3__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "box box-default"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "box-body"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, "Matriz de Evaluaci\xF3n de Procesos Especificos"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Ejercicio"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        name: "ejercicio",
+        id: "ejercicio",
+        value: this.state.ejercicio,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.ejercicios.map(function (e, i) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          key: i,
+          value: e.id
+        }, e.ejercicio);
+      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Instituci\xF3n"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        name: "institucion",
+        id: "institucion",
+        value: this.state.institucion,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.instituciones.map(function (int, i) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          key: i,
+          value: int.id
+        }, int.nombre);
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("fieldset", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("legend", null, "Procesos Prioritarios"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 form-group",
+        style: {
+          padding: '0'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-3"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Nombre del Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        name: "proccess_name",
+        id: "proccess_name",
+        value: this.state.proccess_name,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Tipo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+        name: "proccess_type",
+        id: "proccess_type",
+        value: this.state.proccess_type,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "Administrativo"
+      }, "Administrativo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: "Sustantivo"
+      }, "Sustantivo"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Evaluaci\xF3n de Criterios"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default.a, {
+        options: this.state.criterios,
+        selected: this.state.evaluation_selected,
+        onSelectedChanged: function onSelectedChanged(evaluation_selected) {
+          return _this6.selectEvaluacion(evaluation_selected);
+        },
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Unidad Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        name: "responsable_unit",
+        id: "responsable_unit",
+        value: this.state.responsable_unit,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, "Persona Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        name: "responsable_person",
+        id: "responsable_person",
+        value: this.state.responsable_person,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-1",
+        style: {
+          marginTop: '18px'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "btn btn-info",
+        onClick: this.addProccess
+      }, "Agregar"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", {
+        style: {
+          width: '90%'
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+        className: "table table-hover"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Nombre del Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Tipo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Criterios"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Unidad Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Persona Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.procesos.map(function (p, i) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+          key: i
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.proceso), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.tipo), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.unidad_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.persona_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-danger btn-xs",
+          name: "Eliminar",
+          onClick: function onClick(e) {
+            return _this6.eliminaProceso(p.id);
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+          className: "glyphicon glyphicon-remove-circle action-btn"
+        }))));
+      }))))))))))));
+    }
+  }]);
+
+  return Matriz;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Matriz);
+
+/***/ }),
+
+/***/ "./resources/js/components/containers/information_load/ptci.jsx":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/containers/information_load/ptci.jsx ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @khanacademy/react-multi-select */ "./node_modules/@khanacademy/react-multi-select/dist/index.js");
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var _accion_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./accion_modal */ "./resources/js/components/containers/information_load/accion_modal.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+var messages = {
+  searchPlaceholder: 'Buscar...',
+  noItemsMessage: 'Seleccione uno o mas elementos',
+  noneSelectedMessage: 'Nunguno Seleccionado',
+  selectedMessage: 'Seleccionado',
+  selectAllMessage: 'Seleccionar Todos',
+  clearAllMessage: 'Eliminar Todos'
+};
+var tipo = '';
+
+var PTCI =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(PTCI, _Component);
+
+  function PTCI(props) {
+    var _this;
+
+    _classCallCheck(this, PTCI);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PTCI).call(this, props));
+    _this.selectEvaluacion = _this.selectEvaluacion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.changeComponents = _this.changeComponents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.openAccionModal = _this.openAccionModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.changeMejoras = _this.changeMejoras.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.selectTab = _this.selectTab.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getElements = _this.getElements.bind(_assertThisInitialized(_assertThisInitialized(_this))); //this.getProcesos = this.getProcesos.bind(this);
+
+    _this.state = {
+      componentes: [],
+      acreditaciones: [],
+      acreditacion_selected: [],
+      tabIndex: 0,
+      responsable: "",
+      elemento: "",
+      ptci_id: "",
+      tipo: "",
+      procesos: [],
+      proceso_id: ""
+    };
+    return _this;
+  }
+
+  _createClass(PTCI, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+        this.getProcesos();
+      }
+
+      this.setState({
+        tipo: tipo
+      });
+      fetch(this.props.general.api + 'acreditacion', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var acreditaciones = [];
+          response.map(function (c) {
+            acreditaciones.push({
+              label: c.nombre,
+              value: c.id
+            });
+          });
+
+          _this2.setState({
+            acreditaciones: acreditaciones
+          });
+        }
+      });
+      this.getElements();
+      setTimeout(function () {
+        $('.react-tabs__tab-list > li').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab--selected');
+            $(this).attr('aria-selected', 'true');
+          }
+        });
+        $('.react-tabs__tab-panel').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab-panel--selected');
+          }
+        });
+      }, 500);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+      }
+
+      if (tipo !== this.state.tipo) {
+        this.setState({
+          tipo: tipo,
+          responsable: "",
+          ptci_id: "",
+          procesos: [],
+          proceso_id: ""
+        });
+        this.getElements();
+
+        if (tipo === 'especifico') {
+          this.getProcesos();
+        }
+      }
+    }
+  }, {
+    key: "getProcesos",
+    value: function getProcesos() {
+      var _this3 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'proceso_prior/' + user.id, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this3.setState({
+            procesos: response.procesos
+          });
+        }
+      });
+    }
+  }, {
+    key: "getElements",
+    value: function getElements() {
+      var _this4 = this;
+
+      fetch(this.props.general.api + 'element_component/ptci_' + tipo, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          response.componente.map(function (comp) {
+            comp.elemento.map(function (el) {
+              el.cumple = "SI";
+              el.evidencia = "";
+              el.acredita = [];
+              el.accion = "";
+              el.f_inicio = "";
+              el.f_fin = "";
+              el.unidad = "";
+              el.persona = "";
+              el.medio = "";
+            });
+          });
+
+          _this4.setState({
+            componentes: response.componente
+          });
+
+          setTimeout(function () {
+            _this4.getPtci();
+          }, 500);
+        }
+      });
+    }
+  }, {
+    key: "getPtci",
+    value: function getPtci() {
+      var _this5 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'ptci/' + user.id + '/' + tipo, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          if (response.elemento !== undefined) {
+            var components = _this5.state.componentes;
+            response.elemento.map(function (ele) {
+              var i_comp = components.findIndex(function (obj) {
+                return obj.id === ele.componente.id;
+              });
+              var i_ele = components[i_comp].elemento.findIndex(function (obj) {
+                return obj.id === ele.id_element_comp;
+              });
+              components[i_comp].elemento[i_ele].id_ptci_element = ele.id;
+              components[i_comp].elemento[i_ele].cumple = ele.cumple.toUpperCase();
+              components[i_comp].elemento[i_ele].evidencia = ele.nombre_doc;
+              components[i_comp].elemento[i_ele].acredita = ele.acredita;
+              components[i_comp].elemento[i_ele].f_inicio = ele.fecha_inicio;
+              components[i_comp].elemento[i_ele].f_fin = ele.fecha_fin;
+              components[i_comp].elemento[i_ele].accion = ele.accion_mejora;
+              components[i_comp].elemento[i_ele].unidad = ele.unidad_responsable;
+              components[i_comp].elemento[i_ele].persona = ele.responsable;
+              components[i_comp].elemento[i_ele].medio = ele.medio_verifica;
+
+              _this5.accion_modal.handleShow(i_comp, i_ele);
+
+              _this5.accion_modal.handleClose();
+            });
+
+            _this5.setState({
+              responsable: response.responsable,
+              componentes: components,
+              ptci_id: response.id,
+              proceso_id: response.proceso
+            });
+          }
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "selectEvaluacion",
+    value: function selectEvaluacion(e, comp, ele, campo) {
+      this.changeComponents(e, comp, ele, campo);
+    }
+  }, {
+    key: "saving",
+    value: function saving(e) {
+      var _this6 = this;
+
+      e.preventDefault();
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      var componente = this.state.componentes[this.state.elemento];
+      var obj = {
+        user_id: user.id,
+        ptci: {
+          responsable: this.state.responsable,
+          elementos: [],
+          tipo: tipo
+        }
+      };
+
+      if (tipo === 'especifico') {
+        obj.ptci.proceso = this.state.proceso_id;
+      }
+
+      var error_accion = '';
+
+      if (componente.elemento !== undefined) {
+        componente.elemento.map(function (ele) {
+          var item = {
+            id_element_comp: ele.id,
+            cumple: ele.cumple,
+            nombre_doc: ele.evidencia,
+            acredita: ele.acredita,
+            accion_mejora: ele.accion,
+            fecha_inicio: ele.f_inicio,
+            fecha_fin: ele.f_fin,
+            unidad_responsable: ele.unidad,
+            responsable: ele.persona,
+            medio_verifica: ele.medio
+          };
+
+          if (ele.id_ptci_element !== undefined) {
+            item.id = ele.id_ptci_element;
+          }
+
+          if (ele.accion === "" || ele.f_ini === "" || ele.f_fin === "") {
+            error_accion = 'Debe agregar una acción o mejora presionando el boton acción';
+          }
+
+          obj.ptci.elementos.push(item);
+        });
+
+        if (this.state.ptci_id !== "") {
+          obj.ptci_id = this.state.ptci_id;
+        }
+      }
+
+      if (error_accion === '') {
+        if (this.props.general.isValidForm()) {
+          this.props.general.waiting.handleShow('Guardando...');
+          fetch(this.props.general.api + 'ptci', {
+            method: 'post',
+            body: JSON.stringify(obj),
+            headers: new Headers({
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            })
+          }).then(function (res) {
+            _this6.props.general.waiting.handleClose();
+
+            if (res.ok) {
+              return res.json();
+            } else {
+              res.text().then(function (msg) {
+                console.log(msg);
+              });
+            }
+          }).then(function (response) {
+            if (response !== undefined) {
+              _this6.setState({
+                ptci_id: response.ptci_id
+              });
+
+              setTimeout(function () {
+                _this6.getPtci();
+              }, 500);
+            }
+          });
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', 'Campos Incompletos', 'error');
+        }
+      } else {
+        this.props.general.isValidForm();
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', error_accion, 'error');
+      }
+    }
+  }, {
+    key: "canceling",
+    value: function canceling(e) {
+      e.preventDefault();
+      this.props.history.push('/');
+    }
+  }, {
+    key: "changeComponents",
+    value: function changeComponents(e, comp, ele, campo) {
+      var components = this.state.componentes;
+      var valor = e.target !== undefined ? e.target.value : e;
+      components.map(function (c, i) {
+        if (comp === i) {
+          c.elemento.map(function (e, j) {
+            if (ele === j) {
+              e[campo] = valor;
+            }
+          });
+        }
+      });
+      this.setState({
+        componentes: components
+      });
+    }
+  }, {
+    key: "openAccionModal",
+    value: function openAccionModal(e, comp, ele) {
+      e.preventDefault();
+      this.accion_modal.handleShow(comp, ele);
+    }
+  }, {
+    key: "changeMejoras",
+    value: function changeMejoras(comp, ele, campo, e) {
+      this.changeComponents(e, comp, ele, campo);
+    }
+  }, {
+    key: "selectTab",
+    value: function selectTab(e, i) {
+      this.setState({
+        elemento: i
+      }); //verifica si ya se guaradon registros
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this7 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box box-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Responsable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "responsable",
+        id: "responsable",
+        value: this.state.responsable,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }))), tipo === 'especifico' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Proceso Especifico"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        name: "proceso_id",
+        id: "proceso_id",
+        required: true,
+        value: this.state.proceso_id,
+        onChange: this.handleChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.procesos.map(function (p, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: p.id,
+          responsable: p.persona_resp
+        }, p.proceso);
+      })))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("fieldset", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("legend", null, "Componentes de Control"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tabs"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabList"], null, this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
+          key: i,
+          onClick: function onClick(e) {
+            return _this7.selectTab(e, i);
+          }
+        }, c.posicion + ' ' + c.componente);
+      })), this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabPanel"], {
+          key: i
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+          className: "table table-hover table-responsive"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          colSpan: "7"
+        }, "Elemento")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cumple"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre Evidencia Documento"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          style: {
+            width: '15%'
+          }
+        }, "Acreditaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Acci\xF3n de Mejora"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Unidad Responsable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Responsable de Implementaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Medio de Verificaci\xF3n"))), c.elemento.map(function (e, j) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+            key: j
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            colSpan: "7"
+          }, e.nombre)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+            value: e.cumple,
+            id: 'cumple_' + i + '_' + j,
+            className: "form-control",
+            required: true,
+            onChange: function onChange(e) {
+              return _this7.changeComponents(e, i, j, 'cumple');
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "SI"
+          }, "SI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "NO"
+          }, "No"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+            value: e.evidencia,
+            id: 'evidencia_' + i + '_' + j,
+            style: {
+              resize: 'none'
+            },
+            className: "form-control",
+            required: true,
+            onChange: function onChange(e) {
+              return _this7.changeComponents(e, i, j, 'evidencia');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default.a, {
+            options: _this7.state.acreditaciones,
+            selected: e.acredita,
+            onSelectedChanged: function onSelectedChanged(e, acreditacion_selected) {
+              return _this7.selectEvaluacion(e, i, j, 'acredita', acreditacion_selected);
+            },
+            required: true,
+            messages: messages
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            className: "btn btn-info",
+            onClick: function onClick(e) {
+              return _this7.openAccionModal(e, i, j);
+            }
+          }, "Acci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.unidad,
+            id: 'unidad_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this7.changeComponents(e, i, j, 'unidad');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.persona,
+            required: true,
+            id: 'persona_' + i + '_' + j,
+            onChange: function onChange(e) {
+              return _this7.changeComponents(e, i, j, 'persona');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+            style: {
+              resize: 'none'
+            },
+            className: "form-control",
+            value: e.medio,
+            required: true,
+            id: 'medio_' + i + '_' + j,
+            onChange: function onChange(e) {
+              return _this7.changeComponents(e, i, j, 'medio');
+            }
+          }))));
+        })));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        btnSave: "Guardar",
+        btnCancel: "Cancelar",
+        save: this.saving,
+        cancel: this.canceling
+      })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_accion_modal__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, this.props, {
+        onRef: function onRef(ref) {
+          return _this7.accion_modal = ref;
+        },
+        change: this.changeMejoras,
+        components: this.state.componentes
+      })));
+    }
+  }]);
+
+  return PTCI;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (PTCI);
+
+/***/ }),
+
+/***/ "./resources/js/components/containers/institution/form.jsx":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/containers/institution/form.jsx ***!
+  \*****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -99834,6 +103751,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
 /* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -99858,6 +103777,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var Form =
 /*#__PURE__*/
 function (_Component) {
@@ -99872,10 +103792,9 @@ function (_Component) {
     _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.getCompany = _this.getCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getInstitucion = _this.getInstitucion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
-      name: "",
-      id: ""
+      name: ""
     };
     return _this;
   }
@@ -99887,17 +103806,17 @@ function (_Component) {
 
       if (this.props.match.params.id !== undefined) {
         setTimeout(function () {
-          _this2.getCompany();
+          _this2.getInstitucion();
         }, 300);
       }
     }
   }, {
-    key: "getCompany",
-    value: function getCompany() {
+    key: "getInstitucion",
+    value: function getInstitucion() {
       var _this3 = this;
 
       this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'companies/' + this.props.match.params.id + '/edit', {
+      fetch(this.props.general.api + 'institucion/' + this.props.match.params.id + '/edit', {
         method: 'get',
         headers: new Headers({
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
@@ -99923,9 +103842,10 @@ function (_Component) {
       }).then(function (response) {
         if (response !== undefined) {
           _this3.setState({
-            name: response.name,
-            id: response.id
+            name: response.institucion.nombre
           });
+
+          _this3.forceUpdate();
         }
       });
     }
@@ -99933,6 +103853,10 @@ function (_Component) {
     key: "handleChange",
     value: function handleChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
+
+      if (e.target.value !== "") {
+        this.props.general.showCtrlError(e.target.name);
+      }
     }
   }, {
     key: "saving",
@@ -99940,62 +103864,67 @@ function (_Component) {
       var _this4 = this;
 
       e.preventDefault();
-      var method = "";
-      var url = "";
-      var obj = {};
 
-      if (this.props.match.params.id === undefined) {
-        method = 'post';
-        url = 'companies';
-        obj = {
-          name: this.state.name
-        };
-      } else {
-        method = 'put';
-        url = 'companies/' + this.props.match.params.id;
-        obj = {
-          id: this.state.id,
-          name: this.state.name
-        };
-      }
+      if (this.props.general.isValidForm()) {
+        var method = "";
+        var url = "";
+        var obj = {};
 
-      this.props.general.waiting.handleShow('Guardando...');
-      fetch(this.props.general.api + url, {
-        method: method,
-        body: JSON.stringify(obj),
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this4.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
+        if (this.props.match.params.id === undefined) {
+          method = 'post';
+          url = 'institucion';
+          obj = {
+            name: this.state.name
+          };
         } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
+          method = 'put';
+          url = 'institucion/' + this.props.match.params.id;
+          obj = {
+            id: this.state.user_id,
+            name: this.state.name
+          };
+        }
 
-            if (error.message === 'Token has expired') {
-              _this4.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          //swal('Proceso terminado', response.mensaje, 'success');
-          _this4.props.history.push('/companies');
-        }
-      });
+        this.props.general.waiting.handleShow('Guardando...');
+        fetch(this.props.general.api + url, {
+          method: method,
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this4.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
+          } else {
+            res.text().then(function (msg) {
+              var error = JSON.parse(msg);
+
+              if (error.message === 'Token has expired') {
+                _this4.props.general.logout();
+              } else {
+                console.log(error);
+              }
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            //Swal('Proceso terminado', response.mensaje, 'success');
+            _this4.props.history.push('/institucion');
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Los campos marcados son requeridos', 'error');
+      }
     }
   }, {
     key: "canceling",
     value: function canceling(e) {
       e.preventDefault();
-      this.props.history.push('/companies');
+      this.props.history.push('/institucion');
     }
   }, {
     key: "render",
@@ -100016,6 +103945,7 @@ function (_Component) {
         id: "name",
         className: "form-control input-sm",
         value: this.state.name,
+        required: true,
         onChange: this.handleChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         btnSave: "Guardar",
@@ -100033,10 +103963,10 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/containers/company/index.jsx":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/containers/company/index.jsx ***!
-  \**************************************************************/
+/***/ "./resources/js/components/containers/institution/index.jsx":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/containers/institution/index.jsx ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -100044,9 +103974,9 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
-/* harmony import */ var _general_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/table */ "./resources/js/components/general/table.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
+/* harmony import */ var _general_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../general/table */ "./resources/js/components/general/table.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -100072,48 +104002,48 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-var Companies =
+var Institucion =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Companies, _Component);
+  _inherits(Institucion, _Component);
 
-  function Companies(props) {
+  function Institucion(props) {
     var _this;
 
-    _classCallCheck(this, Companies);
+    _classCallCheck(this, Institucion);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Companies).call(this, props));
-    _this.editCompany = _this.editCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.deleteCompany = _this.deleteCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Institucion).call(this, props));
+    _this.getInstitucion = _this.getInstitucion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.editInstitucion = _this.editInstitucion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.deleteInstitucion = _this.deleteInstitucion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       columns: [{
-        title: 'id'
-      }, {
         title: 'Nombre'
       }, {
-        title: 'Acción'
+        title: 'Accion'
       }],
       data: [],
       actionButton: [{
         btn: true,
-        // this.props.general.permissions.admin_roles_edit, 
+        //this.props.general.permissions.admin_users_edit, 
         name: 'Editar',
         class: 'btn btn-warning btn-xs action-btn',
         icon: 'fa fa-pencil',
         clickFn: 'edit'
       }, {
         btn: true,
-        // this.props.general.permissions.admin_roles_delete, 
+        //this.props.general.permissions.admin_users_delete, 
         name: 'Eliminar',
-        class: 'btn btn-danger btn-xs action-btn',
-        icon: 'glyphicon glyphicon-remove-circle',
+        class: 'btn btn-danger btn-xs',
+        icon: 'glyphicon glyphicon-remove-circle action-btn',
         clickFn: 'delete'
-      }]
+      }],
+      message: ""
     };
     return _this;
   }
 
-  _createClass(Companies, [{
+  _createClass(Institucion, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
@@ -100122,16 +104052,16 @@ function (_Component) {
         data: []
       });
       setTimeout(function () {
-        _this2.getCompany();
+        _this2.getInstitucion();
       }, 300);
     }
   }, {
-    key: "getCompany",
-    value: function getCompany() {
+    key: "getInstitucion",
+    value: function getInstitucion() {
       var _this3 = this;
 
       this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'companies', {
+      fetch(this.props.general.api + 'institucion', {
         method: 'get',
         headers: new Headers({
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
@@ -100157,8 +104087,8 @@ function (_Component) {
       }).then(function (response) {
         if (response !== undefined) {
           var data = [];
-          response.company.map(function (r) {
-            data.push([r.id, r.name, r.id]);
+          response.institucion.map(function (u) {
+            data.push([u.nombre, u.id]);
           });
 
           _this3.setState({
@@ -100172,17 +104102,17 @@ function (_Component) {
       });
     }
   }, {
-    key: "editCompany",
-    value: function editCompany(id) {
-      this.props.history.push('/companies/' + id + '/edit');
+    key: "editInstitucion",
+    value: function editInstitucion(id) {
+      this.props.history.push('/institucion/' + id + '/edit');
     }
   }, {
-    key: "deleteCompany",
-    value: function deleteCompany(id) {
+    key: "deleteInstitucion",
+    value: function deleteInstitucion(id) {
       var _this4 = this;
 
       this.props.general.waiting.handleShow('Eliminando...');
-      fetch(this.props.general.api + 'companies/' + id, {
+      fetch(this.props.general.api + 'institucion/' + id, {
         method: 'delete',
         headers: new Headers({
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
@@ -100210,7 +104140,7 @@ function (_Component) {
           //swal('Proceso terminado', response.mensaje, 'success');
           _this4.table.resetTable();
 
-          _this4.getCompany();
+          _this4.getInstitucion();
         }
       });
     }
@@ -100219,7 +104149,7 @@ function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box-body"
@@ -100227,974 +104157,28 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 col-sm-1 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "".concat(this.props.match.url, "/new"),
         className: "btn btn-block btn-primary btn-sm"
-      }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, this.props, {
+      }, "Nuevo")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({}, this.props, {
         columns: this.state.columns,
         data: this.state.data,
         buttons: this.state.actionButton,
-        edit: this.editCompany,
-        delete: this.deleteCompany,
-        getList: this.getCompany,
+        edit: this.editInstitucion,
+        delete: this.deleteInstitucion,
+        getList: this.getInstitucion,
         onRef: function onRef(ref) {
           return _this5.table = ref;
         },
-        filter: true
+        filter: false
       }))))));
     }
   }]);
 
-  return Companies;
+  return Institucion;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Companies);
-
-/***/ }),
-
-/***/ "./resources/js/components/containers/order/form.jsx":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/containers/order/form.jsx ***!
-  \***********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
-/* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
-
-
-
-var Form =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Form, _Component);
-
-  function Form(props) {
-    var _this;
-
-    _classCallCheck(this, Form);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
-    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.getUserCompany = _this.getUserCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.getOrder = _this.getOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      client: "",
-      direction: "",
-      phone: "",
-      company_id: "",
-      companies: [],
-      id: "",
-      show_company: false,
-      title_company: ""
-    };
-    return _this;
-  }
-
-  _createClass(Form, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.getUserCompany();
-
-      if (this.props.match.params.id !== undefined) {
-        setTimeout(function () {
-          _this2.getOrder();
-        }, 300);
-      }
-    }
-  }, {
-    key: "getUserCompany",
-    value: function getUserCompany() {
-      var _this3 = this;
-
-      this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'user_company', {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this3.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this3.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          if (response.companies.length > 1) {
-            if (response.companies.length === response.user_company.length) {
-              _this3.setState({
-                show_company: true
-              });
-            }
-
-            if (response.user_company.length === 1) {
-              var index = response.companies.findIndex(function (obj) {
-                return obj.id === response.user_company[0].id;
-              });
-
-              _this3.setState({
-                show_company: false,
-                company_id: response.companies[index].id,
-                title_company: response.companies[index].name
-              });
-            }
-          }
-
-          _this3.setState({
-            companies: response.companies
-          });
-        }
-      });
-    }
-  }, {
-    key: "getOrder",
-    value: function getOrder() {
-      var _this4 = this;
-
-      this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'orders/' + this.props.match.params.id + '/edit', {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this4.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this4.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          _this4.setState({
-            client: response.order.client,
-            company_id: response.order.company_id,
-            direction: response.order.direction,
-            phone: response.order.phone,
-            id: response.order.id
-          });
-        }
-      });
-    }
-  }, {
-    key: "handleChange",
-    value: function handleChange(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-
-      if (e.target.value !== "") {
-        this.props.general.showCtrlError(e.target.name);
-      }
-    }
-  }, {
-    key: "saving",
-    value: function saving(e) {
-      var _this5 = this;
-
-      e.preventDefault();
-
-      if (this.props.general.isValidForm()) {
-        var method = "";
-        var url = "";
-        var obj = {};
-
-        if (this.props.match.params.id === undefined) {
-          method = 'post';
-          url = 'orders';
-          obj = {
-            client: this.state.client,
-            direction: this.state.direction,
-            phone: this.state.phone,
-            company_id: this.state.company_id,
-            status: 'open'
-          };
-        } else {
-          method = 'put';
-          url = 'orders/' + this.props.match.params.id;
-          obj = {
-            id: this.state.id,
-            client: this.state.client,
-            direction: this.state.direction,
-            phone: this.state.phone,
-            company_id: this.state.company_id,
-            status: 'open'
-          };
-        }
-
-        this.props.general.waiting.handleShow('Guardando...');
-        fetch(this.props.general.api + url, {
-          method: method,
-          body: JSON.stringify(obj),
-          headers: new Headers({
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          })
-        }).then(function (res) {
-          _this5.props.general.waiting.handleClose();
-
-          if (res.ok) {
-            return res.json();
-          } else {
-            res.text().then(function (msg) {
-              var error = JSON.parse(msg);
-
-              if (error.message === 'Token has expired') {
-                _this5.props.general.logout();
-              } else {
-                console.log(error);
-              }
-            });
-          }
-        }).then(function (response) {
-          if (response !== undefined) {
-            //swal('Proceso terminado', response.mensaje, 'success');
-            _this5.props.history.push('/orders');
-          }
-        });
-      } else {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error!', 'Los campos marcados son requeridos', 'error');
-      }
-    }
-  }, {
-    key: "canceling",
-    value: function canceling(e) {
-      e.preventDefault();
-      this.props.history.push('/orders');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, this.props, {
-        company: this.state.title_company
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box box-default"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Llene los datos de su pedido (*)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 col-sm-6 col-sm-offset-3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Nombre de cliente *"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        name: "client",
-        id: "client",
-        className: "form-control input-sm",
-        value: this.state.client,
-        onChange: this.handleChange,
-        required: true
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Direcci\xF3n (*)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        name: "direction",
-        id: "direction",
-        className: "form-control input-sm",
-        value: this.state.direction,
-        onChange: this.handleChange,
-        required: true
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Telefono de contacto (*)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "number",
-        name: "phone",
-        id: "phone",
-        className: "form-control input-sm",
-        value: this.state.phone,
-        onChange: this.handleChange,
-        required: true
-      })), this.state.show_company ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresa de reparto (*)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        className: "form-control",
-        name: "company_id",
-        id: "company_id",
-        value: this.state.company_id,
-        onChange: this.handleChange,
-        required: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: ""
-      }, "Seleccione..."), this.state.companies.map(function (c, i) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          key: i,
-          value: c.id
-        }, c.name);
-      }))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        btnSave: "Guardar",
-        btnCancel: "Cancelar",
-        save: this.saving,
-        cancel: this.canceling
-      })))))));
-    }
-  }]);
-
-  return Form;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (Form);
-
-/***/ }),
-
-/***/ "./resources/js/components/containers/order/index.jsx":
-/*!************************************************************!*\
-  !*** ./resources/js/components/containers/order/index.jsx ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
-/* harmony import */ var _general_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/table */ "./resources/js/components/general/table.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _modalPaid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modalPaid */ "./resources/js/components/containers/order/modalPaid.jsx");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
-
-
-
-
-var Orders =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(Orders, _Component);
-
-  function Orders(props) {
-    var _this;
-
-    _classCallCheck(this, Orders);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Orders).call(this, props));
-    _this.getUserCompany = _this.getUserCompany.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.getOrder = _this.getOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.editOrder = _this.editOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.deleteOrder = _this.deleteOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.endOrder = _this.endOrder.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.refresh = _this.refresh.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      columns: [{
-        title: 'id'
-      }, {
-        title: 'Cliente'
-      }, {
-        title: 'Dirección de entrega'
-      }, {
-        title: 'Numero de contacto'
-      }, {
-        title: 'Acción'
-      }],
-      data: [],
-      actionButton: [{
-        btn: true,
-        // this.props.general.permissions.admin_roles_edit, 
-        name: 'Editar',
-        class: 'btn btn-warning btn-xs action-btn',
-        icon: 'fa fa-pencil',
-        clickFn: 'edit'
-      }, {
-        btn: true,
-        // this.props.general.permissions.admin_roles_delete, 
-        name: 'Eliminar',
-        class: 'btn btn-danger btn-xs action-btn',
-        icon: 'glyphicon glyphicon-remove-circle',
-        clickFn: 'delete'
-      }, {
-        btn: true,
-        // this.props.general.permissions.admin_roles_delete, 
-        name: 'Finalizar',
-        class: 'btn btn-info btn-xs action-btn',
-        icon: 'fa fa-check',
-        clickFn: 'ending'
-      }],
-      company: 'all',
-      companies: [],
-      show_company: false,
-      title_company: ""
-    };
-    return _this;
-  }
-
-  _createClass(Orders, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.setState({
-        data: []
-      });
-      setTimeout(function () {
-        _this2.getUserCompany();
-      }, 500);
-    }
-  }, {
-    key: "getUserCompany",
-    value: function getUserCompany() {
-      var _this3 = this;
-
-      this.props.general.waiting.handleShow('Cargando...');
-      fetch(this.props.general.api + 'user_company', {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this3.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          if (response.companies.length > 1) {
-            if (response.companies.length === response.user_company.length) {
-              _this3.setState({
-                show_company: true,
-                company: 'all'
-              });
-            }
-
-            if (response.user_company.length === 1) {
-              var index = response.companies.findIndex(function (obj) {
-                return obj.id === response.user_company[0].id;
-              });
-
-              _this3.setState({
-                show_company: false,
-                company: response.companies[index].id,
-                title_company: response.companies[index].name
-              });
-            }
-          }
-
-          _this3.setState({
-            companies: response.companies
-          });
-
-          setTimeout(function () {
-            _this3.getOrder();
-          }, 500);
-        } else {
-          _this3.props.general.waiting.handleClose();
-        }
-      });
-    }
-  }, {
-    key: "getOrder",
-    value: function getOrder() {
-      var _this4 = this;
-
-      var cols = this.state.columns;
-
-      if (this.state.company === 'all') {
-        cols.splice(4, 0, {
-          title: 'Empresa'
-        });
-      } else {
-        var index = cols.findIndex(function (obj) {
-          return obj.title === 'Empresa';
-        });
-
-        if (index !== -1) {
-          cols.splice(4, 1);
-        }
-      }
-
-      this.setState({
-        columns: cols
-      });
-      fetch(this.props.general.api + 'orders?company=' + this.state.company, {
-        method: 'get',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this4.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this4.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          var data = [],
-              obj = [];
-          response.order.map(function (r) {
-            obj = [];
-            obj.push(r.id, r.client, r.direction, r.phone, r.id);
-
-            if (_this4.state.company === 'all') {
-              obj.splice(4, 0, r.company);
-            } else {
-              var index = cols.findIndex(function (obj) {
-                return obj.title === 'Empresa';
-              });
-              if (index !== -1) obj.splice(4, 1);
-            }
-
-            data.push(obj);
-          });
-
-          _this4.setState({
-            data: data
-          });
-
-          setTimeout(function () {
-            _this4.table.setTable();
-          }, 500);
-        }
-      });
-    }
-  }, {
-    key: "editOrder",
-    value: function editOrder(id) {
-      this.props.history.push('/orders/' + id + '/edit');
-    }
-  }, {
-    key: "deleteOrder",
-    value: function deleteOrder(id) {
-      var _this5 = this;
-
-      this.props.general.waiting.handleShow('Eliminando...');
-      fetch(this.props.general.api + 'orders/' + id, {
-        method: 'delete',
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        })
-      }).then(function (res) {
-        _this5.props.general.waiting.handleClose();
-
-        if (res.ok) {
-          return res.json();
-        } else {
-          res.text().then(function (msg) {
-            var error = JSON.parse(msg);
-
-            if (error.message === 'Token has expired') {
-              _this5.props.general.logout();
-            } else {
-              console.log(error);
-            }
-          });
-        }
-      }).then(function (response) {
-        if (response !== undefined) {
-          //swal('Proceso terminado', response.mensaje, 'success');
-          _this5.refresh();
-        }
-      });
-    }
-  }, {
-    key: "endOrder",
-    value: function endOrder(id) {
-      this.modal_paid.handleShow(id);
-    }
-  }, {
-    key: "handleChange",
-    value: function handleChange(e) {
-      var _this$setState,
-          _this6 = this;
-
-      this.setState((_this$setState = {}, _defineProperty(_this$setState, e.target.name, e.target.value), _defineProperty(_this$setState, "title_company", e.target.value === 'all' ? '' : e.target.options[e.target.selectedIndex].text), _this$setState));
-      setTimeout(function () {
-        _this6.props.general.waiting.handleShow('Cargando...');
-
-        _this6.table.resetTable();
-
-        _this6.getOrder();
-      }, 500);
-    }
-  }, {
-    key: "refresh",
-    value: function refresh() {
-      this.table.resetTable();
-      this.getOrder();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this7 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({}, this.props, {
-        company: this.state.title_company
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box box-default"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, this.state.show_company ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 col-sm-2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        className: "form-control input-sm",
-        name: "company",
-        value: this.state.company,
-        onChange: this.handleChange
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "all"
-      }, "TODOS"), this.state.companies.map(function (c, i) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          key: i,
-          value: c.id
-        }, c.name);
-      }))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 col-sm-2",
-        style: {
-          marginTop: '20px'
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        to: "".concat(this.props.match.url, "/new"),
-        className: "btn btn-block btn-primary btn-sm"
-      }, "Nuevo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_table__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({}, this.props, {
-        columns: this.state.columns,
-        data: this.state.data,
-        buttons: this.state.actionButton,
-        edit: this.editOrder,
-        delete: this.deleteOrder,
-        ending: this.endOrder,
-        getList: this.getOrder,
-        onRef: function onRef(ref) {
-          return _this7.table = ref;
-        },
-        filter: true
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modalPaid__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({}, this.props, {
-        onRef: function onRef(ref) {
-          return _this7.modal_paid = ref;
-        },
-        refresh: this.refresh
-      })));
-    }
-  }]);
-
-  return Orders;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (Orders);
-
-/***/ }),
-
-/***/ "./resources/js/components/containers/order/modalPaid.jsx":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/containers/order/modalPaid.jsx ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
-/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_3__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-
-
-
-
-
-var ModalPaid =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(ModalPaid, _Component);
-
-  function ModalPaid(props) {
-    var _this;
-
-    _classCallCheck(this, ModalPaid);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ModalPaid).call(this, props));
-    _this.handleShow = _this.handleShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.state = {
-      total: "",
-      id: ""
-    };
-    return _this;
-  }
-
-  _createClass(ModalPaid, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.onRef(this);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.props.onRef(null);
-    }
-  }, {
-    key: "handleClose",
-    value: function handleClose() {
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').modal('hide');
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').removeClass('in');
-      jquery__WEBPACK_IMPORTED_MODULE_1__('.modal-backdrop').remove();
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').css('display', 'none');
-    }
-  }, {
-    key: "handleShow",
-    value: function handleShow(id) {
-      this.setState({
-        id: id
-      });
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').addClass('in');
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_reset').css('display', 'block');
-      jquery__WEBPACK_IMPORTED_MODULE_1__('#total').focus();
-    }
-  }, {
-    key: "handleChange",
-    value: function handleChange(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: "saving",
-    value: function saving(e) {
-      var _this2 = this;
-
-      e.preventDefault();
-
-      if (this.state.total !== "") {
-        this.props.general.waiting.handleShow('Terminando...');
-        var obj = {
-          total: this.state.total,
-          status: 'paid'
-        };
-        fetch(this.props.general.api + 'orders/' + this.state.id, {
-          method: 'put',
-          body: JSON.stringify(obj),
-          headers: new Headers({
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          })
-        }).then(function (res) {
-          _this2.props.general.waiting.handleClose();
-
-          if (res.ok) {
-            return res.json();
-          } else {
-            res.text().then(function (msg) {
-              var error = JSON.parse(msg);
-
-              if (error.message === 'Token has expired') {
-                _this2.props.general.logout();
-              } else {
-                console.log(error);
-              }
-            });
-          }
-        }).then(function (response) {
-          if (response !== undefined) {
-            _this2.handleClose();
-
-            sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Correcto!', 'El pedido fue terminado correctamente', 'success');
-
-            _this2.props.refresh();
-          }
-        });
-      } else {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Error!', 'Debe agregar un total', 'error');
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal fade",
-        id: "modal_reset",
-        ref: function ref(el) {
-          return _this3.el = el;
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-dialog modal-sm"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "close",
-        "data-dismiss": "modal",
-        "aria-label": "Close",
-        onClick: this.handleClose
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        "aria-hidden": "true"
-      }, "\xD7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "modal-title"
-      }, "Terminar Pedido")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12 form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Total"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "number",
-        className: "form-control input-sm",
-        value: this.state.total,
-        name: "total",
-        id: "total",
-        onChange: this.handleChange
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-xs-12",
-        style: {
-          textAlign: 'center'
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-primary",
-        style: {
-          marginRight: '5px'
-        },
-        onClick: this.saving
-      }, "Terminar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-info",
-        style: {
-          marginLeft: '5px'
-        },
-        onClick: this.handleClose
-      }, "Cancelar")))))));
-    }
-  }]);
-
-  return ModalPaid;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (ModalPaid);
+/* harmony default export */ __webpack_exports__["default"] = (Institucion);
 
 /***/ }),
 
@@ -101255,9 +104239,22 @@ var Header = function Header(props) {
     className: "logo"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-mini"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Sys"), "Adm"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "images/contraloria-logo.png",
+    style: {
+      position: 'relative',
+      width: '100%'
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-lg"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Sys"), "Admin")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "images/contraloria.png",
+    style: {
+      position: 'relative',
+      width: '100%',
+      top: '-35px'
+    }
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     className: "navbar navbar-static-top"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
@@ -101372,15 +104369,35 @@ var LeftPanel = function LeftPanel(props) {
     to: "/users"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "Usuarios")) : null)) : null, props.permissions.admin_company_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/companies"
+  }), "Usuarios")) : null)) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/institucion"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-industry"
-  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Empresas"))) : null, props.permissions.admin_order_view ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/orders"
+  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Instituci\xF3n"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "treeview"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-cart-plus"
-  }), "Pedidos")) : null)));
+    className: "fa fa-group if("
+  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Carga de Informaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "pull-right-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-angle-left pull-right"
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "treeview-menu"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/matriz_evaluacion"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-circle-o"
+  }), "SCII Matriz de Evaluaci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/ptci_institucional"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-circle-o"
+  }), "PTCI Institucional")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/ptci_especifico"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-circle-o"
+  }), "PTCI Especifico")))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (LeftPanel);

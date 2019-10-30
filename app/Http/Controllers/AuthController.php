@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permission;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -11,8 +12,16 @@ class AuthController extends Controller
     	$this->middleware('jwt', ['except'=>['login']]);
     }
 
-    public function login(){
-    	$credentials = request(['email', 'password']);
+    public function login(Request $request){
+        //get user email
+        //dd($request->all());
+        $user = User::where('alias', $request->alias)->select('email')->first();
+        //dd($user);
+    	//$credentials = request(['email', 'password']);
+        //dd($user, $request->all());
+        $credentials = ['email'=>$user->email, 'password'=>$request->password];
+
+        //dd($credentials);
         
     	if(!$token = auth()->attempt($credentials)){
     		return response()->json(['error'=>'Unauthorized'], 401);

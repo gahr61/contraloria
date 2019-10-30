@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-use App\CompanyUser;
-
-
 class UserController extends Controller
 {
 
@@ -30,10 +27,6 @@ class UserController extends Controller
 	    	$user->save();
 
 	    	$user->roles()->attach($request->rol_id); //asignacion de rol a usuario
-
-	    	foreach($request->companies as $c){
-	    		$user->company()->attach($c['company_id']); //asignacion de empresa a usuario
-	    	}
 	    	
 	    	\DB::commit();
 	    	
@@ -51,13 +44,6 @@ class UserController extends Controller
     public function edit($id){
         $user = User::select('id', 'name', 'email')->where('id','=',$id)->first();
         $user['rol'] = $user->rol->first();
-
-        $user['companies'] = CompanyUser::join('company', function($j){
-        									$j->on('company.id', '=', 'company_user.company_id');
-        								})
-        								->select('company.id')
-        								->where('user_id', '=', $id)->get();
-                
       
         return response()->json([
     		'user'=>$user,
@@ -73,11 +59,6 @@ class UserController extends Controller
 	        $user->roles()->detach();
 	        
 	        $user->roles()->attach($request->rol_id); //asignacion de rol a usuario
-	    
-	    	$user_company = CompanyUser::where('user_id', $id)->delete();
-	    	foreach($request->companies as $c){
-	    		$user->company()->attach($c['company_id']); //asignacion de empresa a usuario
-	    	}
 
 	        \DB::commit();
 	        return response()->json([
@@ -96,8 +77,6 @@ class UserController extends Controller
     		\DB::beginTransaction();
 			$user = User::find($id);
 			$user->delete();
-
-			$user_company = CompanyUser::where('user_id', $id)->delete();
 
 			\DB::commit();
 

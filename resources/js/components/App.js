@@ -100,12 +100,12 @@ class App extends Component {
 	}
 
 	isValidForm() {
-		const inputs = document.querySelectorAll('select,input');
+		const inputs = document.querySelectorAll('select,input, textarea');
 	    let isFormValid = true;
 	    
 	    inputs.forEach(input => {
 	    	if(input.required){
-    			const isInputValid = this.showCtrlError(input.name);
+    			const isInputValid = this.showCtrlError(input.id);
 		      	if (!isInputValid) {
 		        	isFormValid = false;
 		    	}	   
@@ -118,8 +118,9 @@ class App extends Component {
 	showCtrlError(refName) {
 		var res = null;
 		var control = document.getElementById(refName);
-	
+
 		if (control.value === "") {
+			console.log(control)
 			if(control !== null){
 				control.parentNode.classList.add('has-error');
 			}
@@ -152,7 +153,6 @@ class App extends Component {
 
 		return (
 			<div>
-				
 				<div className="wrapper">
 					<Header logout={(e)=>this.logout} reset={(e)=>this.resetPass} user={this.state.user}/>
 	  			

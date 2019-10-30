@@ -13,7 +13,8 @@ class Login extends Component{
 		    show_alert: false,
 		    message:"",
 
-			user:"sistemas@lacarreta.biz",
+			user:"user@mail.com",
+			alias:"user",
 			pass:"s0p0rt3",
 		}
 	}
@@ -41,8 +42,9 @@ class Login extends Component{
 	submitForm(e){
 		e.preventDefault();
 		var  obj = {
-			"email": this.state.user,
-			"password": this.state.pass
+			//"email": this.state.user,
+			alias:this.state.alias,
+			password: this.state.pass
 		};
 		this.props.general.waiting.handleShow('Iniciando...');
 	
@@ -95,9 +97,15 @@ class Login extends Component{
   								Usuario y/o Contraseña incorrecta.
 							</div>
 						:null}
-						<div className="form-group has-feedback">
+						{/*<div className="form-group has-feedback">
         					<input type="email" className="form-control" name="user" id="user"
         						placeholder="Email" value={this.state.user} 
+        						onChange={this.handleChange}/>
+        					<span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+	      				</div>*/}
+	      				<div className="form-group has-feedback">
+        					<input type="text" className="form-control" name="alias" id="alias"
+        						placeholder="Usuario" value={this.state.alias} 
         						onChange={this.handleChange}/>
         					<span className="glyphicon glyphicon-envelope form-control-feedback"></span>
 	      				</div>

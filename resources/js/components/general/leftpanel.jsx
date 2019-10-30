@@ -41,12 +41,41 @@ const LeftPanel = (props)=>(
 			          	</ul>
 			        </li>
 	        	:null}
-	        	{props.permissions.admin_company_view ? 
-	        		<li><Link to="/companies"><i className="fa fa-industry"></i> <span>Empresas</span></Link></li>
-	        	:null}
-	        	{props.permissions.admin_order_view ? 
-	        		<li><Link to="/orders"><i className="fa fa-cart-plus"></i>Pedidos</Link></li>
-	        	:null}
+	        	{/*props.permissions.admin_company_view ? */}
+	        		<li><Link to="/institucion"><i className="fa fa-industry"></i> <span>Institución</span></Link></li>
+	        	{/*:null*/}
+	        	
+	        	<li className="treeview">
+		          	<a href="#">
+			            <i className="fa fa-group if("></i> <span>Carga de Información</span>
+			            <span className="pull-right-container">
+			              	<i className="fa fa-angle-left pull-right"></i>
+			            </span>
+		          	</a>
+		          	<ul className="treeview-menu">
+			            
+		            	<li>
+			            	<Link to="/matriz_evaluacion">
+			            		<i className="fa fa-circle-o"></i>SCII Matriz de Evaluación
+			            	</Link>
+		            	</li>
+			            
+			            
+			            <li>
+			            	<Link to="/ptci_institucional">
+			            		<i className="fa fa-circle-o"></i>PTCI Institucional
+			            	</Link>
+			            </li>
+			            
+			            
+			            <li>
+			            	<Link to="/ptci_especifico">
+			            		<i className="fa fa-circle-o"></i>PTCI Especifico
+			            	</Link>
+			            </li>
+			            
+		          	</ul>
+		        </li>
 		       
 	        </ul>
       	</section>
