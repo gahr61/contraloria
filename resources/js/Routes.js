@@ -21,6 +21,7 @@ import FormInstitucion from './components/containers/institution/form';
 
 {/*captura*/}
 import Matriz from './components/containers/information_load/matriz';
+import PTCI from './components/containers/information_load/ptci';
 
 const Home = ()=>(
 	<div style={{height:"100%"}}>
@@ -50,6 +51,8 @@ export default (general)=>
 		<AppliedRoute path="/users/:id/edit" exact component={FormUser} title="Editar Usuario" props={general} />
 
 		<AppliedRoute path="/matriz_evaluacion" exact component={Matriz} title="SCII Matriz de Evaluación" props={general} />
+		<AppliedRoute path="/ptci_institucional" exact component={PTCI} title="PTCI Institucional" props={general} />
+		<AppliedRoute path="/ptci_especifico" exact component={PTCI} title="PTCI Procesos Especificos" props={general} />
 
 		
 

@@ -24,4 +24,8 @@ class Matriz extends Model
     	return $this->hasMany('App\ProcesoPrior')
     				->select('id', 'proceso', 'tipo', 'unidad_resp', 'persona_resp', 'total');
     }
+
+    public function ptci(){
+        return $this->belongsToMany('App\PTCI', 'ptci_matriz', 'ptci_id', 'matriz_id');
+    }
 }

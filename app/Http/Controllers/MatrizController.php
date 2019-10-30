@@ -18,12 +18,9 @@ class MatrizController extends Controller
 		$user = User::where('id', $user_id)->select('id')->first();
 		$user->matriz()->select('id', 'id_institucion', 'id_ejercicio')->first();
 		foreach($user->matriz as $m){
-
-
 			foreach($m->proceso as $p){
 				$p->criterio;
 			}
-
 		}
 
 		return response()->json(['user'=>$user]);
@@ -44,7 +41,7 @@ class MatrizController extends Controller
 
 				if(!$matriz->save()){
 					\DB::rollback();
-					return response()->json(['error'=>'Error al guardar matriz, MatrizController linea 25']);
+					return response()->json(['error'=>'Error al guardar matriz, MatrizController linea 40']);
 				}
 
 				$id_matriz = $matriz->id;
@@ -67,7 +64,7 @@ class MatrizController extends Controller
 
  			if(!$proceso->save()){
  				\SB::rollback();
- 				return response()->json(['error'=>'Error al guardar proceso prioritario, MatrizController linea 40']);
+ 				return response()->json(['error'=>'Error al guardar proceso prioritario, MatrizController linea 63']);
  			}
 
  			foreach($request->proceso['criterios'] as $p){

@@ -3267,6 +3267,25 @@ exports.push([module.i, "\n.react-spinner-loader-svg svg {\n  -webkit-transform-
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/react-tabs/style/react-tabs.css":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/react-tabs/style/react-tabs.css ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".react-tabs {\n  -webkit-tap-highlight-color: transparent;\n}\n\n.react-tabs__tab-list {\n  border-bottom: 1px solid #aaa;\n  margin: 0 0 10px;\n  padding: 0;\n}\n\n.react-tabs__tab {\n  display: inline-block;\n  border: 1px solid transparent;\n  border-bottom: none;\n  bottom: -1px;\n  position: relative;\n  list-style: none;\n  padding: 6px 12px;\n  cursor: pointer;\n}\n\n.react-tabs__tab--selected {\n  background: #fff;\n  border-color: #aaa;\n  color: black;\n  border-radius: 5px 5px 0 0;\n}\n\n.react-tabs__tab--disabled {\n  color: GrayText;\n  cursor: default;\n}\n\n.react-tabs__tab:focus {\n  box-shadow: 0 0 5px hsl(208, 99%, 50%);\n  border-color: hsl(208, 99%, 50%);\n  outline: none;\n}\n\n.react-tabs__tab:focus:after {\n  content: \"\";\n  position: absolute;\n  height: 5px;\n  left: -4px;\n  right: -4px;\n  bottom: -5px;\n  background: #fff;\n}\n\n.react-tabs__tab-panel {\n  display: none;\n}\n\n.react-tabs__tab-panel--selected {\n  display: block;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./resources/js/components/App.css":
 /*!*************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./resources/js/components/App.css ***!
@@ -3279,7 +3298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".App {\r\n  text-align: center;\r\n}\r\n\r\n.App-logo {\r\n  -webkit-animation: App-logo-spin infinite 20s linear;\r\n          animation: App-logo-spin infinite 20s linear;\r\n  height: 40vmin;\r\n  pointer-events: none;\r\n}\r\n\r\n.App-header {\r\n  background-color: #282c34;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: calc(10px + 2vmin);\r\n  color: white;\r\n}\r\n\r\n.App-link {\r\n  color: #61dafb;\r\n}\r\n\r\n@-webkit-keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n\r\n.btn-form{\r\n  text-align: center;\r\n}\r\n\r\n.btn-form > .btn-save{\r\n  margin-right: 10px;\r\n}", ""]);
+exports.push([module.i, ".App {\r\n  text-align: center;\r\n}\r\n\r\n.App-logo {\r\n  -webkit-animation: App-logo-spin infinite 20s linear;\r\n          animation: App-logo-spin infinite 20s linear;\r\n  height: 40vmin;\r\n  pointer-events: none;\r\n}\r\n\r\n.App-header {\r\n  background-color: #282c34;\r\n  min-height: 100vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: calc(10px + 2vmin);\r\n  color: white;\r\n}\r\n\r\n.App-link {\r\n  color: #61dafb;\r\n}\r\n\r\n@-webkit-keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes App-logo-spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n.btn-form{\r\n  text-align: center;\r\n}\r\n\r\n.btn-form > .btn-save{\r\n  margin-right: 10px;\r\n}\r\n\r\n.swal2-popup {\r\n  font-size: 1.6rem !important;\r\n}", ""]);
 
 // exports
 
@@ -89922,6 +89941,1104 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
+/***/ "./node_modules/react-tabs/esm/components/Tab.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tab.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tab; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+var DEFAULT_CLASS = 'react-tabs__tab';
+
+var Tab =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(Tab, _Component);
+
+  function Tab() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = Tab.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.checkFocus();
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this.checkFocus();
+  };
+
+  _proto.checkFocus = function checkFocus() {
+    var _this$props = this.props,
+        selected = _this$props.selected,
+        focus = _this$props.focus;
+
+    if (selected && focus) {
+      this.node.focus();
+    }
+  };
+
+  _proto.render = function render() {
+    var _cx,
+        _this = this;
+
+    var _this$props2 = this.props,
+        children = _this$props2.children,
+        className = _this$props2.className,
+        disabled = _this$props2.disabled,
+        disabledClassName = _this$props2.disabledClassName,
+        focus = _this$props2.focus,
+        id = _this$props2.id,
+        panelId = _this$props2.panelId,
+        selected = _this$props2.selected,
+        selectedClassName = _this$props2.selectedClassName,
+        tabIndex = _this$props2.tabIndex,
+        tabRef = _this$props2.tabRef,
+        attributes = _objectWithoutPropertiesLoose(_this$props2, ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, (_cx = {}, _cx[selectedClassName] = selected, _cx[disabledClassName] = disabled, _cx)),
+      ref: function ref(node) {
+        _this.node = node;
+        if (tabRef) tabRef(node);
+      },
+      role: "tab",
+      id: id,
+      "aria-selected": selected ? 'true' : 'false',
+      "aria-disabled": disabled ? 'true' : 'false',
+      "aria-controls": panelId,
+      tabIndex: tabIndex || (selected ? '0' : null)
+    }), children);
+  };
+
+  return Tab;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+Tab.defaultProps = {
+  className: DEFAULT_CLASS,
+  disabledClassName: DEFAULT_CLASS + "--disabled",
+  focus: false,
+  id: null,
+  panelId: null,
+  selected: false,
+  selectedClassName: DEFAULT_CLASS + "--selected"
+};
+
+Tab.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  disabled: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  tabIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  disabledClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  focus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  panelId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  selectedClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  tabRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func // private
+
+} : undefined;
+Tab.tabsRole = 'Tab';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabList.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabList.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TabList; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+var TabList =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(TabList, _Component);
+
+  function TabList() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = TabList.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        className = _this$props.className,
+        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className),
+      role: "tablist"
+    }), children);
+  };
+
+  return TabList;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+TabList.defaultProps = {
+  className: 'react-tabs__tab-list'
+};
+
+TabList.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array]),
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])
+} : undefined;
+TabList.tabsRole = 'TabList';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/TabPanel.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/TabPanel.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TabPanel; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+var DEFAULT_CLASS = 'react-tabs__tab-panel';
+
+var TabPanel =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(TabPanel, _Component);
+
+  function TabPanel() {
+    return _Component.apply(this, arguments) || this;
+  }
+
+  var _proto = TabPanel.prototype;
+
+  _proto.render = function render() {
+    var _cx;
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        className = _this$props.className,
+        forceRender = _this$props.forceRender,
+        id = _this$props.id,
+        selected = _this$props.selected,
+        selectedClassName = _this$props.selectedClassName,
+        tabId = _this$props.tabId,
+        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "forceRender", "id", "selected", "selectedClassName", "tabId"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, (_cx = {}, _cx[selectedClassName] = selected, _cx)),
+      role: "tabpanel",
+      id: id,
+      "aria-labelledby": tabId
+    }), forceRender || selected ? children : null);
+  };
+
+  return TabPanel;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+TabPanel.defaultProps = {
+  className: DEFAULT_CLASS,
+  forceRender: false,
+  selectedClassName: DEFAULT_CLASS + "--selected"
+};
+
+TabPanel.propTypes =  true ? {
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.node,
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  forceRender: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // private
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  // private
+  selectedClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  tabId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string // private
+
+} : undefined;
+TabPanel.tabsRole = 'TabPanel';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/Tabs.js":
+/*!********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/Tabs.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Tabs; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _UncontrolledTabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UncontrolledTabs */ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var MODE_CONTROLLED = 0;
+var MODE_UNCONTROLLED = 1;
+
+var Tabs =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(Tabs, _Component);
+
+  function Tabs(props) {
+    var _this;
+
+    _this = _Component.call(this, props) || this;
+
+    _this.handleSelected = function (index, last, event) {
+      var onSelect = _this.props.onSelect;
+      var mode = _this.state.mode; // Call change event handler
+
+      if (typeof onSelect === 'function') {
+        // Check if the change event handler cancels the tab change
+        if (onSelect(index, last, event) === false) return;
+      }
+
+      var state = {
+        // Set focus if the change was triggered from the keyboard
+        focus: event.type === 'keydown'
+      };
+
+      if (mode === MODE_UNCONTROLLED) {
+        // Update selected index
+        state.selectedIndex = index;
+      }
+
+      _this.setState(state);
+    };
+
+    _this.state = Tabs.copyPropsToState(_this.props, {}, props.defaultFocus);
+    return _this;
+  }
+
+  Tabs.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    return Tabs.copyPropsToState(props, state);
+  };
+
+  Tabs.getModeFromProps = function getModeFromProps(props) {
+    return props.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
+  };
+
+  // preserve the existing selectedIndex from state.
+  // If the state has not selectedIndex, default to the defaultIndex or 0
+  Tabs.copyPropsToState = function copyPropsToState(props, state, focus) {
+    if (focus === void 0) {
+      focus = false;
+    }
+
+    if ( true && state.mode !== undefined && state.mode !== Tabs.getModeFromProps(props)) {
+      throw new Error("Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.\nFor more information about controlled and uncontrolled mode of react-tabs see the README.");
+    }
+
+    var newState = {
+      focus: focus,
+      mode: Tabs.getModeFromProps(props)
+    };
+
+    if (newState.mode === MODE_UNCONTROLLED) {
+      var maxTabIndex = Object(_helpers_count__WEBPACK_IMPORTED_MODULE_4__["getTabsCount"])(props.children) - 1;
+      var selectedIndex = null;
+
+      if (state.selectedIndex != null) {
+        selectedIndex = Math.min(state.selectedIndex, maxTabIndex);
+      } else {
+        selectedIndex = props.defaultIndex || 0;
+      }
+
+      newState.selectedIndex = selectedIndex;
+    }
+
+    return newState;
+  };
+
+  var _proto = Tabs.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        defaultIndex = _this$props.defaultIndex,
+        defaultFocus = _this$props.defaultFocus,
+        props = _objectWithoutPropertiesLoose(_this$props, ["children", "defaultIndex", "defaultFocus"]);
+
+    var _this$state = this.state,
+        focus = _this$state.focus,
+        selectedIndex = _this$state.selectedIndex;
+    props.focus = focus;
+    props.onSelect = this.handleSelected;
+
+    if (selectedIndex != null) {
+      props.selectedIndex = selectedIndex;
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_UncontrolledTabs__WEBPACK_IMPORTED_MODULE_3__["default"], props, children);
+  };
+
+  return Tabs;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+Tabs.defaultProps = {
+  defaultFocus: false,
+  forceRenderTabPanel: false,
+  selectedIndex: null,
+  defaultIndex: null
+};
+
+Tabs.propTypes =  true ? {
+  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["childrenPropType"],
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  defaultFocus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  defaultIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  disabledTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  domRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  forceRenderTabPanel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  onSelect: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["onSelectPropType"],
+  selectedIndex: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__["selectedIndexPropType"],
+  selectedTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  selectedTabPanelClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+} : undefined;
+Tabs.tabsRole = 'Tabs';
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/components/UncontrolledTabs.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UncontrolledTabs; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
+/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
+/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+/* harmony import */ var _helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+function isNode(node) {
+  return node && 'getAttribute' in node;
+} // Determine if a node from event.target is a Tab element
+
+
+function isTabNode(node) {
+  return isNode(node) && node.getAttribute('role') === 'tab';
+} // Determine if a tab node is disabled
+
+
+function isTabDisabled(node) {
+  return isNode(node) && node.getAttribute('aria-disabled') === 'true';
+}
+
+var canUseActiveElement;
+
+try {
+  canUseActiveElement = !!(typeof window !== 'undefined' && window.document && window.document.activeElement);
+} catch (e) {
+  // Work around for IE bug when accessing document.activeElement in an iframe
+  // Refer to the following resources:
+  // http://stackoverflow.com/a/10982960/369687
+  // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12733599
+  canUseActiveElement = false;
+}
+
+var UncontrolledTabs =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(UncontrolledTabs, _Component);
+
+  function UncontrolledTabs() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this.tabNodes = [];
+
+    _this.handleKeyDown = function (e) {
+      if (_this.isTabFromContainer(e.target)) {
+        var index = _this.props.selectedIndex;
+        var preventDefault = false;
+        var useSelectedIndex = false;
+
+        if (e.keyCode === 32 || e.keyCode === 13) {
+          preventDefault = true;
+          useSelectedIndex = false;
+
+          _this.handleClick(e);
+        }
+
+        if (e.keyCode === 37 || e.keyCode === 38) {
+          // Select next tab to the left
+          index = _this.getPrevTab(index);
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 39 || e.keyCode === 40) {
+          // Select next tab to the right
+          index = _this.getNextTab(index);
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 35) {
+          // Select last tab (End key)
+          index = _this.getLastTab();
+          preventDefault = true;
+          useSelectedIndex = true;
+        } else if (e.keyCode === 36) {
+          // Select first tab (Home key)
+          index = _this.getFirstTab();
+          preventDefault = true;
+          useSelectedIndex = true;
+        } // This prevents scrollbars from moving around
+
+
+        if (preventDefault) {
+          e.preventDefault();
+        } // Only use the selected index in the state if we're not using the tabbed index
+
+
+        if (useSelectedIndex) {
+          _this.setSelected(index, e);
+        }
+      }
+    };
+
+    _this.handleClick = function (e) {
+      var node = e.target; // eslint-disable-next-line no-cond-assign
+
+      do {
+        if (_this.isTabFromContainer(node)) {
+          if (isTabDisabled(node)) {
+            return;
+          }
+
+          var index = [].slice.call(node.parentNode.children).filter(isTabNode).indexOf(node);
+
+          _this.setSelected(index, e);
+
+          return;
+        }
+      } while ((node = node.parentNode) != null);
+    };
+
+    return _this;
+  }
+
+  var _proto = UncontrolledTabs.prototype;
+
+  _proto.setSelected = function setSelected(index, event) {
+    // Check index boundary
+    if (index < 0 || index >= this.getTabsCount()) return;
+    var _this$props = this.props,
+        onSelect = _this$props.onSelect,
+        selectedIndex = _this$props.selectedIndex; // Call change event handler
+
+    onSelect(index, selectedIndex, event);
+  };
+
+  _proto.getNextTab = function getNextTab(index) {
+    var count = this.getTabsCount(); // Look for non-disabled tab from index to the last tab on the right
+
+    for (var i = index + 1; i < count; i++) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // If no tab found, continue searching from first on left to index
+
+
+    for (var _i = 0; _i < index; _i++) {
+      if (!isTabDisabled(this.getTab(_i))) {
+        return _i;
+      }
+    } // No tabs are disabled, return index
+
+
+    return index;
+  };
+
+  _proto.getPrevTab = function getPrevTab(index) {
+    var i = index; // Look for non-disabled tab from index to first tab on the left
+
+    while (i--) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // If no tab found, continue searching from last tab on right to index
+
+
+    i = this.getTabsCount();
+
+    while (i-- > index) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    } // No tabs are disabled, return index
+
+
+    return index;
+  };
+
+  _proto.getFirstTab = function getFirstTab() {
+    var count = this.getTabsCount(); // Look for non disabled tab from the first tab
+
+    for (var i = 0; i < count; i++) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    }
+
+    return null;
+  };
+
+  _proto.getLastTab = function getLastTab() {
+    var i = this.getTabsCount(); // Look for non disabled tab from the last tab
+
+    while (i--) {
+      if (!isTabDisabled(this.getTab(i))) {
+        return i;
+      }
+    }
+
+    return null;
+  };
+
+  _proto.getTabsCount = function getTabsCount() {
+    var children = this.props.children;
+    return Object(_helpers_count__WEBPACK_IMPORTED_MODULE_5__["getTabsCount"])(children);
+  };
+
+  _proto.getPanelsCount = function getPanelsCount() {
+    var children = this.props.children;
+    return Object(_helpers_count__WEBPACK_IMPORTED_MODULE_5__["getPanelsCount"])(children);
+  };
+
+  _proto.getTab = function getTab(index) {
+    return this.tabNodes["tabs-" + index];
+  };
+
+  _proto.getChildren = function getChildren() {
+    var _this2 = this;
+
+    var index = 0;
+    var _this$props2 = this.props,
+        children = _this$props2.children,
+        disabledTabClassName = _this$props2.disabledTabClassName,
+        focus = _this$props2.focus,
+        forceRenderTabPanel = _this$props2.forceRenderTabPanel,
+        selectedIndex = _this$props2.selectedIndex,
+        selectedTabClassName = _this$props2.selectedTabClassName,
+        selectedTabPanelClassName = _this$props2.selectedTabPanelClassName;
+    this.tabIds = this.tabIds || [];
+    this.panelIds = this.panelIds || [];
+    var diff = this.tabIds.length - this.getTabsCount(); // Add ids if new tabs have been added
+    // Don't bother removing ids, just keep them in case they are added again
+    // This is more efficient, and keeps the uuid counter under control
+
+    while (diff++ < 0) {
+      this.tabIds.push(Object(_helpers_uuid__WEBPACK_IMPORTED_MODULE_3__["default"])());
+      this.panelIds.push(Object(_helpers_uuid__WEBPACK_IMPORTED_MODULE_3__["default"])());
+    } // Map children to dynamically setup refs
+
+
+    return Object(_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__["deepMap"])(children, function (child) {
+      var result = child; // Clone TabList and Tab components to have refs
+
+      if (Object(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTabList"])(child)) {
+        var listIndex = 0; // Figure out if the current focus in the DOM is set on a Tab
+        // If it is we should keep the focus on the next selected tab
+
+        var wasTabFocused = false;
+
+        if (canUseActiveElement) {
+          wasTabFocused = react__WEBPACK_IMPORTED_MODULE_1___default.a.Children.toArray(child.props.children).filter(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTab"]).some(function (tab, i) {
+            return document.activeElement === _this2.getTab(i);
+          });
+        }
+
+        result = Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(child, {
+          children: Object(_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__["deepMap"])(child.props.children, function (tab) {
+            var key = "tabs-" + listIndex;
+            var selected = selectedIndex === listIndex;
+            var props = {
+              tabRef: function tabRef(node) {
+                _this2.tabNodes[key] = node;
+              },
+              id: _this2.tabIds[listIndex],
+              panelId: _this2.panelIds[listIndex],
+              selected: selected,
+              focus: selected && (focus || wasTabFocused)
+            };
+            if (selectedTabClassName) props.selectedClassName = selectedTabClassName;
+            if (disabledTabClassName) props.disabledClassName = disabledTabClassName;
+            listIndex++;
+            return Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(tab, props);
+          })
+        });
+      } else if (Object(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__["isTabPanel"])(child)) {
+        var props = {
+          id: _this2.panelIds[index],
+          tabId: _this2.tabIds[index],
+          selected: selectedIndex === index
+        };
+        if (forceRenderTabPanel) props.forceRender = forceRenderTabPanel;
+        if (selectedTabPanelClassName) props.selectedClassName = selectedTabPanelClassName;
+        index++;
+        result = Object(react__WEBPACK_IMPORTED_MODULE_1__["cloneElement"])(child, props);
+      }
+
+      return result;
+    });
+  };
+
+  /**
+   * Determine if a node from event.target is a Tab element for the current Tabs container.
+   * If the clicked element is not a Tab, it returns false.
+   * If it finds another Tabs container between the Tab and `this`, it returns false.
+   */
+  _proto.isTabFromContainer = function isTabFromContainer(node) {
+    // return immediately if the clicked element is not a Tab.
+    if (!isTabNode(node)) {
+      return false;
+    } // Check if the first occurrence of a Tabs container is `this` one.
+
+
+    var nodeAncestor = node.parentElement;
+
+    do {
+      if (nodeAncestor === this.node) return true;
+      if (nodeAncestor.getAttribute('data-tabs')) break;
+      nodeAncestor = nodeAncestor.parentElement;
+    } while (nodeAncestor);
+
+    return false;
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    // Delete all known props, so they don't get added to DOM
+    var _this$props3 = this.props,
+        children = _this$props3.children,
+        className = _this$props3.className,
+        disabledTabClassName = _this$props3.disabledTabClassName,
+        domRef = _this$props3.domRef,
+        focus = _this$props3.focus,
+        forceRenderTabPanel = _this$props3.forceRenderTabPanel,
+        onSelect = _this$props3.onSelect,
+        selectedIndex = _this$props3.selectedIndex,
+        selectedTabClassName = _this$props3.selectedTabClassName,
+        selectedTabPanelClassName = _this$props3.selectedTabPanelClassName,
+        attributes = _objectWithoutPropertiesLoose(_this$props3, ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName"]);
+
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className),
+      onClick: this.handleClick,
+      onKeyDown: this.handleKeyDown,
+      ref: function ref(node) {
+        _this3.node = node;
+        if (domRef) domRef(node);
+      },
+      "data-tabs": true
+    }), this.getChildren());
+  };
+
+  return UncontrolledTabs;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+UncontrolledTabs.defaultProps = {
+  className: 'react-tabs',
+  focus: false
+};
+
+UncontrolledTabs.propTypes =  true ? {
+  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_4__["childrenPropType"],
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object]),
+  disabledTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  domRef: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  focus: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  forceRenderTabPanel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  onSelect: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func.isRequired,
+  selectedIndex: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,
+  selectedTabClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  selectedTabPanelClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+} : undefined;
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/childrenDeepMap.js ***!
+  \****************************************************************/
+/*! exports provided: deepMap, deepForEach */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepMap", function() { return deepMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepForEach", function() { return deepForEach; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+function isTabChild(child) {
+  return Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child);
+}
+
+function deepMap(children, callback) {
+  return react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(children, function (child) {
+    // null happens when conditionally rendering TabPanel/Tab
+    // see https://github.com/reactjs/react-tabs/issues/37
+    if (child === null) return null;
+
+    if (isTabChild(child)) {
+      return callback(child);
+    }
+
+    if (child.props && child.props.children && typeof child.props.children === 'object') {
+      // Clone the child that has children and map them too
+      return Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, _objectSpread({}, child.props, {
+        children: deepMap(child.props.children, callback)
+      }));
+    }
+
+    return child;
+  });
+}
+function deepForEach(children, callback) {
+  return react__WEBPACK_IMPORTED_MODULE_0__["Children"].forEach(children, function (child) {
+    // null happens when conditionally rendering TabPanel/Tab
+    // see https://github.com/reactjs/react-tabs/issues/37
+    if (child === null) return;
+
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child) || Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) {
+      callback(child);
+    } else if (child.props && child.props.children && typeof child.props.children === 'object') {
+      if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child)) callback(child);
+      deepForEach(child.props.children, callback);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/count.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/count.js ***!
+  \******************************************************/
+/*! exports provided: getTabsCount, getPanelsCount */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTabsCount", function() { return getTabsCount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPanelsCount", function() { return getPanelsCount; });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+
+
+function getTabsCount(children) {
+  var tabCount = 0;
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child)) tabCount++;
+  });
+  return tabCount;
+}
+function getPanelsCount(children) {
+  var panelCount = 0;
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) panelCount++;
+  });
+  return panelCount;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/elementTypes.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/elementTypes.js ***!
+  \*************************************************************/
+/*! exports provided: isTab, isTabPanel, isTabList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTab", function() { return isTab; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTabPanel", function() { return isTabPanel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTabList", function() { return isTabList; });
+function isTab(el) {
+  return el.type && el.type.tabsRole === 'Tab';
+}
+function isTabPanel(el) {
+  return el.type && el.type.tabsRole === 'TabPanel';
+}
+function isTabList(el) {
+  return el.type && el.type.tabsRole === 'TabList';
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/propTypes.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/propTypes.js ***!
+  \**********************************************************/
+/*! exports provided: childrenPropType, onSelectPropType, selectedIndexPropType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "childrenPropType", function() { return childrenPropType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onSelectPropType", function() { return onSelectPropType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectedIndexPropType", function() { return selectedIndexPropType; });
+/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
+/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+
+
+function childrenPropType(props, propName, componentName) {
+  var error;
+  var tabsCount = 0;
+  var panelsCount = 0;
+  var tabListFound = false;
+  var listTabs = [];
+  var children = props[propName];
+  Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(children, function (child) {
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabList"])(child)) {
+      if (child.props && child.props.children && typeof child.props.children === 'object') {
+        Object(_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__["deepForEach"])(child.props.children, function (listChild) {
+          return listTabs.push(listChild);
+        });
+      }
+
+      if (tabListFound) {
+        error = new Error("Found multiple 'TabList' components inside 'Tabs'. Only one is allowed.");
+      }
+
+      tabListFound = true;
+    }
+
+    if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTab"])(child)) {
+      if (!tabListFound || listTabs.indexOf(child) === -1) {
+        error = new Error("Found a 'Tab' component outside of the 'TabList' component. 'Tab' components " + "have to be inside the 'TabList' component.");
+      }
+
+      tabsCount++;
+    } else if (Object(_elementTypes__WEBPACK_IMPORTED_MODULE_1__["isTabPanel"])(child)) {
+      panelsCount++;
+    }
+  });
+
+  if (!error && tabsCount !== panelsCount) {
+    error = new Error("There should be an equal number of 'Tab' and 'TabPanel' in `" + componentName + "`. " + ("Received " + tabsCount + " 'Tab' and " + panelsCount + " 'TabPanel'."));
+  }
+
+  return error;
+}
+function onSelectPropType(props, propName, componentName, location, propFullName) {
+  var prop = props[propName];
+  var name = propFullName || propName;
+  var error = null;
+
+  if (prop && typeof prop !== 'function') {
+    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied " + ("to `" + componentName + "`, expected `function`."));
+  } else if (props.selectedIndex != null && prop == null) {
+    error = new Error("The " + location + " `" + name + "` is marked as required in `" + componentName + "`, but " + "its value is `undefined` or `null`.\n" + "`onSelect` is required when `selectedIndex` is also set. Not doing so will " + "make the tabs not do anything, as `selectedIndex` indicates that you want to " + "handle the selected tab yourself.\n" + "If you only want to set the inital tab replace `selectedIndex` with `defaultIndex`.");
+  }
+
+  return error;
+}
+function selectedIndexPropType(props, propName, componentName, location, propFullName) {
+  var prop = props[propName];
+  var name = propFullName || propName;
+  var error = null;
+
+  if (prop != null && typeof prop !== 'number') {
+    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied to " + ("`" + componentName + "`, expected `number`."));
+  } else if (props.defaultIndex != null && prop != null) {
+    return new Error("The " + location + " `" + name + "` cannot be used together with `defaultIndex` " + ("in `" + componentName + "`.\n") + ("Either remove `" + name + "` to let `" + componentName + "` handle the selected ") + "tab internally or remove `defaultIndex` to handle it yourself.");
+  }
+
+  return error;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/helpers/uuid.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-tabs/esm/helpers/uuid.js ***!
+  \*****************************************************/
+/*! exports provided: default, reset */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return uuid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reset", function() { return reset; });
+// Get a universally unique identifier
+var count = 0;
+function uuid() {
+  return "react-tabs-" + count++;
+}
+function reset() {
+  count = 0;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/esm/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/react-tabs/esm/index.js ***!
+  \**********************************************/
+/*! exports provided: Tabs, TabList, Tab, TabPanel, resetIdCounter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Tabs */ "./node_modules/react-tabs/esm/components/Tabs.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tabs", function() { return _components_Tabs__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _components_TabList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TabList */ "./node_modules/react-tabs/esm/components/TabList.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabList", function() { return _components_TabList__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _components_Tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Tab */ "./node_modules/react-tabs/esm/components/Tab.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tab", function() { return _components_Tab__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TabPanel */ "./node_modules/react-tabs/esm/components/TabPanel.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabPanel", function() { return _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "resetIdCounter", function() { return _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__["reset"]; });
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/react-tabs/style/react-tabs.css":
+/*!******************************************************!*\
+  !*** ./node_modules/react-tabs/style/react-tabs.css ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./react-tabs.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/react-tabs/style/react-tabs.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/react-transition-group/esm/Transition.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-transition-group/esm/Transition.js ***!
@@ -98685,6 +99802,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_containers_institution___WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/containers/institution/ */ "./resources/js/components/containers/institution/index.jsx");
 /* harmony import */ var _components_containers_institution_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/containers/institution/form */ "./resources/js/components/containers/institution/form.jsx");
 /* harmony import */ var _components_containers_information_load_matriz__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/containers/information_load/matriz */ "./resources/js/components/containers/information_load/matriz.jsx");
+/* harmony import */ var _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/containers/information_load/ptci */ "./resources/js/components/containers/information_load/ptci.jsx");
 
 
 
@@ -98703,6 +99821,7 @@ __webpack_require__.r(__webpack_exports__);
 {
   /*captura*/
 }
+
 
 
 var Home = function Home() {
@@ -98800,6 +99919,18 @@ var Home = function Home() {
     exact: true,
     component: _components_containers_information_load_matriz__WEBPACK_IMPORTED_MODULE_12__["default"],
     title: "SCII Matriz de Evaluaci\xF3n",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/ptci_institucional",
+    exact: true,
+    component: _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__["default"],
+    title: "PTCI Institucional",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/ptci_especifico",
+    exact: true,
+    component: _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__["default"],
+    title: "PTCI Procesos Especificos",
     props: general
   }));
 });
@@ -99064,11 +100195,11 @@ function (_Component) {
     value: function isValidForm() {
       var _this2 = this;
 
-      var inputs = document.querySelectorAll('select,input');
+      var inputs = document.querySelectorAll('select,input, textarea');
       var isFormValid = true;
       inputs.forEach(function (input) {
         if (input.required) {
-          var isInputValid = _this2.showCtrlError(input.name);
+          var isInputValid = _this2.showCtrlError(input.id);
 
           if (!isInputValid) {
             isFormValid = false;
@@ -99084,6 +100215,8 @@ function (_Component) {
       var control = document.getElementById(refName);
 
       if (control.value === "") {
+        console.log(control);
+
         if (control !== null) {
           control.parentNode.classList.add('has-error');
         }
@@ -99117,7 +100250,7 @@ function (_Component) {
         showCtrlError: this.showCtrlError,
         logout: this.logout
       };
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, console.log(window.location.href), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_general_header__WEBPACK_IMPORTED_MODULE_7__["default"], {
         logout: function logout(e) {
@@ -101311,6 +102444,191 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/containers/information_load/accion_modal.jsx":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/containers/information_load/accion_modal.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/dist/modal.js");
+/* harmony import */ var bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_js_dist_modal__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var AccionModal =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(AccionModal, _Component);
+
+  function AccionModal(props) {
+    var _this;
+
+    _classCallCheck(this, AccionModal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AccionModal).call(this, props));
+    _this.handleShow = _this.handleShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      comp: "",
+      ele: ""
+    };
+    return _this;
+  }
+
+  _createClass(AccionModal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.onRef(this);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.onRef(null);
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose() {
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').modal('hide');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').removeClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('.modal-backdrop').remove();
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').css('display', 'none');
+      this.setState({
+        comp: "",
+        ele: ""
+      });
+    }
+  }, {
+    key: "handleShow",
+    value: function handleShow(comp, ele, campo) {
+      this.setState({
+        comp: comp,
+        ele: ele
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').addClass('in');
+      jquery__WEBPACK_IMPORTED_MODULE_1__('#modal_accion').css('display', 'block');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var comp = this.state.comp;
+      var ele = this.state.ele;
+      var element = "";
+
+      if (comp !== "" && ele !== "") {
+        element = this.props.components[comp].elemento[ele];
+      } else {
+        element = "";
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "modal_accion",
+        ref: function ref(el) {
+          return _this2.el = el;
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog modal-lg"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close",
+        onClick: this.handleClose
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "modal-title"
+      }, "Acci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fecha Inicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        className: "form-control input-sm",
+        value: element.f_inicio,
+        required: true,
+        id: 'f_inicio',
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'f_inicio', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Fecha Terminado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        className: "form-control input-sm",
+        value: element.f_fin,
+        required: true,
+        id: 'f_fin',
+        min: element.f_inicio,
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'f_fin', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Mejora"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "form-control",
+        value: element.accion,
+        required: true,
+        id: 'accion',
+        onChange: function onChange(e) {
+          return _this2.props.change(comp, ele, 'accion', e);
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12",
+        style: {
+          textAlign: 'center'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-info",
+        style: {
+          marginLeft: '5px'
+        },
+        onClick: this.handleClose
+      }, "Cerrar")))))));
+    }
+  }]);
+
+  return AccionModal;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (AccionModal);
+
+/***/ }),
+
 /***/ "./resources/js/components/containers/information_load/matriz.jsx":
 /*!************************************************************************!*\
   !*** ./resources/js/components/containers/information_load/matriz.jsx ***!
@@ -101800,6 +103118,529 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Matriz);
+
+/***/ }),
+
+/***/ "./resources/js/components/containers/information_load/ptci.jsx":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/containers/information_load/ptci.jsx ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @khanacademy/react-multi-select */ "./node_modules/@khanacademy/react-multi-select/dist/index.js");
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+/* harmony import */ var _accion_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./accion_modal */ "./resources/js/components/containers/information_load/accion_modal.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+var messages = {
+  searchPlaceholder: 'Buscar...',
+  noItemsMessage: 'Seleccione uno o mas elementos',
+  noneSelectedMessage: 'Nunguno Seleccionado',
+  selectedMessage: 'Seleccionado',
+  selectAllMessage: 'Seleccionar Todos',
+  clearAllMessage: 'Eliminar Todos'
+};
+var tipo = '';
+
+var PTCI =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(PTCI, _Component);
+
+  function PTCI(props) {
+    var _this;
+
+    _classCallCheck(this, PTCI);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PTCI).call(this, props));
+    _this.selectEvaluacion = _this.selectEvaluacion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.changeComponents = _this.changeComponents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.openAccionModal = _this.openAccionModal.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.changeMejoras = _this.changeMejoras.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.selectTab = _this.selectTab.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      componentes: [],
+      acreditaciones: [],
+      acreditacion_selected: [],
+      tabIndex: 0,
+      responsable: "",
+      elemento: "",
+      ptci_id: ""
+    };
+    return _this;
+  }
+
+  _createClass(PTCI, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+      }
+
+      fetch(this.props.general.api + 'acreditacion', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var acreditaciones = [];
+          response.map(function (c) {
+            acreditaciones.push({
+              label: c.nombre,
+              value: c.id
+            });
+          });
+
+          _this2.setState({
+            acreditaciones: acreditaciones
+          });
+        }
+      });
+      fetch(this.props.general.api + 'element_component/ptci_institucional', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          response.componente.map(function (comp) {
+            comp.elemento.map(function (el) {
+              el.cumple = "SI";
+              el.evidencia = "";
+              el.acredita = [];
+              el.accion = "";
+              el.f_inicio = "";
+              el.f_fin = "";
+              el.unidad = "";
+              el.persona = "";
+              el.medio = "";
+            });
+          });
+
+          _this2.setState({
+            componentes: response.componente
+          });
+
+          setTimeout(function () {
+            _this2.getPtci();
+          }, 500);
+        }
+      });
+      setTimeout(function () {
+        $('.react-tabs__tab-list > li').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab--selected');
+            $(this).attr('aria-selected', 'true');
+          }
+        });
+        $('.react-tabs__tab-panel').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab-panel--selected');
+          }
+        });
+      }, 500);
+    }
+  }, {
+    key: "getPtci",
+    value: function getPtci() {
+      var _this3 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'ptci/' + user.id + '/' + tipo, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          if (response.elemento !== undefined) {
+            var components = _this3.state.componentes;
+            response.elemento.map(function (ele) {
+              var i_comp = components.findIndex(function (obj) {
+                return obj.id === ele.componente.id;
+              });
+              var i_ele = components[i_comp].elemento.findIndex(function (obj) {
+                return obj.id === ele.id_element_comp;
+              });
+              components[i_comp].elemento[i_ele].id_ptci_element = ele.id;
+              components[i_comp].elemento[i_ele].cumple = ele.cumple.toUpperCase();
+              components[i_comp].elemento[i_ele].evidencia = ele.nombre_doc;
+              components[i_comp].elemento[i_ele].acredita = ele.acredita;
+              components[i_comp].elemento[i_ele].f_inicio = ele.fecha_inicio;
+              components[i_comp].elemento[i_ele].f_fin = ele.fecha_fin;
+              components[i_comp].elemento[i_ele].accion = ele.accion_mejora;
+              components[i_comp].elemento[i_ele].unidad = ele.unidad_responsable;
+              components[i_comp].elemento[i_ele].persona = ele.responsable;
+              components[i_comp].elemento[i_ele].medio = ele.medio_verifica;
+
+              _this3.accion_modal.handleShow(i_comp, i_ele);
+
+              _this3.accion_modal.handleClose();
+            });
+
+            _this3.setState({
+              responsable: response.responsable,
+              componentes: components,
+              ptci_id: response.id
+            });
+          }
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "selectEvaluacion",
+    value: function selectEvaluacion(e, comp, ele, campo) {
+      this.changeComponents(e, comp, ele, campo);
+    }
+  }, {
+    key: "saving",
+    value: function saving(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      var componente = this.state.componentes[this.state.elemento];
+      var obj = {
+        user_id: user.id,
+        ptci: {
+          responsable: this.state.responsable,
+          elementos: [],
+          tipo: tipo
+        }
+      };
+      var error_accion = '';
+
+      if (componente.elemento !== undefined) {
+        componente.elemento.map(function (ele) {
+          var item = {
+            id_element_comp: ele.id,
+            cumple: ele.cumple,
+            nombre_doc: ele.evidencia,
+            acredita: ele.acredita,
+            accion_mejora: ele.accion,
+            fecha_inicio: ele.f_inicio,
+            fecha_fin: ele.f_fin,
+            unidad_responsable: ele.unidad,
+            responsable: ele.persona,
+            medio_verifica: ele.medio
+          };
+
+          if (ele.id_ptci_element !== undefined) {
+            item.id = ele.id_ptci_element;
+          }
+
+          if (ele.accion === "" || ele.f_ini === "" || ele.f_fin === "") {
+            error_accion = 'Debe agregar una acción o mejora presionando el boton acción';
+          }
+
+          obj.ptci.elementos.push(item);
+        });
+
+        if (this.state.ptci_id !== "") {
+          obj.ptci_id = this.state.ptci_id;
+        }
+      }
+
+      if (error_accion === '') {
+        if (this.props.general.isValidForm()) {
+          this.props.general.waiting.handleShow('Guardando...');
+          fetch(this.props.general.api + 'ptci', {
+            method: 'post',
+            body: JSON.stringify(obj),
+            headers: new Headers({
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            })
+          }).then(function (res) {
+            _this4.props.general.waiting.handleClose();
+
+            if (res.ok) {
+              return res.json();
+            } else {
+              res.text().then(function (msg) {
+                console.log(msg);
+              });
+            }
+          }).then(function (response) {
+            if (response !== undefined) {
+              _this4.setState({
+                ptci_id: response.ptci_id
+              });
+
+              setTimeout(function () {
+                _this4.getPtci();
+              }, 500);
+            }
+          });
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', 'Campos Incompletos', 'error');
+        }
+      } else {
+        this.props.general.isValidForm();
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', error_accion, 'error');
+      }
+    }
+  }, {
+    key: "canceling",
+    value: function canceling(e) {
+      e.preventDefault();
+      this.props.history.push('/');
+    }
+  }, {
+    key: "changeComponents",
+    value: function changeComponents(e, comp, ele, campo) {
+      var components = this.state.componentes;
+      var valor = e.target !== undefined ? e.target.value : e;
+      components.map(function (c, i) {
+        if (comp === i) {
+          c.elemento.map(function (e, j) {
+            if (ele === j) {
+              e[campo] = valor;
+            }
+          });
+        }
+      });
+      this.setState({
+        componentes: components
+      });
+    }
+  }, {
+    key: "openAccionModal",
+    value: function openAccionModal(e, comp, ele) {
+      e.preventDefault();
+      this.accion_modal.handleShow(comp, ele);
+    }
+  }, {
+    key: "changeMejoras",
+    value: function changeMejoras(comp, ele, campo, e) {
+      this.changeComponents(e, comp, ele, campo);
+    }
+  }, {
+    key: "selectTab",
+    value: function selectTab(e, i) {
+      this.setState({
+        elemento: i
+      }); //verifica si ya se guaradon registros
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box box-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Responsable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "responsable",
+        id: "responsable",
+        value: this.state.responsable,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("fieldset", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("legend", null, "Componentes de Control"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tabs"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabList"], null, this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
+          key: i,
+          onClick: function onClick(e) {
+            return _this5.selectTab(e, i);
+          }
+        }, c.posicion + ' ' + c.componente);
+      })), this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabPanel"], {
+          key: i
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+          className: "table table-hover table-responsive"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          colSpan: "7"
+        }, "Elemento")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cumple"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nombre Evidencia Documento"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          style: {
+            width: '15%'
+          }
+        }, "Acreditaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Acci\xF3n de Mejora"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Unidad Responsable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Responsable de Implementaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Medio de Verificaci\xF3n"))), c.elemento.map(function (e, j) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+            key: j
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            colSpan: "7"
+          }, e.nombre)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+            value: e.cumple,
+            id: 'cumple_' + i + '_' + j,
+            className: "form-control",
+            required: true,
+            onChange: function onChange(e) {
+              return _this5.changeComponents(e, i, j, 'cumple');
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "SI"
+          }, "SI"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "NO"
+          }, "No"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+            value: e.evidencia,
+            id: 'evidencia_' + i + '_' + j,
+            style: {
+              resize: 'none'
+            },
+            className: "form-control",
+            required: true,
+            onChange: function onChange(e) {
+              return _this5.changeComponents(e, i, j, 'evidencia');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default.a, {
+            options: _this5.state.acreditaciones,
+            selected: e.acredita,
+            onSelectedChanged: function onSelectedChanged(e, acreditacion_selected) {
+              return _this5.selectEvaluacion(e, i, j, 'acredita', acreditacion_selected);
+            },
+            required: true,
+            messages: messages
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            className: "btn btn-info",
+            onClick: function onClick(e) {
+              return _this5.openAccionModal(e, i, j);
+            }
+          }, "Acci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.unidad,
+            id: 'unidad_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this5.changeComponents(e, i, j, 'unidad');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.persona,
+            required: true,
+            id: 'persona_' + i + '_' + j,
+            onChange: function onChange(e) {
+              return _this5.changeComponents(e, i, j, 'persona');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+            style: {
+              resize: 'none'
+            },
+            className: "form-control",
+            value: e.medio,
+            required: true,
+            id: 'medio_' + i + '_' + j,
+            onChange: function onChange(e) {
+              return _this5.changeComponents(e, i, j, 'medio');
+            }
+          }))));
+        })));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        btnSave: "Guardar",
+        btnCancel: "Cancelar",
+        save: this.saving,
+        cancel: this.canceling
+      })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_accion_modal__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, this.props, {
+        onRef: function onRef(ref) {
+          return _this5.accion_modal = ref;
+        },
+        change: this.changeMejoras,
+        components: this.state.componentes
+      })));
+    }
+  }]);
+
+  return PTCI;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (PTCI);
 
 /***/ }),
 
@@ -102304,9 +104145,22 @@ var Header = function Header(props) {
     className: "logo"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-mini"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Sys"), "Adm"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "images/contraloria-logo.png",
+    style: {
+      position: 'relative',
+      width: '100%'
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "logo-lg"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Sys"), "Admin")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "images/contraloria.png",
+    style: {
+      position: 'relative',
+      width: '100%',
+      top: '-35px'
+    }
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     className: "navbar navbar-static-top"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",

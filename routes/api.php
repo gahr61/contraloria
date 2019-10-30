@@ -39,16 +39,22 @@ Route::group([
 	Route::resource('user', 'UserController');
 	Route::post('user/reset_password/{id}', 'UserController@reset_password');
 
+	//matriz
 	Route::resource('institucion', 'InstitucionController');
-	
 	Route::get('ejercicio', 'GeneralController@getEjercicio');
-
 	Route::get('criterio_evaluacion', 'GeneralController@getCriterioEval');	
-
-
 	Route::resource('matriz', 'MatrizController');
 	Route::delete('proceso_prior/{id}', [
 		'uses'	=> 'MatrizController@destroy',
 		'as'	=> 'proceso_prior.destroy'
 	]);
+
+	//ptci
+	Route::resource('ptci', 'PtciController');
+	Route::get('ptci/{id}/{tipo}', [
+		'uses'	=> 'PtciController@show',
+		'as'	=> 'ptci.show'
+	]);
+	Route::get('element_component/{tipo}', 'GeneralController@getElementComponent');
+	Route::get('acreditacion', 'GeneralController@getAcreditacion');
 //});

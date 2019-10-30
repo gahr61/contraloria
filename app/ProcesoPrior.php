@@ -16,4 +16,8 @@ class ProcesoPrior extends Model
     public function matriz(){
     	return $this->belongsTo('App\Matriz');
     }
+
+    public function ptci(){
+    	return $this->belongsToMany('App\PTCI', 'ptci_proceso');
+    }
 }
