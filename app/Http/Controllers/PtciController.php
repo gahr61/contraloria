@@ -28,6 +28,10 @@ class PtciController extends Controller
 		if($ptci_matriz != NULL){
 			foreach($ptci_matriz as $pm){
 				$ptci = PTCI::where('id', $pm->ptci_id)->where('tipo', $tipo)->first();
+
+				if($ptci != NULL){
+					break;
+				}
 			}
 			
 
