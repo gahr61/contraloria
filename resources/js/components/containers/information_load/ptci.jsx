@@ -31,6 +31,8 @@ class PTCI extends Component{
 		this.changeMejoras = this.changeMejoras.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.selectTab = this.selectTab.bind(this);
+		this.getElements = this.getElements.bind(this);
+		//this.getProcesos = this.getProcesos.bind(this);
 
 		this.state = {
 			componentes: [],
@@ -40,6 +42,9 @@ class PTCI extends Component{
 			responsable:"",
 			elemento:"",
 			ptci_id:"",
+			tipo:"",
+			procesos:[],
+			proceso_id:""
 		}
 	}
 
@@ -49,7 +54,11 @@ class PTCI extends Component{
 			tipo = 'institucional';
 		}else{
 			tipo = 'especifico';
+
+			this.getProcesos();
 		}
+
+		this.setState({tipo:tipo});
 
 		fetch(this.props.general.api+'acreditacion',{
 			method:'get',
@@ -75,9 +84,80 @@ class PTCI extends Component{
 
 				this.setState({acreditaciones:acreditaciones});
 			}
-		});
+		});	
 
-		fetch(this.props.general.api+'element_component/ptci_institucional',{
+		this.getElements();
+
+		setTimeout(()=>{
+			$('.react-tabs__tab-list > li').each(function(i){
+				if(i === 0){
+					$(this).addClass('react-tabs__tab--selected');
+					$(this).attr('aria-selected', 'true');	
+				}
+			});
+
+			$('.react-tabs__tab-panel').each(function(i){
+				if(i === 0){
+					$(this).addClass('react-tabs__tab-panel--selected');	
+				}
+			});
+
+			
+		}, 500);
+	}
+
+	componentDidUpdate(){
+		if(this.props.match.path.indexOf('institucional') !== -1){
+			tipo = 'institucional';
+		}else{
+			tipo = 'especifico';
+		}
+
+		if(tipo !== this.state.tipo){
+			this.setState({
+				tipo:tipo, 
+				responsable:"",
+				ptci_id:"",
+				procesos:[],
+				proceso_id:""
+			});
+			this.getElements();	
+
+			if(tipo === 'especifico'){
+				this.getProcesos();
+			}
+		}
+		
+		
+	}
+
+	getProcesos(){
+		var user = JSON.parse(sessionStorage.getItem('user'));
+
+		fetch(this.props.general.api+'proceso_prior/'+user.id,{
+			method:'get',
+			headers: new Headers({
+				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
+				'Accept'		: 'application/json',
+				'Content-Type'	: 'application/json'
+			})
+		}).then(res => {
+			if(res.ok){
+				return res.json();
+			}else{
+				res.text().then((msg)=>{
+					console.log(msg);
+				});
+			}
+		}).then(response => {
+			if(response !== undefined){
+				this.setState({procesos:response.procesos});
+			}
+		});
+	}
+
+	getElements(){
+		fetch(this.props.general.api+'element_component/ptci_'+tipo,{
 			method:'get',
 			headers: new Headers({
 				'Authorization'	: 'Bearer '+sessionStorage.getItem('token'),
@@ -115,25 +195,6 @@ class PTCI extends Component{
 				}, 500);
 			}
 		});
-
-		
-
-		setTimeout(()=>{
-			$('.react-tabs__tab-list > li').each(function(i){
-				if(i === 0){
-					$(this).addClass('react-tabs__tab--selected');
-					$(this).attr('aria-selected', 'true');	
-				}
-			});
-
-			$('.react-tabs__tab-panel').each(function(i){
-				if(i === 0){
-					$(this).addClass('react-tabs__tab-panel--selected');	
-				}
-			});
-
-			
-		}, 500);
 	}
 
 	getPtci(){
@@ -186,7 +247,8 @@ class PTCI extends Component{
 					this.setState({
 						responsable: response.responsable,
 						componentes: components, 
-						ptci_id: response.id
+						ptci_id: response.id,
+						proceso_id: response.proceso
 					});
 
 				}
@@ -218,9 +280,12 @@ class PTCI extends Component{
 			}
 		};
 
+		if(tipo === 'especifico'){
+			obj.ptci.proceso = this.state.proceso_id;
+		}
+
 		var error_accion = '';
 		if(componente.elemento !== undefined){
-			
 			componente.elemento.map((ele)=>{
 				var item = {
 					id_element_comp:ele.id,
@@ -345,6 +410,23 @@ class PTCI extends Component{
 											onChange={this.handleChange} className="form-control" required />
 									</div>
 								</div>
+								{tipo === 'especifico' ?
+									<div className="col-xs-12">	
+										<div className="col-xs-12 col-sm-6">	
+											<span>Proceso Especifico</span>
+											<select className="form-control" name="proceso_id" id="proceso_id" required
+												value={this.state.proceso_id} onChange={this.handleChange}>
+												<option value="">Seleccione...</option>
+												{this.state.procesos.map((p, i)=>(
+													<option key={i} value={p.id} responsable={p.persona_resp}>
+														{p.proceso}
+													</option>
+
+												))}
+											</select>
+										</div>
+									</div>
+								:null}
 								<div className="col-xs-12 form-group">
 									<fieldset>
 										<legend>Componentes de Control</legend>

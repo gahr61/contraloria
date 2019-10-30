@@ -103204,6 +103204,8 @@ function (_Component) {
     _this.changeMejoras = _this.changeMejoras.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.selectTab = _this.selectTab.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getElements = _this.getElements.bind(_assertThisInitialized(_assertThisInitialized(_this))); //this.getProcesos = this.getProcesos.bind(this);
+
     _this.state = {
       componentes: [],
       acreditaciones: [],
@@ -103211,7 +103213,10 @@ function (_Component) {
       tabIndex: 0,
       responsable: "",
       elemento: "",
-      ptci_id: ""
+      ptci_id: "",
+      tipo: "",
+      procesos: [],
+      proceso_id: ""
     };
     return _this;
   }
@@ -103225,8 +103230,12 @@ function (_Component) {
         tipo = 'institucional';
       } else {
         tipo = 'especifico';
+        this.getProcesos();
       }
 
+      this.setState({
+        tipo: tipo
+      });
       fetch(this.props.general.api + 'acreditacion', {
         method: 'get',
         headers: new Headers({
@@ -103257,7 +103266,80 @@ function (_Component) {
           });
         }
       });
-      fetch(this.props.general.api + 'element_component/ptci_institucional', {
+      this.getElements();
+      setTimeout(function () {
+        $('.react-tabs__tab-list > li').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab--selected');
+            $(this).attr('aria-selected', 'true');
+          }
+        });
+        $('.react-tabs__tab-panel').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab-panel--selected');
+          }
+        });
+      }, 500);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+      }
+
+      if (tipo !== this.state.tipo) {
+        this.setState({
+          tipo: tipo,
+          responsable: "",
+          ptci_id: "",
+          procesos: [],
+          proceso_id: ""
+        });
+        this.getElements();
+
+        if (tipo === 'especifico') {
+          this.getProcesos();
+        }
+      }
+    }
+  }, {
+    key: "getProcesos",
+    value: function getProcesos() {
+      var _this3 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'proceso_prior/' + user.id, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this3.setState({
+            procesos: response.procesos
+          });
+        }
+      });
+    }
+  }, {
+    key: "getElements",
+    value: function getElements() {
+      var _this4 = this;
+
+      fetch(this.props.general.api + 'element_component/ptci_' + tipo, {
         method: 'get',
         headers: new Headers({
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
@@ -103288,33 +103370,20 @@ function (_Component) {
             });
           });
 
-          _this2.setState({
+          _this4.setState({
             componentes: response.componente
           });
 
           setTimeout(function () {
-            _this2.getPtci();
+            _this4.getPtci();
           }, 500);
         }
       });
-      setTimeout(function () {
-        $('.react-tabs__tab-list > li').each(function (i) {
-          if (i === 0) {
-            $(this).addClass('react-tabs__tab--selected');
-            $(this).attr('aria-selected', 'true');
-          }
-        });
-        $('.react-tabs__tab-panel').each(function (i) {
-          if (i === 0) {
-            $(this).addClass('react-tabs__tab-panel--selected');
-          }
-        });
-      }, 500);
     }
   }, {
     key: "getPtci",
     value: function getPtci() {
-      var _this3 = this;
+      var _this5 = this;
 
       var user = JSON.parse(sessionStorage.getItem('user'));
       fetch(this.props.general.api + 'ptci/' + user.id + '/' + tipo, {
@@ -103335,7 +103404,7 @@ function (_Component) {
       }).then(function (response) {
         if (response !== undefined) {
           if (response.elemento !== undefined) {
-            var components = _this3.state.componentes;
+            var components = _this5.state.componentes;
             response.elemento.map(function (ele) {
               var i_comp = components.findIndex(function (obj) {
                 return obj.id === ele.componente.id;
@@ -103354,15 +103423,16 @@ function (_Component) {
               components[i_comp].elemento[i_ele].persona = ele.responsable;
               components[i_comp].elemento[i_ele].medio = ele.medio_verifica;
 
-              _this3.accion_modal.handleShow(i_comp, i_ele);
+              _this5.accion_modal.handleShow(i_comp, i_ele);
 
-              _this3.accion_modal.handleClose();
+              _this5.accion_modal.handleClose();
             });
 
-            _this3.setState({
+            _this5.setState({
               responsable: response.responsable,
               componentes: components,
-              ptci_id: response.id
+              ptci_id: response.id,
+              proceso_id: response.proceso
             });
           }
         }
@@ -103381,7 +103451,7 @@ function (_Component) {
   }, {
     key: "saving",
     value: function saving(e) {
-      var _this4 = this;
+      var _this6 = this;
 
       e.preventDefault();
       var user = JSON.parse(sessionStorage.getItem('user'));
@@ -103394,6 +103464,11 @@ function (_Component) {
           tipo: tipo
         }
       };
+
+      if (tipo === 'especifico') {
+        obj.ptci.proceso = this.state.proceso_id;
+      }
+
       var error_accion = '';
 
       if (componente.elemento !== undefined) {
@@ -103439,7 +103514,7 @@ function (_Component) {
               'Content-Type': 'application/json'
             })
           }).then(function (res) {
-            _this4.props.general.waiting.handleClose();
+            _this6.props.general.waiting.handleClose();
 
             if (res.ok) {
               return res.json();
@@ -103450,12 +103525,12 @@ function (_Component) {
             }
           }).then(function (response) {
             if (response !== undefined) {
-              _this4.setState({
+              _this6.setState({
                 ptci_id: response.ptci_id
               });
 
               setTimeout(function () {
-                _this4.getPtci();
+                _this6.getPtci();
               }, 500);
             }
           });
@@ -103512,7 +103587,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this7 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "box box-default"
@@ -103531,13 +103606,32 @@ function (_Component) {
         onChange: this.handleChange,
         className: "form-control",
         required: true
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }))), tipo === 'especifico' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Proceso Especifico"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        name: "proceso_id",
+        id: "proceso_id",
+        required: true,
+        value: this.state.proceso_id,
+        onChange: this.handleChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.procesos.map(function (p, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: p.id,
+          responsable: p.persona_resp
+        }, p.proceso);
+      })))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-xs-12 form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("fieldset", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("legend", null, "Componentes de Control"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tabs"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabList"], null, this.state.componentes.map(function (c, i) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
           key: i,
           onClick: function onClick(e) {
-            return _this5.selectTab(e, i);
+            return _this7.selectTab(e, i);
           }
         }, c.posicion + ' ' + c.componente);
       })), this.state.componentes.map(function (c, i) {
@@ -103562,7 +103656,7 @@ function (_Component) {
             className: "form-control",
             required: true,
             onChange: function onChange(e) {
-              return _this5.changeComponents(e, i, j, 'cumple');
+              return _this7.changeComponents(e, i, j, 'cumple');
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "SI"
@@ -103577,13 +103671,13 @@ function (_Component) {
             className: "form-control",
             required: true,
             onChange: function onChange(e) {
-              return _this5.changeComponents(e, i, j, 'evidencia');
+              return _this7.changeComponents(e, i, j, 'evidencia');
             }
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default.a, {
-            options: _this5.state.acreditaciones,
+            options: _this7.state.acreditaciones,
             selected: e.acredita,
             onSelectedChanged: function onSelectedChanged(e, acreditacion_selected) {
-              return _this5.selectEvaluacion(e, i, j, 'acredita', acreditacion_selected);
+              return _this7.selectEvaluacion(e, i, j, 'acredita', acreditacion_selected);
             },
             required: true,
             messages: messages
@@ -103591,7 +103685,7 @@ function (_Component) {
             type: "button",
             className: "btn btn-info",
             onClick: function onClick(e) {
-              return _this5.openAccionModal(e, i, j);
+              return _this7.openAccionModal(e, i, j);
             }
           }, "Acci\xF3n")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
             className: "form-control",
@@ -103599,7 +103693,7 @@ function (_Component) {
             id: 'unidad_' + i + '_' + j,
             required: true,
             onChange: function onChange(e) {
-              return _this5.changeComponents(e, i, j, 'unidad');
+              return _this7.changeComponents(e, i, j, 'unidad');
             }
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
             className: "form-control",
@@ -103607,7 +103701,7 @@ function (_Component) {
             required: true,
             id: 'persona_' + i + '_' + j,
             onChange: function onChange(e) {
-              return _this5.changeComponents(e, i, j, 'persona');
+              return _this7.changeComponents(e, i, j, 'persona');
             }
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
             style: {
@@ -103618,7 +103712,7 @@ function (_Component) {
             required: true,
             id: 'medio_' + i + '_' + j,
             onChange: function onChange(e) {
-              return _this5.changeComponents(e, i, j, 'medio');
+              return _this7.changeComponents(e, i, j, 'medio');
             }
           }))));
         })));
@@ -103629,7 +103723,7 @@ function (_Component) {
         cancel: this.canceling
       })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_accion_modal__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, this.props, {
         onRef: function onRef(ref) {
-          return _this5.accion_modal = ref;
+          return _this7.accion_modal = ref;
         },
         change: this.changeMejoras,
         components: this.state.componentes

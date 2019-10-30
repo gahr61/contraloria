@@ -21,22 +21,40 @@ class PtciController extends Controller
 		$user_id = $id;
 		$tipo = $tipo;
 		$matriz =  $this->getMatriz($user_id);
-		$ptci_matriz = PtciMatriz::where('matriz_id', $matriz->id)->first();
+		$ptci_matriz = PtciMatriz::where('matriz_id', $matriz->id)->get();
 		
+		$ptci = null;
+
 		if($ptci_matriz != NULL){
-			$ptci = PTCI::where('id', $ptci_matriz->ptci_id)->where('tipo', $tipo)->first();	
-			$ptci->elemento->each(function($e){
-				$element_comp = $e->elemento()->select('id', 'componente_id')->first();
-				$e['componente'] = $element_comp->componente()->select('id')->first();
-				$acredita = $element_comp->acredita()->select('id')->get();
-				$aux_acredita = Array();
-				foreach ($acredita as $a) {
-					$aux_acredita[] = $a->id;
+			foreach($ptci_matriz as $pm){
+				$ptci = PTCI::where('id', $pm->ptci_id)->where('tipo', $tipo)->first();
+			}
+			
+
+			if($ptci != NULL){
+
+				if($tipo == 'especifico'){
+					$proceso = $ptci->proceso()->select('id')->get();
+					//dd($proceso);
+					foreach($proceso as $p){
+						
+						$ptci['proceso'] = $p->id;
+					}
+
 				}
-				$e['acredita'] = $aux_acredita;
-			});
-		}else{
-			$ptci = null;
+
+				$ptci->elemento->each(function($e){
+					$element_comp = $e->elemento()->select('id', 'componente_id')->first();
+					$e['componente'] = $element_comp->componente()->select('id')->first();
+					$acredita = $element_comp->acredita()->select('id')->get();
+					$aux_acredita = Array();
+					foreach ($acredita as $a) {
+						$aux_acredita[] = $a->id;
+					}
+					$e['acredita'] = $aux_acredita;
+				});	
+			}	
+			
 		}
 
 		return response()->json($ptci);
@@ -59,14 +77,19 @@ class PtciController extends Controller
 				$ptci->tipo = $request->ptci['tipo'];
 				$ptci->save();
 
-
 				if(!$ptci->save()){
 					\DB::rollback();
 					return response()->json(['error'=>'Error al guardar ptci, PTCIController linea 60']);
 				}
 
+				//si ptci es especifico guarda ptci_proceso
+				if($request->ptci['tipo'] == 'especifico'){
+					$ptci->proceso()->sync($request->ptci['proceso']);
+				}
+
 				//guarda ptci_matriz
 				$ptci->matriz()->sync($matriz->id);
+			
 
 			}else{
 				$ptci = PTCI::where('id', $request->ptci_id)->select('id')->first();
@@ -77,13 +100,13 @@ class PtciController extends Controller
 					\DB::rollback();
 					return response()->json(['error'=>'Error al guardar ptci, PTCIController linea 70']);
 				}
+
+				if($request->ptci['tipo'] == 'especifico'){
+					$ptci->proceso()->detach($request->ptci['proceso']);
+					$ptci->proceso()->sync($request->ptci['proceso']);
+				}
 			}
 				
-			//si ptci es especifico guarda ptci_proceso
-			if($request->ptci['tipo'] == 'especifico'){
-				$ptci->proceso()->sync($request->ptci['proceso']);
-			}
-
 			foreach($request->ptci['elementos'] as $e){
 				if(!isset($e['id'])){
 					//guarda ptci_element
@@ -113,7 +136,6 @@ class PtciController extends Controller
 					}
 				}
 					
-
 				//guarda acredita_elemento
 				foreach($e['acredita'] as $a){
 					$acredita = Acreditacion::where('id', $a)->select('id')->first();

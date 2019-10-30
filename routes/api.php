@@ -48,6 +48,7 @@ Route::group([
 		'uses'	=> 'MatrizController@destroy',
 		'as'	=> 'proceso_prior.destroy'
 	]);
+	Route::get('proceso_prior/{id}', 'MatrizController@getProceso');
 
 	//ptci
 	Route::resource('ptci', 'PtciController');

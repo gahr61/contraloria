@@ -13,7 +13,7 @@ class PTCI extends Model
     }
 
     public function proceso(){
-    	return $this->belongsToMany('App\ProcesoPrior', 'ptci_proceso');
+    	return $this->belongsToMany('App\ProcesoPrior', 'ptci_proceso', 'id_ptci');
     }
 
     public function elemento(){

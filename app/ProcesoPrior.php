@@ -18,6 +18,6 @@ class ProcesoPrior extends Model
     }
 
     public function ptci(){
-    	return $this->belongsToMany('App\PTCI', 'ptci_proceso');
+    	return $this->belongsToMany('App\PTCI', 'ptci_proceso', 'id_ptci');
     }
 }

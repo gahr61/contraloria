@@ -145,14 +145,14 @@ class TablesContraloria extends Migration
 
         Schema::create('ptci_proceso', function(Blueprint $table){
             $table->integer('id_ptci')->unsigned()->index();
-            $table->integer('id_proceso')->unsigned()->index();
+            $table->integer('proceso_prior_id')->unsigned()->index();
 
             $table->foreign('id_ptci')->references('id')->on('ptci')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_proceso')->references('id')->on('proceso_prior')
+            $table->foreign('proceso_prior_id')->references('id')->on('proceso_prior')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->primary(['id_ptci', 'id_proceso']);
+            $table->primary(['id_ptci', 'proceso_prior_id']);
         });
 
         Schema::create('report', function(Blueprint $table){

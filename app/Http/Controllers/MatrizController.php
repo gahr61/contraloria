@@ -100,4 +100,13 @@ class MatrizController extends Controller
 		}
 	    	
     }
+
+    public function getProceso($id){
+    	$user_id = $id;
+		$user = User::where('id', $user_id)->select('id')->first();
+		$matriz = $user->matriz()->select('id', 'id_institucion', 'id_ejercicio')->first();
+		$proceso = $matriz->proceso()->select('id', 'proceso', 'persona_resp')->get();
+		
+		return response()->json(['procesos'=>$proceso]);
+    }
 }

@@ -32,6 +32,9 @@ class GeneralController extends Controller
 			case 'ptci_institucional':
 				$t = 'PTCI Institucional';
 				break;
+			case 'ptci_especifico':
+				$t = 'PTCI Especifico';
+				break;
 		}
 
 		$componente = Componente::where('tipo', $t)->select('id', 'componente', 'posicion')->get();
