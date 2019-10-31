@@ -99803,6 +99803,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_containers_institution_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/containers/institution/form */ "./resources/js/components/containers/institution/form.jsx");
 /* harmony import */ var _components_containers_information_load_matriz__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/containers/information_load/matriz */ "./resources/js/components/containers/information_load/matriz.jsx");
 /* harmony import */ var _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/containers/information_load/ptci */ "./resources/js/components/containers/information_load/ptci.jsx");
+/* harmony import */ var _components_containers_progress_reports_report__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/containers/progress_reports/report */ "./resources/js/components/containers/progress_reports/report.jsx");
 
 
 
@@ -99821,6 +99822,7 @@ __webpack_require__.r(__webpack_exports__);
 {
   /*captura*/
 }
+
 
 
 
@@ -99931,6 +99933,18 @@ var Home = function Home() {
     exact: true,
     component: _components_containers_information_load_ptci__WEBPACK_IMPORTED_MODULE_13__["default"],
     title: "PTCI Procesos Especificos",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/reporte_institucional",
+    exact: true,
+    component: _components_containers_progress_reports_report__WEBPACK_IMPORTED_MODULE_14__["default"],
+    title: "Reporte Avance Institucional",
+    props: general
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppliedRoute__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    path: "/reporte_especifico",
+    exact: true,
+    component: _components_containers_progress_reports_report__WEBPACK_IMPORTED_MODULE_14__["default"],
+    title: "Reporte Procesos Avance Especificos",
     props: general
   }));
 });
@@ -100087,6 +100101,7 @@ function (_Component) {
     _this.resetPass = _this.resetPass.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.isValidForm = _this.isValidForm.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.showCtrlError = _this.showCtrlError.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getTrimestre = _this.getTrimestre.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       authenticated: false,
       token: "",
@@ -100235,6 +100250,13 @@ function (_Component) {
       return res;
     }
   }, {
+    key: "getTrimestre",
+    value: function getTrimestre() {
+      var d = new Date();
+      var q = [1, 2, 3, 4];
+      return q[Math.floor(d.getMonth() / 3)];
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -100248,7 +100270,8 @@ function (_Component) {
         setValues: this.setValues,
         isValidForm: this.isValidForm,
         showCtrlError: this.showCtrlError,
-        logout: this.logout
+        logout: this.logout,
+        getTrimestre: this.getTrimestre
       };
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "wrapper"
@@ -102649,14 +102672,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -102909,14 +102924,15 @@ function (_Component) {
           }).then(function (response) {
             if (response !== undefined) {
               _this4.setState({
-                matriz_id: response.id_matriz,
                 proccess_name: "",
                 proccess_type: "Administrativo",
                 evaluation_selected: [],
                 responsable_unit: "",
                 responsable_person: "",
-                procesos: [].concat(_toConsumableArray(_this4.state.procesos), [response.proceso])
+                procesos: []
               });
+
+              _this4.getMatriz();
             }
           });
         } else {
@@ -103100,7 +103116,14 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Nombre del Proceso"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Tipo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Criterios"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Unidad Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Persona Responsable"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.state.procesos.map(function (p, i) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
           key: i
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.proceso), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.tipo), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.unidad_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.persona_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.proceso), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.tipo), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.criterio.map(function (c, j) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+            key: j,
+            style: {
+              display: 'block'
+            }
+          }, '- ' + c.criterio);
+        })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.unidad_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, p.persona_resp), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           type: "button",
           className: "btn btn-danger btn-xs",
           name: "Eliminar",
@@ -104182,6 +104205,839 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/containers/progress_reports/report.jsx":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/containers/progress_reports/report.jsx ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _general_title__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../general/title */ "./resources/js/components/general/title.js");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @khanacademy/react-multi-select */ "./node_modules/@khanacademy/react-multi-select/dist/index.js");
+/* harmony import */ var _khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_khanacademy_react_multi_select__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _general_btnsForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../general/btnsForm */ "./resources/js/components/general/btnsForm.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
+var tipo = '';
+
+var Report =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Report, _Component);
+
+  function Report(props) {
+    var _this;
+
+    _classCallCheck(this, Report);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Report).call(this, props));
+    _this.selectEvaluacion = _this.selectEvaluacion.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.saving = _this.saving.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.canceling = _this.canceling.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.changeComponents = _this.changeComponents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.selectTab = _this.selectTab.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getElements = _this.getElements.bind(_assertThisInitialized(_assertThisInitialized(_this))); //this.getProcesos = this.getProcesos.bind(this);
+
+    _this.setPorcentajes = _this.setPorcentajes.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.addMedio = _this.addMedio.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.removeMedio = _this.removeMedio.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      ejercicio: "",
+      ejercicios: [],
+      componentes: [],
+      acreditaciones: [],
+      acreditacion_selected: [],
+      tabIndex: 0,
+      responsable: "",
+      elemento: "",
+      reporte_id: "",
+      tipo: "",
+      procesos: [],
+      proceso_id: "",
+      trimestre: "",
+      trimestre_id: ""
+    };
+    return _this;
+  }
+
+  _createClass(Report, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+        this.getProcesos();
+      }
+
+      this.setState({
+        tipo: tipo
+      }); //get ejercicios
+
+      fetch(this.props.general.api + 'ejercicio', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            var error = JSON.parse(msg);
+
+            if (error.message === 'Token has expired') {
+              _this2.props.general.logout();
+            } else {
+              console.log(error);
+            }
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this2.setState({
+            ejercicios: response.ejercicio
+          });
+        }
+      });
+      fetch(this.props.general.api + 'trimestre', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var t = _this2.props.general.getTrimestre();
+
+          var index = response.findIndex(function (obj) {
+            return obj.nombre.indexOf(t) !== -1;
+          });
+
+          if (index !== -1) {
+            _this2.setState({
+              trimestre: response[index].nombre,
+              trimestre_id: response[index].id
+            });
+          }
+        }
+      });
+      fetch(this.props.general.api + 'acreditacion', {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          var acreditaciones = [];
+          response.map(function (c) {
+            acreditaciones.push({
+              label: c.nombre,
+              value: c.id
+            });
+          });
+
+          _this2.setState({
+            acreditaciones: acreditaciones
+          });
+        }
+      });
+      this.getElements();
+      setTimeout(function () {
+        $('.react-tabs__tab-list > li').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab--selected');
+            $(this).attr('aria-selected', 'true');
+          }
+        });
+        $('.react-tabs__tab-panel').each(function (i) {
+          if (i === 0) {
+            $(this).addClass('react-tabs__tab-panel--selected');
+          }
+        });
+      }, 500);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.match.path.indexOf('institucional') !== -1) {
+        tipo = 'institucional';
+      } else {
+        tipo = 'especifico';
+      }
+
+      if (tipo !== this.state.tipo) {
+        this.setState({
+          tipo: tipo,
+          responsable: "",
+          ptci_id: "",
+          procesos: [],
+          proceso_id: ""
+        });
+        this.getElements();
+
+        if (tipo === 'especifico') {
+          this.getProcesos();
+        }
+      }
+    }
+  }, {
+    key: "getProcesos",
+    value: function getProcesos() {
+      var _this3 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'proceso_prior/' + user.id, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          _this3.setState({
+            procesos: response.procesos
+          });
+        }
+      });
+    }
+  }, {
+    key: "getElements",
+    value: function getElements() {
+      var _this4 = this;
+
+      fetch(this.props.general.api + 'element_component/reporte_' + tipo, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', msg, 'error');
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          response.componente.map(function (comp) {
+            comp.elemento.map(function (el) {
+              el.accion = "";
+              el.f_inicio = "";
+              el.f_fin = "";
+              el.medio = [];
+              el.archivo = "";
+              el.obstaculo = "";
+              el.propuesta = "";
+              el.porcentaje_cumple = 0;
+              el.id_element_comp = el.id;
+            });
+          });
+
+          _this4.setState({
+            componentes: response.componente
+          });
+
+          setTimeout(function () {//this.getReport();
+          }, 500);
+        }
+      });
+    }
+  }, {
+    key: "getReport",
+    value: function getReport() {
+      var _this5 = this;
+
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      fetch(this.props.general.api + 'reporte/' + user.id + '/' + tipo, {
+        method: 'get',
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        })
+      }).then(function (res) {
+        if (res.ok) {
+          return res.json();
+        } else {
+          res.text().then(function (msg) {
+            console.log(msg);
+          });
+        }
+      }).then(function (response) {
+        if (response !== undefined) {
+          if (response.elemento !== undefined) {
+            var components = _this5.state.componentes;
+            response.elemento.map(function (ele) {
+              var i_comp = components.findIndex(function (obj) {
+                return obj.id === ele.componente.id;
+              });
+              var i_ele = components[i_comp].elemento.findIndex(function (obj) {
+                return obj.id === ele.id_element_comp;
+              });
+              components[i_comp].elemento[i_ele].id_ptci_element = ele.id;
+              components[i_comp].elemento[i_ele].cumple = ele.cumple.toUpperCase();
+              components[i_comp].elemento[i_ele].evidencia = ele.nombre_doc;
+              components[i_comp].elemento[i_ele].acredita = ele.acredita;
+              components[i_comp].elemento[i_ele].f_inicio = ele.fecha_inicio;
+              components[i_comp].elemento[i_ele].f_fin = ele.fecha_fin;
+              components[i_comp].elemento[i_ele].accion = ele.accion_mejora;
+              components[i_comp].elemento[i_ele].unidad = ele.unidad_responsable;
+              components[i_comp].elemento[i_ele].persona = ele.responsable;
+              components[i_comp].elemento[i_ele].medio = ele.medio_verifica;
+
+              _this5.accion_modal.handleShow(i_comp, i_ele);
+
+              _this5.accion_modal.handleClose();
+            });
+
+            _this5.setState({
+              responsable: response.responsable,
+              componentes: components,
+              ptci_id: response.id,
+              proceso_id: response.proceso
+            });
+          }
+        }
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "selectEvaluacion",
+    value: function selectEvaluacion(e, comp, ele, campo) {
+      this.changeComponents(e, comp, ele, campo);
+    }
+  }, {
+    key: "saving",
+    value: function saving(e) {
+      var _this6 = this;
+
+      e.preventDefault();
+      var user = JSON.parse(sessionStorage.getItem('user'));
+      var componente = this.state.componentes[this.state.elemento];
+      var obj = {
+        user_id: user.id,
+        reporte: {
+          responsable: this.state.responsable,
+          ejercicio: this.state.ejercicio,
+          trimestre: this.state.trimestre_id,
+          elementos: [],
+          tipo: tipo
+        }
+      };
+      /*if(tipo === 'especifico'){
+      	obj.ptci.proceso = this.state.proceso_id;
+      }*/
+
+      if (componente.elemento !== undefined) {
+        componente.elemento.map(function (ele) {
+          var item = {
+            accion: ele.accion,
+            fecha_inicio: ele.fecha_inicio,
+            fecha_fin: ele.fecha_fin,
+            total: ele.porcentaje_cumple,
+            medio: ele.medio,
+            obstaculo: ele.obstaculo,
+            propuesta: ele.propuesta,
+            //id_reporte se guarda hasta que se haya guardado por primera vez
+            id_element_comp: ele.id
+            /*if(ele.id_ptci_element !== undefined){
+            	item.id = ele.id_ptci_element;
+            }
+            		if(ele.accion === "" || ele.f_ini === "" || ele.f_fin === ""){
+            	error_accion = 'Debe agregar una acción o mejora presionando el boton acción';
+            }*/
+
+          };
+          obj.reporte.elementos.push(item);
+        });
+        /*if(this.state.ptci_id !== ""){
+        	obj.ptci_id = this.state.ptci_id;
+        }*/
+      }
+
+      console.log(obj);
+
+      if (this.props.general.isValidForm()) {
+        this.props.general.waiting.handleShow('Guardando...');
+        fetch(this.props.general.api + 'reporte', {
+          method: 'post',
+          body: JSON.stringify(obj),
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          })
+        }).then(function (res) {
+          _this6.props.general.waiting.handleClose();
+
+          if (res.ok) {
+            return res.json();
+          } else {
+            res.text().then(function (msg) {
+              console.log(msg);
+            });
+          }
+        }).then(function (response) {
+          if (response !== undefined) {
+            _this6.setState({
+              reporte_id: response.reporte_id
+            });
+
+            setTimeout(function () {//this.getReport();
+            }, 500);
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', 'Campos Incompletos', 'error');
+      }
+    }
+  }, {
+    key: "canceling",
+    value: function canceling(e) {
+      e.preventDefault();
+      this.props.history.push('/');
+    }
+  }, {
+    key: "changeComponents",
+    value: function changeComponents(e, comp, ele, campo) {
+      var _this7 = this;
+
+      var components = this.state.componentes;
+      var valor = e.target !== undefined ? e.target.value : e;
+      console.log(valor);
+
+      if (campo === 'porcentaje_cumple') {
+        valor = parseInt(valor) < 0 ? 0 : parseInt(valor) > 100 ? 100 : valor;
+      }
+
+      components.map(function (c, i) {
+        if (comp === i) {
+          c.elemento.map(function (e, j) {
+            if (ele === j) {
+              e[campo] = valor;
+
+              if (campo === 'porcentaje_cumple') {
+                _this7.setPorcentajes();
+              }
+            }
+          });
+        }
+      });
+      this.setState({
+        componentes: components
+      });
+    }
+  }, {
+    key: "selectTab",
+    value: function selectTab(e, i) {
+      this.setState({
+        elemento: i
+      });
+    }
+  }, {
+    key: "setPorcentajes",
+    value: function setPorcentajes() {
+      var sum = 0;
+      var cont = 0;
+      var prom = 0; //porcentaje trimestre
+
+      var componentes = this.state.componentes;
+      componentes.map(function (comp) {
+        comp.elemento.map(function (el) {
+          cont++;
+          sum += el.porcentaje_cumple.length > 0 ? parseInt(el.porcentaje_cumple) : 0;
+        });
+      });
+      prom = sum / cont;
+      $('#progresoTrimestre').removeClass().addClass('progress-bar progress-bar-success').css('width', prom + '%').attr('aria-valuenow', prom);
+      $('#tagT').html(prom + '$ Completado');
+      sum = 0;
+      cont = 0;
+      prom = 0; //porcentaje ejercicio
+
+      var componente = this.state.componentes[this.state.elemento];
+      componente.elemento.map(function (el) {
+        cont++;
+        sum += el.porcentaje_cumple.length > 0 ? parseInt(el.porcentaje_cumple) : 0;
+      });
+      prom = sum / cont;
+      $('#progresoEjercicio').removeClass().addClass('progress-bar progress-bar-success').css('width', prom + '%').attr('aria-valuenow', prom);
+      $('#tag').html(prom + '$ Completado');
+    }
+  }, {
+    key: "addMedio",
+    value: function addMedio(e, comp, ele, archivo, medio, valor) {
+      e.preventDefault();
+      var componentes = this.state.componentes;
+      var archivo = componentes[comp].elemento[ele].archivo;
+
+      if (archivo === "") {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Error', 'Debe seleccionar un archivo', 'error');
+      } else {
+        var medio = componentes[comp].elemento[ele].medio;
+        medio.push(archivo);
+        componentes[comp].elemento[ele].archivo = "";
+        this.setState({
+          componentes: componentes
+        });
+      }
+    }
+  }, {
+    key: "removeMedio",
+    value: function removeMedio(comp, ele, medio) {
+      var componentes = this.state.componentes;
+      componentes[comp].elemento[ele].medio.splice(medio, 1);
+      this.setState({
+        componentes: componentes
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this8 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_title__WEBPACK_IMPORTED_MODULE_2__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box box-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Ejercicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: "ejercicio",
+        id: "ejercicio",
+        value: this.state.ejercicio,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.ejercicios.map(function (e, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: e.id
+        }, e.ejercicio);
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          display: 'block'
+        }
+      }, "Trimestre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          position: 'relative',
+          top: '1px',
+          fontSize: '20px'
+        }
+      }, this.state.trimestre)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          display: 'block'
+        }
+      }, "Acumulado Ejercicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "progress",
+        style: {
+          position: 'relative',
+          top: '3px'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "progresoEjercicio",
+        className: "progress-bar progress-bar-success",
+        role: "progressbar",
+        "aria-valuenow": "0",
+        "aria-valuemin": "0",
+        "aria-valuemax": "100",
+        style: {
+          width: "0%"
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+        id: "tag"
+      }, "0% Completado")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          display: 'block'
+        }
+      }, "Acumulado Trimestre Actual"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "progress",
+        style: {
+          position: 'relative',
+          top: '3px'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "progresoTrimestre",
+        className: "progress-bar progress-bar-success",
+        role: "progressbar",
+        "aria-valuenow": "40",
+        "aria-valuemin": "0",
+        "aria-valuemax": "100",
+        style: {
+          width: "0%"
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+        id: "tagT"
+      }, "0% Completado"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Responsable"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "responsable",
+        id: "responsable",
+        value: this.state.responsable,
+        onChange: this.handleChange,
+        className: "form-control",
+        required: true
+      }))), tipo === 'especifico' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 col-sm-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Proceso Especifico"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        name: "proceso_id",
+        id: "proceso_id",
+        required: true,
+        value: this.state.proceso_id,
+        onChange: this.handleChange
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: ""
+      }, "Seleccione..."), this.state.procesos.map(function (p, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: i,
+          value: p.id,
+          responsable: p.persona_resp
+        }, p.proceso);
+      })))) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-xs-12 form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("fieldset", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("legend", null, "Componentes de Control"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tabs"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabList"], null, this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
+          key: i,
+          onClick: function onClick(e) {
+            return _this8.selectTab(e, i);
+          }
+        }, c.posicion + ' ' + c.componente);
+      })), this.state.componentes.map(function (c, i) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabPanel"], {
+          key: i
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+          className: "table table-hover table-responsive"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+          colSpan: "7"
+        }, "Elemento")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Acci\xF3n de Mejora"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Fecha Inicio"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Fecha T\xE9rmino"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Medio de Verificaci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Obstaculo para Cumplir la Acci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Propuesta de Soluci\xF3n"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "% Cumplimiento"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "% Acumulado"))), c.elemento.map(function (e, j) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", {
+            key: j
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            colSpan: "9"
+          }, e.nombre)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.accion,
+            id: 'accion_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'accion');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "date",
+            className: "form-control",
+            value: e.fecha_inicio,
+            id: 'fecha_inicio_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'fecha_inicio');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "date",
+            className: "form-control",
+            value: e.fecha_fin,
+            id: 'fecha_fin_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'fecha_fin');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "file",
+            id: 'archivo_' + i + '_' + j,
+            "data-validation": "required extension",
+            "data-validation-allowing": "pdf, zip, doc, docx, xls, xlsx",
+            value: e.archivo,
+            className: "",
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'archivo');
+            }
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            style: {
+              marginTop: '8px'
+            }
+          }, e.medio.map(function (m, x) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              key: x,
+              style: {
+                display: 'block'
+              }
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+              style: {
+                marginRight: '8px'
+              }
+            }, m.replace("C:\\fakepath\\", '')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              className: "fa fa-close",
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick(e) {
+                return _this8.removeMedio(i, j, x);
+              }
+            }));
+          }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            name: "Agregar",
+            className: "btn btn-info",
+            onClick: function onClick(e) {
+              return _this8.addMedio(e, i, j, 'archivo', 'medio', e.archivo);
+            }
+          }, ' + ')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.obstaculo,
+            id: 'obstaculo_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'obstaculo');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            className: "form-control",
+            value: e.propuesta,
+            id: 'propuesta_' + i + '_' + j,
+            required: true,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'propuesta');
+            }
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "number",
+            min: "0",
+            max: "100",
+            className: "form-control",
+            value: e.porcentaje_cumple,
+            required: true,
+            id: 'porcentaje_cumple_' + i + '_' + j,
+            onChange: function onChange(e) {
+              return _this8.changeComponents(e, i, j, 'porcentaje_cumple');
+            },
+            pattern: "^[0-9]+"
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "progress"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: e.porcentaje_cumple <= 40 ? 'progress-bar progress-bar-danger' : e.porcentaje_cumple > 40 && e.porcentaje_cumple < 80 ? 'progress-bar progress-bar-warning' : "progress-bar progress-bar-success",
+            id: "barra_" + i + '_' + j,
+            role: "progressbar",
+            "aria-valuenow": e.porcentaje_cumple <= 40 ? e.porcentaje_cumple : e.porcentaje_cumple > 40 && e.porcentaje_cumple < 80 ? e.porcentaje_cumple : e.porcentaje_cumple,
+            "aria-valuemin": "0",
+            "aria-valuemax": "100",
+            style: e.porcentaje_cumple <= 40 ? {
+              width: e.porcentaje_cumple + "%"
+            } : e.porcentaje_cumple > 40 && e.porcentaje_cumple < 80 ? {
+              width: e.porcentaje_cumple + "%"
+            } : {
+              width: e.porcentaje_cumple + "%"
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, e.porcentaje_cumple + '% Completado'))))));
+        })));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_general_btnsForm__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        btnSave: "Guardar",
+        btnCancel: "Cancelar",
+        save: this.saving,
+        cancel: this.canceling
+      })))))));
+    }
+  }]);
+
+  return Report;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Report);
+
+/***/ }),
+
 /***/ "./resources/js/components/general/btnsForm.jsx":
 /*!******************************************************!*\
   !*** ./resources/js/components/general/btnsForm.jsx ***!
@@ -104397,7 +105253,27 @@ var LeftPanel = function LeftPanel(props) {
     to: "/ptci_especifico"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-circle-o"
-  }), "PTCI Especifico")))))));
+  }), "PTCI Especifico")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "treeview"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-group if("
+  }), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Reporte de Avances"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "pull-right-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-angle-left pull-right"
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "treeview-menu"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/reporte_institucional"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-circle-o"
+  }), "Reporte Avance Institucional")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/reporte_especifico"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-circle-o"
+  }), "Reporte Avance Especifico")))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (LeftPanel);

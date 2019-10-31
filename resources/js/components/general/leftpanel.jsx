@@ -76,6 +76,32 @@ const LeftPanel = (props)=>(
 			            
 		          	</ul>
 		        </li>
+
+		        <li className="treeview">
+		          	<a href="#">
+			            <i className="fa fa-group if("></i> <span>Reporte de Avances</span>
+			            <span className="pull-right-container">
+			              	<i className="fa fa-angle-left pull-right"></i>
+			            </span>
+		          	</a>
+		          	<ul className="treeview-menu">
+			            
+			            
+			            <li>
+			            	<Link to="/reporte_institucional">
+			            		<i className="fa fa-circle-o"></i>Reporte Avance Institucional
+			            	</Link>
+			            </li>
+			            
+			            
+			            <li>
+			            	<Link to="/reporte_especifico">
+			            		<i className="fa fa-circle-o"></i>Reporte Avance Especifico
+			            	</Link>
+			            </li>
+			            
+		          	</ul>
+		        </li>
 		       
 	        </ul>
       	</section>

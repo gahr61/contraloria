@@ -9,8 +9,7 @@ class ProcesoPrior extends Model
     protected $table = 'proceso_prior';
 
     public function criterio(){
-    	return $this->belongsToMany('App\CriterioEvaluacion', 'procesos_criterio')
-    				->select('id', 'criterio');
+    	return $this->belongsToMany('App\CriterioEvaluacion', 'procesos_criterio');
     }
 
     public function matriz(){

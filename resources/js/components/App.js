@@ -24,6 +24,7 @@ class App extends Component {
 		this.resetPass = this.resetPass.bind(this);
 		this.isValidForm = this.isValidForm.bind(this);
 		this.showCtrlError = this.showCtrlError.bind(this);
+		this.getTrimestre = this.getTrimestre.bind(this);
 
 		this.state = {
 			authenticated: false,
@@ -137,6 +138,11 @@ class App extends Component {
 		return res;
 	}
 
+	getTrimestre(){
+		var d = new Date();
+	  	var q = [1,2,3, 4];
+	  	return q[Math.floor(d.getMonth() / 3)];
+	}
 
   	render() {
   		const generalProps = {
@@ -149,6 +155,7 @@ class App extends Component {
   			isValidForm 	: this.isValidForm,
   			showCtrlError 	: this.showCtrlError,
   			logout 			: this.logout,
+  			getTrimestre 	: this.getTrimestre,
   		}
 
 		return (

@@ -8,6 +8,7 @@ use App\Ejercicio;
 use App\CriterioEvaluacion;
 use App\Componente;
 use App\Acreditacion;
+use App\Trimestre;
 
 class GeneralController extends Controller
 {
@@ -35,6 +36,9 @@ class GeneralController extends Controller
 			case 'ptci_especifico':
 				$t = 'PTCI Especifico';
 				break;
+			case 'reporte_institucional';
+				$t = 'Reporte Institucional';
+				break;
 		}
 
 		$componente = Componente::where('tipo', $t)->select('id', 'componente', 'posicion')->get();
@@ -51,4 +55,11 @@ class GeneralController extends Controller
 
 		return response()->json($acreditacion);
 	}
+
+	public function getTrimestre(){
+		$trimestre = trimestre::select('id', 'nombre')->get();
+
+		return response()->json($trimestre);
+	}
+
 }

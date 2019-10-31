@@ -9,6 +9,7 @@ use App\Ejercicio;
 use App\Institucion;
 use App\ProcesoPrior;
 use App\User;
+use App\ProcesoCriterio;
 
 class MatrizController extends Controller
 {
@@ -67,8 +68,16 @@ class MatrizController extends Controller
  				return response()->json(['error'=>'Error al guardar proceso prioritario, MatrizController linea 63']);
  			}
 
- 			foreach($request->proceso['criterios'] as $p){
- 				$proceso->criterio()->sync($p);
+ 			foreach($request->proceso['criterios'] as $c){
+ 				$proceso_criterio = new ProcesoCriterio();
+ 				$proceso_criterio->proceso_prior_id = $proceso->id;
+ 				$proceso_criterio->criterio_evaluacion_id = $c;
+ 				$proceso_criterio->save();
+
+ 				if(!$proceso_criterio->save()){
+ 					\DB::rollback();
+ 					return response()->json(['error'=>'Error al guardar proceso criterio, MatrizController linea 75']);
+ 				}
  			}
 
     		\DB::commit();

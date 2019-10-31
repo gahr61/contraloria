@@ -159,7 +159,12 @@ class TablesContraloria extends Migration
             $table->increments('id');
             $table->string('responsable');
             $table->date('fecha');
+            $table->enum('tipo', ['Institucional', 'especifico', 'general']);
+            $table->integer('ejercicio_id')->unsigned()->index();
+
             $table->timestamps();
+
+            $table->foreing('ejercicio_id')->references('id')-on('ejercicio');
         });        
 
         Schema::create('elemento_report', function(Blueprint $table){

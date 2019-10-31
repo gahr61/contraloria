@@ -216,14 +216,15 @@ class Matriz extends Component{
 				}).then(response => {
 					if(response !== undefined){
 						this.setState({
-							matriz_id:response.id_matriz,
 							proccess_name:"",
 							proccess_type:"Administrativo",
 							evaluation_selected:[],
 							responsable_unit:"",
 							responsable_person:"",
-							procesos:[...this.state.procesos, response.proceso]
+							procesos:[]
 						});
+
+						this.getMatriz();
 					}
 				})
 			}else{
@@ -388,7 +389,11 @@ class Matriz extends Component{
 															<tr key={i}>
 																<td>{p.proceso}</td>
 																<td>{p.tipo}</td>
-																<td></td>
+																<td>
+																	{p.criterio.map((c, j)=>(
+																		<span key={j} style={{display:'block'}}>{'- '+c.criterio}</span>
+																	))}
+																</td>
 																<td>{p.unidad_resp}</td>
 																<td>{p.persona_resp}</td>
 																<td>

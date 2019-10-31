@@ -27,22 +27,33 @@ Route::group([
 	Route::post('me', 'AuthController@me');
 });
 
-//Route::middleware('jwt')->group(function(){
+Route::middleware('jwt')->group(function(){
+	//permisos
 	Route::resource('permissions', 'PermissionController');
 	Route::get('assignedPermissions/{id}', 'PermissionController@assignedPermissions');
 	route::post('toAssign', 'PermissionController@toAssign');
 	route::post('design', 'PermissionController@design');
 
+	//roles
 	Route::get('getRoles', 'RolesController@getRoles');
 	Route::resource('roles', 'RolesController');
 
+	//usuarios
 	Route::resource('user', 'UserController');
 	Route::post('user/reset_password/{id}', 'UserController@reset_password');
 
-	//matriz
-	Route::resource('institucion', 'InstitucionController');
+	//general
 	Route::get('ejercicio', 'GeneralController@getEjercicio');
 	Route::get('criterio_evaluacion', 'GeneralController@getCriterioEval');	
+	Route::get('element_component/{tipo}', 'GeneralController@getElementComponent');
+	Route::get('acreditacion', 'GeneralController@getAcreditacion');
+	Route::get('trimestre', [
+		'uses'	=> 'GeneralController@getTrimestre',
+		'as'	=> 'general.trimestre'
+	]);	
+
+	//matriz
+	Route::resource('institucion', 'InstitucionController');	
 	Route::resource('matriz', 'MatrizController');
 	Route::delete('proceso_prior/{id}', [
 		'uses'	=> 'MatrizController@destroy',
@@ -56,6 +67,9 @@ Route::group([
 		'uses'	=> 'PtciController@show',
 		'as'	=> 'ptci.show'
 	]);
-	Route::get('element_component/{tipo}', 'GeneralController@getElementComponent');
-	Route::get('acreditacion', 'GeneralController@getAcreditacion');
-//});
+
+	//reporte
+	Route::resource('reporte', 'ReporteController');
+	
+	
+});
